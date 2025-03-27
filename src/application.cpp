@@ -29,13 +29,28 @@ public:
 class Application {
 
   private:
+    static Application* m_instance;
+    const char *m_title = nullptr;
     uint16_t m_width = 0;
     uint16_t m_height = 0;
     bool m_is_running = false;
 
     std::vector<AppUpdateObserver*> m_update_observers;
     std::vector<AppLoadObserver*> m_onload_observers;
-    // std::vector<AppUpdateObserver*> _update_observers;
+
+    Application(const char* title, uint16_t width, uint16_t height) {
+      this->m_title = title;
+      this->m_width = width;
+      this->m_height = height;
+
+      this->initWindow();
+      this->initSDL();
+    }
+
+    ~Application() {
+        SDL_DestroyWindow(_window);
+    }
+
 
   public:
     SDL_Window* _window = nullptr;
@@ -56,8 +71,8 @@ class Application {
       }
     }
 
-    void initWindow(const char* title, int width, int height) {
-      this->_window = SDL_CreateWindow(title, width, height, SDL_WINDOW_OPENGL);
+    void initWindow() {
+      this->_window = SDL_CreateWindow(this->m_title, this->m_width, this-> m_height, SDL_WINDOW_OPENGL);
       if (this->_window == NULL) {
         std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
       }
@@ -65,20 +80,22 @@ class Application {
 
 
   public:
+  // for the singleton pattern: disable the public constructor
+  Application(Application const&) = delete;
+  // for the singleton pattern: disable the assignment operator
+  void operator=(Application const&) = delete;
 
-  Application(const char* title, uint16_t width, uint16_t height) {
-    this->initSDL();
-    this->initWindow(title, width, height);
-    this->m_height = m_height;
-    this->m_width = m_width;
-  }
+  static Application* getInstance(const char* title, uint16_t width, uint16_t height) {
+    if (Application::m_instance == nullptr) {
+      Application::m_instance = new Application(title, width, height);
+    }
 
-  ~Application() {
-    SDL_DestroyWindow(_window);
+    return Application::m_instance;
   }
 
   void run() {
     this->notify_onloadObservers();
+
     this->m_is_running = true;
 
     while (this->m_is_running) {
@@ -87,6 +104,7 @@ class Application {
       while (SDL_PollEvent(&event)) {
         if (event.type == SDL_EVENT_QUIT) {
           this->m_is_running = false;
+          std::cout << "Quitting..." << std::endl;
         } else if (event.type == SDL_EVENT_KEY_DOWN) {
           // this->callback_keyboard_down(event.key);
         }
@@ -107,14 +125,14 @@ class Application {
     this->m_update_observers.push_back(observer);
   }
 
+  void add_onloadObserver(AppLoadObserver* observer) {
+    this->m_onload_observers.push_back(observer);
+  }
+
   void notify_updateObservers() {
     for (AppUpdateObserver* observer : this->m_update_observers) {
       observer->application_interface_onUpdate();
     }
-  }
-
-  void add_onloadObserver(AppLoadObserver* observer) {
-    this->m_onload_observers.push_back(observer);
   }
 
   void notify_onloadObservers() {
@@ -129,3 +147,6 @@ class Application {
     }
   }
 };
+
+Application* Application::m_instance = nullptr;
+

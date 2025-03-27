@@ -34,14 +34,12 @@ class RendererMediator : AppUpdateObserver, AppLoadObserver {
     }
 
     void application_interface_unonLoad() override {
-      this->loadAllObjects();
+      this->unloadAllObjects();
     }
-
 
     void application_interface_onUpdate() override {
       this->renderAllObjects();
     }
-
 
     void loadAllObjects() {
       for(WorldObject* object: this->m_world->objects) {
@@ -49,11 +47,11 @@ class RendererMediator : AppUpdateObserver, AppLoadObserver {
       }
     }
 
-  void unloadAllObjects() {
-      for(WorldObject* object: this->m_world->objects) {
-        object->unload();
-      }
-  }
+    void unloadAllObjects() {
+        for(WorldObject* object: this->m_world->objects) {
+          object->unload();
+        }
+    }
 
     void renderAllObjects() {
       SDL_RenderClear(this->m_app->_renderer);

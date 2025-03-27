@@ -15,13 +15,12 @@ void onKeyboardPressDown(SDL_KeyboardEvent event) {
 
 
 int main(int argc, char* argv[]) {
-  Application* application = new Application("Spaceship", 800, 600);
+  Application* application = Application::getInstance("Spaceship", 800, 600);
   World* world = new World();
   Sprite* spaceship = new Sprite("../assets/img/spaceship.bmp");
   world->addObject(spaceship);
   RendererMediator* renderer = new RendererMediator(application, world);
-
-  // application->onKeyEventDown(onKeyboardPressDown);
+  // std::cout << "Hello world" << std::endl;
   application->run();
   return 0;
 }
