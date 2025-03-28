@@ -19,27 +19,39 @@ public:
 
     void setX(float x) {
         this->m_x = x;
-        this->m_target_rect->x = x;
+        if (this->m_target_rect != nullptr) {
+            this->m_target_rect->x = x;
+        }
     }
 
-    void setY(float x) {
-        this->m_x = x;
-        this->m_target_rect->y = y;
+    void setY(float y) {
+        this->m_y = y;
+        if (this->m_target_rect != nullptr) {
+            this->m_target_rect->y = y;
+        }
     }
 
     void setPosition(float x, float y) {
         this->m_x = x; this->m_y = y;
-        this->m_target_rect->y = y;
+        if (this->m_target_rect != nullptr) {
+            this->m_target_rect->x = x;
+            this->m_target_rect->y = y;
+        }
     }
 
     void setWidth(float width) {
         this->m_width = width;
-        this->m_target_rect->w = width;
+        if (this->m_target_rect != nullptr) {
+            this->m_target_rect->w = width;
+        }
     }
 
     void setHeight(float height) {
         this->m_height = height;
-        this->m_target_rect->h = height;
+        if (this->m_target_rect != nullptr) {
+            this->m_target_rect->h = height;
+        }
+
     }
 
     void load(SDL_Renderer *renderer) {
@@ -67,6 +79,10 @@ public:
 
 
     void render(SDL_Renderer *renderer) {
+        if (this->m_texture == nullptr) {
+            this->load(renderer);
+        }
+
         SDL_RenderTextureRotated(
             renderer,
             this->m_texture,

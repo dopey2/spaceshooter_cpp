@@ -1,30 +1,10 @@
 #pragma once
 
+#include <functional>
 #include <iostream>
-#include <vector>
 #include <SDL3/SDL.h>
-
-
-class AppUpdateObserver {
-public:
-  AppUpdateObserver(){}
-  virtual ~AppUpdateObserver(){}
-  friend class Application;
-  virtual void application_interface_onUpdate() {};
-};
-
-class AppLoadObserver {
-public:
-  AppLoadObserver(){}
-  virtual ~AppLoadObserver(){}
-  friend class Application;
-  virtual void application_interface_onLoad() {
-    std::cout << "Application loading..." << std::endl;
-  };
-  virtual void application_interface_unonLoad() {
-
-  };
-};
+#include <vector>;
+#include "scene.cpp"
 
 class Application {
 
@@ -35,8 +15,8 @@ class Application {
     uint16_t m_height = 0;
     bool m_is_running = false;
 
-    std::vector<AppUpdateObserver*> m_update_observers;
-    std::vector<AppLoadObserver*> m_onload_observers;
+    std::vector<void(*)()> m_callbacks_update;
+    std::vector<std::function<void(SDL_KeyboardEvent)>> m_callbacks_keyPress;
 
     Application(const char* title, uint16_t width, uint16_t height) {
       this->m_title = title;
@@ -45,6 +25,8 @@ class Application {
 
       this->initWindow();
       this->initSDL();
+
+      this->scene = new Scene(this->_window);
     }
 
     ~Application() {
@@ -54,7 +36,7 @@ class Application {
 
   public:
     SDL_Window* _window = nullptr;
-    SDL_Renderer* _renderer = nullptr;
+    Scene* scene = nullptr;
 
     uint16_t getWidth() {
       return this->m_width;
@@ -94,8 +76,6 @@ class Application {
   }
 
   void run() {
-    this->notify_onloadObservers();
-
     this->m_is_running = true;
 
     while (this->m_is_running) {
@@ -106,14 +86,19 @@ class Application {
           this->m_is_running = false;
           std::cout << "Quitting..." << std::endl;
         } else if (event.type == SDL_EVENT_KEY_DOWN) {
-          // this->callback_keyboard_down(event.key);
+          for (auto callback : this->m_callbacks_keyPress) {
+            callback(event.key);
+          }
         }
       }
 
-      this->notify_updateObservers();
+      for (auto callback : this->m_callbacks_update) {
+        callback();
+      }
+
+      this->scene->renderAllObjects();
     }
 
-    this->notify_unloadObservers();
     SDL_DestroyWindow(this->_window);
   }
 
@@ -121,30 +106,12 @@ class Application {
     this->m_is_running = false;
   }
 
-  void add_updateObserver(AppUpdateObserver* observer) {
-    this->m_update_observers.push_back(observer);
+  void register_update_callback(void(*update_callback)()) {
+    this->m_callbacks_update.push_back(update_callback);
   }
 
-  void add_onloadObserver(AppLoadObserver* observer) {
-    this->m_onload_observers.push_back(observer);
-  }
-
-  void notify_updateObservers() {
-    for (AppUpdateObserver* observer : this->m_update_observers) {
-      observer->application_interface_onUpdate();
-    }
-  }
-
-  void notify_onloadObservers() {
-    for (AppLoadObserver* observer : this->m_onload_observers) {
-      observer->application_interface_onLoad();
-    }
-  }
-
-  void notify_unloadObservers() {
-    for (AppLoadObserver* observer : this->m_onload_observers) {
-      observer->application_interface_unonLoad();
-    }
+  void register_keyPress_callback(std::function<void(SDL_KeyboardEvent event)> keyPress_callback) {
+    this->m_callbacks_keyPress.push_back(keyPress_callback);
   }
 };
 
