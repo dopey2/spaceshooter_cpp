@@ -1,7 +1,6 @@
 #include <SDL3/SDL.h>
-#include "application.cpp"
-#include "world.cpp"
-#include "sprite.cpp"
+#include "./engine/application.cpp"
+#include "./engine/sprite.cpp"
 
 
 void setup(Application* application) {

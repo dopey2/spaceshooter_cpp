@@ -1,9 +1,9 @@
 #pragma once
 
+#include <SDL3/SDL.h>
 #include <functional>
 #include <iostream>
-#include <SDL3/SDL.h>
-#include <vector>;
+#include <vector>
 #include "scene.cpp"
 
 class Application {

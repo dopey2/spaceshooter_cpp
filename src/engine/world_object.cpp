@@ -1,6 +1,7 @@
 #pragma once
 
-// TODO Rename this to scene object
+#include <SDL3/SDL.h>
+
 class WorldObject {
 
     protected:
