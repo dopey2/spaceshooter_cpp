@@ -6,7 +6,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(${CMAKE_SOURCE_DIR}/libs/SDL3-3.2.8/include)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME}
+        src/main.cpp
+        src/engine/application.cpp
+        src/engine/scene.cpp
+        src/engine/sprite.cpp
+        src/engine/world_object.cpp
+        src/engine/texture.cpp
+)
 
 # Link against SDL3
 target_link_libraries(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/libs/SDL3-3.2.8/lib/libSDL3.dll.a)
