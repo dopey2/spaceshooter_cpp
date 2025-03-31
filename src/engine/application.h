@@ -15,7 +15,7 @@ class Application {
     uint16_t m_height = 0;
     bool m_is_running = false;
 
-    std::vector<void(*)()> m_callbacks_update;
+    std::vector<std::function<void(Uint64 delta)>> m_callbacks_update;
     std::vector<std::function<void(SDL_KeyboardEvent)>> m_callbacks_keyPress;
 
     Application(const char* title, uint16_t width, uint16_t height);
@@ -43,6 +43,6 @@ class Application {
   static Application* getInstance();
   void run();
   void stop();
-  void register_update_callback(void(*update_callback)());
+  void register_update_callback(std::function<void(Uint64 delta)>);
   void register_keyPress_callback(std::function<void(SDL_KeyboardEvent event)> keyPress_callback);
 };

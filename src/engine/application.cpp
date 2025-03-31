@@ -2,6 +2,7 @@
 #include <functional>
 #include <iostream>
 #include "application.h"
+#include "keyboard.h"
 
 Application::Application(const char* title, uint16_t width, uint16_t height) {
     this->m_title = title;
@@ -13,6 +14,7 @@ Application::Application(const char* title, uint16_t width, uint16_t height) {
 }
 
 Application::~Application() {
+    m_instance = nullptr;
     SDL_DestroyWindow(_window);
 }
 
@@ -60,17 +62,21 @@ void Application::run() {
                 this->m_is_running = false;
                 std::cout << "Quitting..." << std::endl;
             } else if (event.type == SDL_EVENT_KEY_DOWN) {
+                Keyboard::onKeyDown(event.key.key);
                 for (auto callback : this->m_callbacks_keyPress) {
                     callback(event.key);
                 }
+            } else if (event.type == SDL_EVENT_KEY_UP) {
+                Keyboard::onKeyUp(event.key.key);
             }
         }
 
         for (auto callback : this->m_callbacks_update) {
-            callback();
+            callback(SDL_GetTicks());
         }
 
         this->scene->renderAllObjects();
+
     }
 
     SDL_DestroyWindow(this->_window);
@@ -80,7 +86,7 @@ void Application::stop() {
     this->m_is_running = false;
 }
 
-void Application::register_update_callback(void(*update_callback)()) {
+void Application::register_update_callback(std::function<void(Uint64 delta)> update_callback) {
     this->m_callbacks_update.push_back(update_callback);
 }
 

@@ -46,8 +46,14 @@ void Sprite::load(SDL_Renderer *renderer) {
     if (this->m_texture == nullptr) {
         this->m_texture = loadTexture(renderer, m_bmp_file_path);
 
-        this->m_width = (float)this->m_texture->w;
-        this->m_height = (float)this->m_texture->h;
+        // if the width is not initialized use the texture original size
+        if (this->m_width == -1) {
+            this->m_width = (float)this->m_texture->w;
+        }
+        // if the height is not initialized use the texture original size
+        if (this->m_height == -1) {
+            this->m_height = (float)this->m_texture->h;
+        }
 
         m_target_rect = new SDL_FRect({
             this->x,
@@ -76,7 +82,7 @@ void Sprite::render(SDL_Renderer *renderer) {
         this->m_texture,
         this->m_source_rect,
         this->m_target_rect,
-        0,
+        this->m_rotation,
         NULL,
         SDL_FLIP_NONE
     );

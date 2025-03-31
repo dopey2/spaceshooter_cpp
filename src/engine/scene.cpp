@@ -19,6 +19,12 @@ void Scene::addObject(WorldObject* object) {
     this->objects.push_back(object);
 }
 
+void Scene::updateAllObjects() {
+    for(WorldObject* object: this->objects) {
+        object->render(this->m_renderer);
+    }
+}
+
 void Scene::renderAllObjects() {
     SDL_RenderClear(this->m_renderer);
 

@@ -14,5 +14,7 @@ private:
 public:
     Scene(SDL_Window* window);
     void addObject(WorldObject* object);
+
+    void updateAllObjects();
     void renderAllObjects();
 };
