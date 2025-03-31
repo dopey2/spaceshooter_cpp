@@ -76,7 +76,7 @@ void Application::run() {
         }
 
         this->scene->renderAllObjects();
-
+        SDL_Delay(1000 / 60);
     }
 
     SDL_DestroyWindow(this->_window);
