@@ -13,6 +13,6 @@ public:
     }
 
     void updateAsteroidPosition() {
-        this->setY(this->y + 0.02);
+        this->setY(this->y + 1);
     }
 };

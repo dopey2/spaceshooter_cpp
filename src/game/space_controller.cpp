@@ -11,7 +11,7 @@ private:
 
 
     Uint64 lastSpawnTimeAsteroid = -1000;
-    Uint64 spawnInterval = 1000;
+    Uint64 spawnInterval = 2000;
 
 public:
         SpaceController() {
@@ -45,5 +45,4 @@ public:
                 asteroid->updateAsteroidPosition();
             }
         }
-
 };
