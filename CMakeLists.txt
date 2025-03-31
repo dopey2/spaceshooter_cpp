@@ -13,6 +13,7 @@ add_executable(${PROJECT_NAME}
         src/engine/sprite.cpp
         src/engine/world_object.cpp
         src/engine/texture.cpp
+        src/engine/keyboard.cpp
 )
 
 # Link against SDL3

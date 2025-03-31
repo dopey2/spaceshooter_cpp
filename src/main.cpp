@@ -1,10 +1,11 @@
 #include "./engine/application.h"
-#include "./game/spaceship.cpp"
+#include "./game/space_controller.cpp"
 
 int main() {
   Application* application = Application::createInstance("Spaceship", 800, 600);
-  Spaceship* spaceship = new Spaceship();
+  SpaceController* spaceController = new SpaceController();
   application->run();
-  delete spaceship;
+  delete spaceController;
+  spaceController = nullptr;
   return 0;
 }
