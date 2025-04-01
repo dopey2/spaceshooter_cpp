@@ -5,6 +5,9 @@
 #include "application.h"
 #include "keyboard.h"
 
+#define TARGET_FPS 60
+#define INTERVAL_BETWEEN_DRAWS_CALL (1000 / TARGET_FPS)
+
 Application::Application(const char* title, uint16_t width, uint16_t height) {
     this->m_title = title;
     this->m_width = width;
@@ -82,7 +85,7 @@ void Application::run() {
         }
 
         this->scene->renderAllObjects();
-        SDL_Delay(1000 / 60);
+        SDL_Delay(INTERVAL_BETWEEN_DRAWS_CALL);
     }
 
     SDL_DestroyWindow(this->_window);
