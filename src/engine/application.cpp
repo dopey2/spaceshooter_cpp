@@ -1,4 +1,5 @@
 #include <SDL3/SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
 #include <functional>
 #include <iostream>
 #include "application.h"
@@ -34,6 +35,11 @@ void Application::initSDL() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
     }
+
+    if (!TTF_Init()) {
+        std::cerr << "SDL could not initialize SDL_ttf ! SDL_Error: " << SDL_GetError() << std::endl;
+    }
+
 }
 
 void Application::initWindow() {
