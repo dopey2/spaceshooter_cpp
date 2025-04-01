@@ -23,15 +23,15 @@ Application::~Application() {
 }
 
 Application* Application::createInstance(const char* title, uint16_t width, uint16_t height) {
-    if (Application::m_instance == nullptr) {
-        Application::m_instance = new Application(title, width, height);
+    if (m_instance == nullptr) {
+        m_instance = new Application(title, width, height);
     }
 
-    return Application::m_instance;
+    return m_instance;
 }
 
 Application* Application::getInstance() {
-    return Application::m_instance;
+    return m_instance;
 }
 
 void Application::initSDL() {
@@ -88,6 +88,7 @@ void Application::run() {
         SDL_Delay(INTERVAL_BETWEEN_DRAWS_CALL);
     }
 
+    delete this->scene;
     SDL_DestroyWindow(this->_window);
 }
 

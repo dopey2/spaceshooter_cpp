@@ -13,6 +13,7 @@ private:
 
 public:
     Scene(SDL_Window* window);
+    ~Scene();
     void addObject(WorldObject* object);
 
     void updateAllObjects();

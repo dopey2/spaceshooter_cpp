@@ -22,13 +22,13 @@ class WorldObject {
     const float &height = m_height;
 
     WorldObject();
+    virtual ~WorldObject();
     virtual void load(SDL_Renderer *renderer);
     virtual void unload();
     virtual void render(SDL_Renderer *renderer);
 
     void setX(float x);
     void setY(float x);
-    void setPosition(float x, float y);
     void setRotation(float rotation);
     void setWidth(float width);
     void setHeight(float height);

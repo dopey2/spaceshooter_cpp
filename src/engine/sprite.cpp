@@ -5,6 +5,14 @@ Sprite::Sprite(const char *bmpFilePath) {
     this->m_bmp_file_path = bmpFilePath;
 }
 
+Sprite::~Sprite() {
+    if (this->m_texture != nullptr) {
+        std::cout << "Destroying sprite texture" << std::endl;
+        SDL_DestroyTexture(this->m_texture);
+        this->m_texture = nullptr;
+    }
+}
+
 void Sprite::setX(float x) {
     this->m_x = x;
     if (this->m_target_rect != nullptr) {
@@ -15,14 +23,6 @@ void Sprite::setX(float x) {
 void Sprite::setY(float y) {
     this->m_y = y;
     if (this->m_target_rect != nullptr) {
-        this->m_target_rect->y = y;
-    }
-}
-
-void Sprite::setPosition(float x, float y) {
-    this->m_x = x; this->m_y = y;
-    if (this->m_target_rect != nullptr) {
-        this->m_target_rect->x = x;
         this->m_target_rect->y = y;
     }
 }
@@ -39,7 +39,6 @@ void Sprite::setHeight(float height) {
     if (this->m_target_rect != nullptr) {
         this->m_target_rect->h = height;
     }
-
 }
 
 void Sprite::load(SDL_Renderer *renderer) {
@@ -65,10 +64,10 @@ void Sprite::load(SDL_Renderer *renderer) {
 }
 
 void Sprite::unload() {
-    if (this->m_texture != nullptr) {
-        std::cout << "Destroy sprite texture";
-        SDL_DestroyTexture(this->m_texture);
-    }
+    // if (this->m_texture != nullptr) {
+    //     std::cout << "Destroy sprite texture";
+    //     SDL_DestroyTexture(this->m_texture);
+    // }
 }
 
 

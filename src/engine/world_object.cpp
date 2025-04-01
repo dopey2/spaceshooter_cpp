@@ -1,5 +1,5 @@
-#include "world_object.h"
 #include <SDL3/SDL.h>
+#include "world_object.h"
 #include "application.h"
 
 WorldObject::WorldObject() {
@@ -11,6 +11,8 @@ WorldObject::WorldObject() {
     this->m_height = -1;
 }
 
+WorldObject::~WorldObject() {}
+
 void WorldObject::load(SDL_Renderer *renderer) {}
 void WorldObject::unload() {}
 void WorldObject::render(SDL_Renderer *renderer){};
@@ -18,19 +20,19 @@ void WorldObject::render(SDL_Renderer *renderer){};
 void WorldObject::setX(float x) {
     this->m_x = x;
 }
+
 void WorldObject::setY(float y) {
     this->m_y = y;
 }
-void WorldObject::setPosition(float x, float y) {
-    this->m_x = x;
-    this->m_y = y;
-}
+
 void WorldObject::setRotation(float rotation) {
     this->m_rotation = rotation;
 }
+
 void WorldObject::setWidth(float width) {
     this->m_width = width;
 }
+
 void WorldObject::setHeight(float height) {
     this->m_height = height;
 }

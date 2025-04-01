@@ -14,6 +14,12 @@ Scene::Scene(SDL_Window* window) {
     this->m_renderer = renderer;
 }
 
+Scene::~Scene() {
+    for(WorldObject* object: this->objects) {
+        delete object;
+    }
+}
+
 
 void Scene::addObject(WorldObject* object) {
     this->objects.push_back(object);
