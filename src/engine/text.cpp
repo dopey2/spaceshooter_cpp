@@ -27,6 +27,7 @@ void Text::setColor(SDL_Color *color) {
     this->m_text_color = color;
 
     if (this->texture != nullptr) {
+        // force a texture re-load
         this->texture = nullptr;
     }
 }
@@ -59,6 +60,8 @@ void Text::setHeight(float height) {
     }
 }
 
+// must also be called every time a changes occurs in the text content or properties.
+// no need to be called if only x & y positions changes.
 void Text::load(SDL_Renderer *renderer) {
     TTF_Font *font = TTF_OpenFont(this->m_font_file_path, m_font_size);
 
