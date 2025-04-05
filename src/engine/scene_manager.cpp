@@ -14,8 +14,16 @@ SceneManager::SceneManager(SDL_Window* window) {
 }
 
 SceneManager::~SceneManager() {
-    // TODO delete all scenes
-    // TODO delete renderer
+    for (auto const& iterator : this->scenes_by_id)
+    {
+        std::cout << "SCENE_MANAGER: Deleting scene " << iterator.first  << std::endl;
+        if (iterator.second != nullptr) {
+            delete iterator.second;
+        }
+
+        SDL_DestroyRenderer(this->m_renderer);
+        this->m_renderer = nullptr;
+    }
 }
 
 SDL_Renderer* SceneManager::getRenderer() {

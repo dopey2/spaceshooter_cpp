@@ -4,7 +4,6 @@
 #include <map>
 #include <string>
 #include <SDL3/SDL.h>
-// #include "scene.h"
 
 class Scene;
 
