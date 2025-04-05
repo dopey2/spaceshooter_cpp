@@ -54,8 +54,13 @@ public:
            this->updateButtons();
 
            if (event.key == SDLK_RETURN) {
-               if (this->menu_choice == MENU_QUIT) {
-                   this->application->stop();
+               switch (this->menu_choice) {
+                   case MENU_PLAY:
+                       this->application->scene_manager->setActiveScene("game");
+                       break;
+                   case MENU_QUIT:
+                       this->application->stop();
+                       break;
                }
            }
         });

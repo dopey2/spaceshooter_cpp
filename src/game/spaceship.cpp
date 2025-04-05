@@ -12,10 +12,11 @@ private:
 
 public:
     Spaceship() : Sprite("../assets/img/spaceship.bmp") {
-        this->setX(this->m_application->getWidth() / 2 - 48);
+        this->setX((this->m_application->getWidth() - 48) / 2);
         this->setY(this->m_application->getHeight() - 48);
-
-        this->m_application->register_update_callback([=](Uint64 _) -> void { this->onUpdate(); });
+        this->m_application->register_update_callback([=](Uint64 _) -> void {
+            this->onUpdate();
+        });
     }
 
     void onUpdate() {
@@ -37,10 +38,9 @@ public:
                 this->x_velocity += VELOCITY_FRICTION;
             }
         }
-    
-        std::cout << x_velocity << std::endl;
+
         if (this->x_velocity != 0) {
-            this->setX(this->x + this->x_velocity);
+            this->setX(*this->m_x + this->x_velocity);
         }
     }
 };
