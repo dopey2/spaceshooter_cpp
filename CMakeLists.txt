@@ -11,8 +11,10 @@ add_executable(${PROJECT_NAME}
         src/main.cpp
         src/engine/application.cpp
         src/engine/scene.cpp
+        src/engine/scene_manager.cpp
         src/engine/sprite.cpp
         src/engine/world_object.cpp
+        src/engine/text.cpp
         src/engine/texture.cpp
         src/engine/keyboard.cpp
 )
