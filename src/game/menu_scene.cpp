@@ -21,7 +21,7 @@ private:
 public:
     MenuScene() {
         this->menu__play_button = new Text("../assets/font/Arial.ttf", "Play", 24);
-        this->menu__settings_button = new Text("../assets/font/Arial.ttf", "Settings (TODO)", 24);
+        this->menu__settings_button = new Text("../assets/font/Arial.ttf", "Settings", 24);
         this->menu__quit_button = new Text("../assets/font/Arial.ttf", "Quit", 24);
 
         this->addObject(menu__play_button);
@@ -29,7 +29,7 @@ public:
         this->addObject(menu__quit_button);
 
         this->menu__play_button->setX((this->application->getWidth() - *menu__play_button->m_width) / 2);
-        this->menu__settings_button->setX((this->application->getWidth() - *menu__play_button->m_width) / 2);
+        this->menu__settings_button->setX((this->application->getWidth() - *menu__settings_button->m_width) / 2);
         this->menu__quit_button->setX((this->application->getWidth() - *menu__quit_button->m_width) / 2);
 
         this->menu__play_button->setY(this->application->getHeight() / 2 - 30);
