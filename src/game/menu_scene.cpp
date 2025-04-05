@@ -52,6 +52,12 @@ public:
            }
 
            this->updateButtons();
+
+           if (event.key == SDLK_RETURN) {
+               if (this->menu_choice == MENU_QUIT) {
+                   this->application->stop();
+               }
+           }
         });
     };
 
