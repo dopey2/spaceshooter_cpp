@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "scene.h"
+#include "scene_manager.h"
 
 class Application {
 
@@ -24,7 +25,7 @@ class Application {
 
   public:
     SDL_Window* _window = nullptr;
-    Scene* scene = nullptr;
+    SceneManager* scene_manager = nullptr;
 
     uint16_t getWidth();
     uint16_t getHeight();

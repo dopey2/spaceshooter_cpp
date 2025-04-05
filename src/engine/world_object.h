@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL3/SDL.h>
+#include <optional>
 
 
 class Application;
@@ -8,21 +9,29 @@ class Application;
 class WorldObject {
   protected:
     Application* m_application;
-    float m_x;
-    float m_y;
-    float m_rotation;
-    float m_width;
-    float m_height;
 
   public:
-    const float &x = m_x;
-    const float &y = m_y;
-    const float &rotation = m_rotation;
-    const float &width = m_width;
-    const float &height = m_height;
+      float* m_x = nullptr;
+      float* m_y = nullptr;
+      float* m_width = nullptr;
+      float* m_height = nullptr;
+      float* m_rotation = nullptr;
+//     const float x = &m_x.value_or(0);
+//     const float y = &m_y.value_or(0);
+//     const float width = &m_width.value_or(0);
+//     const float height = &m_height.value_or(0);
+//     const float rotation = &m_rotation.value_or(0);
+
 
     WorldObject();
     virtual ~WorldObject();
+
+    void init_x();
+    void init_y();
+    void init_width();
+    void init_height();
+    void init_rotation();
+
     virtual void load(SDL_Renderer *renderer);
     virtual void unload();
     virtual void render(SDL_Renderer *renderer);

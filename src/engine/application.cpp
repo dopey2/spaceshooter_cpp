@@ -14,7 +14,7 @@ Application::Application(const char* title, uint16_t width, uint16_t height) {
     this->m_height = height;
     this->initWindow();
     this->initSDL();
-    this->scene = new Scene(this->_window);
+    this->scene_manager = new SceneManager(this->_window);
 }
 
 Application::~Application() {
@@ -42,7 +42,6 @@ void Application::initSDL() {
     if (!TTF_Init()) {
         std::cerr << "SDL could not initialize SDL_ttf ! SDL_Error: " << SDL_GetError() << std::endl;
     }
-
 }
 
 void Application::initWindow() {
@@ -84,11 +83,11 @@ void Application::run() {
             callback(SDL_GetTicks());
         }
 
-        this->scene->renderAllObjects();
+        this->scene_manager->renderScene();
         SDL_Delay(INTERVAL_BETWEEN_DRAWS_CALL);
     }
 
-    delete this->scene;
+    delete this->scene_manager;
     SDL_DestroyWindow(this->_window);
 }
 

@@ -1,12 +1,14 @@
 #include "text.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
+#include "application.h" // CHECK if omited -> error: invalid use of incomplete type 'class Application'
 
 Text::Text(char *fontFilePath, char *text, float fontSize) {
     this->m_font_file_path = fontFilePath;
     this->m_text = text;
     this->m_font_size = fontSize;
     this->m_text_color = new SDL_Color({255, 255, 255, SDL_ALPHA_OPAQUE});
+    this->load(m_application->scene_manager->getRenderer());
 }
 
 Text::~Text() {
@@ -27,34 +29,34 @@ void Text::setColor(SDL_Color *color) {
     this->m_text_color = color;
 
     if (this->texture != nullptr) {
-        // force a texture re-load
         this->texture = nullptr;
+        this->load(this->m_application->scene_manager->getRenderer());
     }
 }
 
 void Text::setX(float x) {
-    this->m_x = x;
+    WorldObject::setX(x);
     if (this->m_target_rect != nullptr) {
         this->m_target_rect->x = x;
     }
 }
 
 void Text::setY(float y) {
-    this->m_y = y;
+    WorldObject::setY(y);
     if (this->m_target_rect != nullptr) {
         this->m_target_rect->y = y;
     }
 }
 
 void Text::setWidth(float width) {
-    this->m_width = width;
+    WorldObject::setWidth(width);
     if (this->m_target_rect != nullptr) {
         this->m_target_rect->w = width;
     }
 }
 
 void Text::setHeight(float height) {
-    this->m_height = height;
+    WorldObject::setHeight(height);
     if (this->m_target_rect != nullptr) {
         this->m_target_rect->h = height;
     }
@@ -70,7 +72,7 @@ void Text::load(SDL_Renderer *renderer) {
     }
 
 
-    SDL_Surface *text_surface = TTF_RenderText_Blended(font, "Hello World!", 0, *m_text_color);
+    SDL_Surface *text_surface = TTF_RenderText_Blended(font, this->m_text, 0, *m_text_color);
 
     if (text_surface) {
         texture = SDL_CreateTextureFromSurface(renderer, text_surface);
@@ -85,18 +87,45 @@ void Text::load(SDL_Renderer *renderer) {
     int renderer_w = 0;
     int renderer_h = 0;
     SDL_GetRenderOutputSize(renderer, &renderer_w, &renderer_h);
-    SDL_GetTextureSize(texture, &this->m_width, &this->m_height);
 
-    this->m_x = (renderer_w - this->m_width) / 2;
-    this->m_y = (renderer_h - this->m_height) / 2;
+    float texture_width = 0;
+    float texture_height = 0;
+    SDL_GetTextureSize(texture, &texture_width, &texture_height);
 
-    m_target_rect = new SDL_FRect({this->m_x, this->m_y, this->m_width, this->m_height});
+
+    // if the width is not initialized use the texture original size
+    if (this->m_width == nullptr) {
+        this->m_width = (float*) malloc(sizeof(float));
+        *this->m_width = texture_width;
+    }
+
+    // if the height is not initialized use the texture original size
+    if (this->m_height == nullptr) {
+        this->m_height = (float*) malloc(sizeof(float));
+        *this->m_height = texture_height;
+    }
+
+    if(this->m_x == nullptr) {
+        this->m_x = (float*) malloc(sizeof(float));
+        *this->m_x = (renderer_w - *this->m_width) / 2;
+    }
+
+    if(this->m_y == nullptr) {
+        this->m_y = (float*) malloc(sizeof(float));
+        *this->m_y = (renderer_h - *this->m_height) / 2;
+    }
+
+    m_target_rect = new SDL_FRect({
+            *this->m_x,
+            *this->m_y,
+            *this->m_width,
+            *this->m_height
+    });
 }
 
 void Text::render(SDL_Renderer *renderer) {
-    if (texture == nullptr) {
+    if(this->texture == nullptr) {
         this->load(renderer);
     }
-
     SDL_RenderTexture(renderer, texture, NULL, m_target_rect);
 }

@@ -1,17 +1,14 @@
 #include <SDL3/SDL.h>
-#include <iostream>
 #include "scene.h"
 
-Scene::Scene(SDL_Window* window) {
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
+Scene::Scene() {
+    this->application = Application::getInstance();
+}
 
-    if (renderer == nullptr) {
-        std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-    }
 
-    this->m_renderer = renderer;
+Scene::Scene(std::string key) {
+    this->application = Application::getInstance();
+    application->scene_manager->addScene(key, this);
 }
 
 Scene::~Scene() {
@@ -20,23 +17,16 @@ Scene::~Scene() {
     }
 }
 
-
 void Scene::addObject(WorldObject* object) {
     this->objects.push_back(object);
 }
 
-void Scene::updateAllObjects() {
-    for(WorldObject* object: this->objects) {
-        object->render(this->m_renderer);
-    }
-}
-
-void Scene::renderAllObjects() {
-    SDL_RenderClear(this->m_renderer);
+void Scene::renderAllObjects(SDL_Renderer* renderer) {
+    SDL_RenderClear(renderer);
 
     for(WorldObject* object: this->objects) {
-        object->render(this->m_renderer);
+        object->render(renderer);
     }
 
-    SDL_RenderPresent(this->m_renderer);
+    SDL_RenderPresent(renderer);
 }

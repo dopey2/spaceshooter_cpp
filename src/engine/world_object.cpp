@@ -4,11 +4,11 @@
 
 WorldObject::WorldObject() {
     this->m_application = Application::getInstance();
-    this->m_x = 0;
-    this->m_y = 0;
-    this->m_rotation = 0;
-    this->m_width = -1;
-    this->m_height = -1;
+    // this->m_x = 0;
+    // this->m_y = 0;
+    // this->m_rotation = 0;
+    // this->m_width = -1;
+    // this->m_height = -1;
 }
 
 WorldObject::~WorldObject() {}
@@ -18,21 +18,36 @@ void WorldObject::unload() {}
 void WorldObject::render(SDL_Renderer *renderer){};
 
 void WorldObject::setX(float x) {
-    this->m_x = x;
+    if (this->m_x == nullptr) {
+        this->m_x = (float*) malloc(sizeof(float));
+    }
+    *this->m_x = x;
 }
 
 void WorldObject::setY(float y) {
-    this->m_y = y;
+    if (this->m_y == nullptr) {
+        this->m_y = (float*) malloc(sizeof(float));
+    }
+    *this->m_y = y;
 }
 
 void WorldObject::setRotation(float rotation) {
-    this->m_rotation = rotation;
+    if (this->m_rotation == nullptr) {
+        this->m_rotation = (float*) malloc(sizeof(float));
+    }
+    *this->m_rotation = rotation;
 }
 
 void WorldObject::setWidth(float width) {
-    this->m_width = width;
+    if (this->m_width == nullptr) {
+        this->m_width = (float*) malloc(sizeof(float));
+    }
+    *this->m_width = width;
 }
 
 void WorldObject::setHeight(float height) {
-    this->m_height = height;
+    if (this->m_height == nullptr) {
+        this->m_height = (float*) malloc(sizeof(float));
+    }
+    *this->m_height = height;
 }

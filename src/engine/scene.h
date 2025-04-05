@@ -1,21 +1,20 @@
 #pragma once
 
-#include <iostream>
-#include <SDL3/SDL.h>
 #include <vector>
+#include <string>
+#include <SDL3/SDL.h>
 #include "world_object.h"
-
+#include "application.h"
 
 class Scene {
-private:
+protected:
     std::vector<WorldObject*> objects;
-    SDL_Renderer* m_renderer;
+    Application* application;
 
 public:
-    Scene(SDL_Window* window);
+    Scene();
+    Scene(std::string key);
     ~Scene();
     void addObject(WorldObject* object);
-
-    void updateAllObjects();
-    void renderAllObjects();
+    void renderAllObjects(SDL_Renderer* m_renderer);
 };
