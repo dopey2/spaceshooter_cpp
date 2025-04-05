@@ -1,11 +1,10 @@
 #include "./engine/application.h"
-#include "./game/space_controller.cpp"
+#include "./game/menu_scene.cpp"
 
 int main() {
   Application* application = Application::createInstance("Spaceship", 800, 600);
-  SpaceController* spaceController = new SpaceController();
+  MenuScene* menu_scene = new MenuScene();
+  application->scene_manager->addScene("menu", menu_scene);
   application->run();
-  delete spaceController;
-  spaceController = nullptr;
   return 0;
 }
