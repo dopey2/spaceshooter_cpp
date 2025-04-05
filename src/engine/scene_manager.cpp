@@ -46,6 +46,11 @@ Scene* SceneManager::getActiveScene() {
     return nullptr;
 }
 
+void SceneManager::setActiveScene(std::string key) {
+    this->active_scene = key;
+}
+
+
 void SceneManager::renderScene() {
     Scene* scene = this->getActiveScene();
     if(scene != nullptr) {
