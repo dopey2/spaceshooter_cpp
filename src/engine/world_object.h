@@ -11,17 +11,11 @@ class WorldObject {
     Application* m_application;
 
   public:
-      float* m_x = nullptr;
-      float* m_y = nullptr;
-      float* m_width = nullptr;
-      float* m_height = nullptr;
-      float* m_rotation = nullptr;
-//     const float x = &m_x.value_or(0);
-//     const float y = &m_y.value_or(0);
-//     const float width = &m_width.value_or(0);
-//     const float height = &m_height.value_or(0);
-//     const float rotation = &m_rotation.value_or(0);
-
+  float* m_x = nullptr;
+  float* m_y = nullptr;
+  float* m_width = nullptr;
+  float* m_height = nullptr;
+  float* m_rotation = nullptr;
 
     WorldObject();
     virtual ~WorldObject();
