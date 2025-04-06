@@ -20,12 +20,6 @@ class WorldObject {
     WorldObject();
     virtual ~WorldObject();
 
-    void init_x();
-    void init_y();
-    void init_width();
-    void init_height();
-    void init_rotation();
-
     virtual void load(SDL_Renderer *renderer);
     virtual void unload();
     virtual void render(SDL_Renderer *renderer);
