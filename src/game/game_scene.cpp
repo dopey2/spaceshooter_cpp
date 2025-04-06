@@ -19,6 +19,7 @@ public:
         this->m_spaceship = new Spaceship();
         this->addObject(this->m_spaceship);
 
+        // todo disable update for inactive screen
         this->application->register_update_callback([=](Uint64 delta) -> void {
             this->onUpdate(delta);
         });
@@ -34,7 +35,9 @@ public:
 
         for (auto asteroid : this->asteroids_list) {
             asteroid->updateAsteroidPosition();
+            if (asteroid->isOutOfScreen()) {
+                this->removeObject(asteroid);
+            }
         }
     }
-
 };

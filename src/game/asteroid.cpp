@@ -15,4 +15,8 @@ public:
     void updateAsteroidPosition() {
         this->setY(*this->m_y + 1);
     }
+
+    bool isOutOfScreen() {
+        return *this->m_y > m_application->getHeight();
+    }
 };
