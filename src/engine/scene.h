@@ -16,5 +16,6 @@ public:
     Scene(std::string key);
     ~Scene();
     void addObject(WorldObject* object);
+    void removeObject(WorldObject* object);
     void renderAllObjects(SDL_Renderer* m_renderer);
 };

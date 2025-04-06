@@ -4,11 +4,6 @@
 
 WorldObject::WorldObject() {
     this->m_application = Application::getInstance();
-    // this->m_x = 0;
-    // this->m_y = 0;
-    // this->m_rotation = 0;
-    // this->m_width = -1;
-    // this->m_height = -1;
 }
 
 WorldObject::~WorldObject() {}

@@ -21,6 +21,16 @@ void Scene::addObject(WorldObject* object) {
     this->objects.push_back(object);
 }
 
+void Scene::removeObject(WorldObject* object) {
+    int i = 0;
+    for (auto iterator = this->objects.begin(); iterator != this->objects.end(); iterator++, i++) {
+        if (objects.at(i) == object) {
+            objects.erase(iterator);
+            return;
+        }
+    }
+}
+
 void Scene::renderAllObjects(SDL_Renderer* renderer) {
     SDL_RenderClear(renderer);
 
