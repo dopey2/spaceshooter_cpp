@@ -1,6 +1,7 @@
 #include "../engine/application.h"
 #include "../engine/keyboard.h"
 #include "../engine/sprite.h"
+#include "spaceship_engine_fire.cpp"
 
 #define MAX_VELOCITY 5
 #define VELOCITY_STEP 0.1
@@ -9,11 +10,14 @@
 class Spaceship : public Sprite {
 private:
     float x_velocity = 0;
+    SpaceshipEngineFire* engine_fire = nullptr;
 
 public:
-    Spaceship() : Sprite("../assets/img/spaceship.bmp") {
+    Spaceship(SpaceshipEngineFire* engine_fire) : Sprite("../assets/img/spaceship.bmp") {
+        this->engine_fire = engine_fire;
+
         this->setX((this->m_application->getWidth() - 48) / 2);
-        this->setY(this->m_application->getHeight() - 48);
+        this->setY(this->m_application->getHeight() - 76);
         this->m_application->register_update_callback([=](Uint64 _) -> void {
             this->onUpdate();
         });
@@ -40,7 +44,9 @@ public:
         }
 
         if (this->x_velocity != 0) {
-            this->setX(*this->m_x + this->x_velocity);
+            float new_x = *this->m_x + this->x_velocity;
+            this->setX(new_x);
+            this->engine_fire->setX(new_x + 9);
         }
     }
 };

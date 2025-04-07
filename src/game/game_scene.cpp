@@ -1,12 +1,13 @@
 #include "../engine/application.h"
-#include "../engine/keyboard.h"
 #include "../engine/scene.h"
 #include "spaceship.cpp"
+#include "spaceship_engine_fire.cpp"
 #include "asteroid.cpp"
 
 class GameScene : public Scene {
 private:
     Spaceship* m_spaceship = nullptr;
+    SpaceshipEngineFire* m_spaceship_engine_fire = nullptr;
     std::vector<Asteroid*> asteroids_list;
 
     Uint64 lastSpawnTimeAsteroid = -1000;
@@ -16,8 +17,12 @@ private:
 
 public:
     GameScene() {
-        this->m_spaceship = new Spaceship();
+        this->m_spaceship_engine_fire = new SpaceshipEngineFire();
+        this->addObject(this->m_spaceship_engine_fire);
+
+        this->m_spaceship = new Spaceship(this->m_spaceship_engine_fire);
         this->addObject(this->m_spaceship);
+
 
         // todo disable update for inactive screen
         this->application->register_update_callback([=](Uint64 delta) -> void {
