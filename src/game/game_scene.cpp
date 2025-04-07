@@ -1,5 +1,6 @@
 #include "../engine/application.h"
 #include "../engine/scene.h"
+#include "../engine/sprite.h"
 #include "spaceship.cpp"
 #include "spaceship_engine_fire.cpp"
 #include "asteroid.cpp"
@@ -11,26 +12,26 @@ private:
     std::vector<Asteroid*> asteroids_list;
 
     Uint64 lastSpawnTimeAsteroid = -1000;
-    Uint64 spawnInterval = 2000;
+    Uint64 spawnInterval = 4000;
 
     SDL_Color* colorRed = new SDL_Color({255, 0, 0, SDL_ALPHA_OPAQUE});
 
 public:
     GameScene() {
+        Sprite* background = new Sprite("../assets/img/bg_3.bmp");
+        this->addObject(background);
+
+        background->setWidth(this->application->getWidth());
+        background->setHeight(this->application->getHeight());
+
         this->m_spaceship_engine_fire = new SpaceshipEngineFire();
         this->addObject(this->m_spaceship_engine_fire);
 
         this->m_spaceship = new Spaceship(this->m_spaceship_engine_fire);
         this->addObject(this->m_spaceship);
-
-
-        // todo disable update for inactive screen
-        this->application->register_update_callback([=](Uint64 delta) -> void {
-            this->onUpdate(delta);
-        });
     }
 
-    void onUpdate(Uint64 delta) {
+    void onUpdate(Uint64 delta) override {
         if (lastSpawnTimeAsteroid + spawnInterval < delta) {
             this->lastSpawnTimeAsteroid = delta;
             Asteroid* asteroid = new Asteroid();
@@ -42,6 +43,10 @@ public:
             asteroid->updateAsteroidPosition();
             if (asteroid->isOutOfScreen()) {
                 this->removeObject(asteroid);
+            }
+
+            if (asteroid->isHittingTheSpaceship(this->m_spaceship)) {
+                std::cout << "Collision " << SDL_GetTicks() << std::endl;
             }
         }
     }

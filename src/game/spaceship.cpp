@@ -13,17 +13,17 @@ private:
     SpaceshipEngineFire* engine_fire = nullptr;
 
 public:
-    Spaceship(SpaceshipEngineFire* engine_fire) : Sprite("../assets/img/spaceship.bmp") {
+    Spaceship(SpaceshipEngineFire* engine_fire) : Sprite("../assets/img/hand_made.bmp") {
         this->engine_fire = engine_fire;
 
-        this->setX((this->m_application->getWidth() - 48) / 2);
-        this->setY(this->m_application->getHeight() - 76);
-        this->m_application->register_update_callback([=](Uint64 _) -> void {
-            this->onUpdate();
-        });
+        this->setWidth(60);
+        this->setHeight(60);
+
+        this->setX((this->m_application->getWidth() - 60) / 2);
+        this->setY(this->m_application->getHeight() - 90);
     }
 
-    void onUpdate() {
+    void onUpdate(Uint64 delta) override {
         if (Keyboard::isKeyDown(SDLK_LEFT)) {
             if (this->x_velocity > -MAX_VELOCITY) {
                 this->x_velocity -= VELOCITY_STEP;
@@ -46,7 +46,7 @@ public:
         if (this->x_velocity != 0) {
             float new_x = *this->m_x + this->x_velocity;
             this->setX(new_x);
-            this->engine_fire->setX(new_x + 9);
+            this->engine_fire->setX(new_x + 24);
         }
     }
 };
