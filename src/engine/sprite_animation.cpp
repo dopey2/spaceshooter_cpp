@@ -1,43 +1,43 @@
-#include "sprite_animated.h"
+#include "sprite_animation.h"
 
 
-SpriteAnimated::SpriteAnimated(char* file_path) {
+SpriteAnimation::SpriteAnimation(char* file_path) {
     this->m_bmp_file_path = file_path;
 }
 
-void SpriteAnimated::setX(float x) {
+void SpriteAnimation::setX(float x) {
     WorldObject::setX(x);
     if (this->m_target_rect != nullptr) {
         this->m_target_rect->x = x;
     }
 }
 
-void SpriteAnimated::setY(float y) {
+void SpriteAnimation::setY(float y) {
     WorldObject::setY(y);
     if (this->m_target_rect != nullptr) {
         this->m_target_rect->y = y;
     }
 }
 
-void SpriteAnimated::setWidth(float width) {
+void SpriteAnimation::setWidth(float width) {
     WorldObject::setWidth(width);
     if (this->m_target_rect != nullptr) {
         this->m_target_rect->w = width;
     }
 }
 
-void SpriteAnimated::setHeight(float height) {
+void SpriteAnimation::setHeight(float height) {
     WorldObject::setHeight(height);
     if (this->m_target_rect != nullptr) {
         this->m_target_rect->h = height;
     }
 }
 
-void SpriteAnimated::addFrameFromTexture(SDL_FRect* source_rect) {
+void SpriteAnimation::addFrameFromTexture(SDL_FRect* source_rect) {
     this->frames.push_back(source_rect);
 }
 
-void SpriteAnimated::load(SDL_Renderer *renderer) {
+void SpriteAnimation::load(SDL_Renderer *renderer) {
     if (this->m_texture == nullptr) {
         this->m_texture = loadTexture(renderer, m_bmp_file_path);
 
@@ -76,7 +76,7 @@ void SpriteAnimated::load(SDL_Renderer *renderer) {
     }
 }
 
-void SpriteAnimated::render(SDL_Renderer *renderer) {
+void SpriteAnimation::render(SDL_Renderer *renderer) {
     if (this->m_texture == nullptr) {
         this->load(renderer);
     }

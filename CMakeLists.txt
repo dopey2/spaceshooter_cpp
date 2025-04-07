@@ -13,6 +13,7 @@ add_executable(${PROJECT_NAME}
         src/engine/scene.cpp
         src/engine/scene_manager.cpp
         src/engine/sprite.cpp
+        src/engine/sprite_animation.cpp
         src/engine/world_object.cpp
         src/engine/text.cpp
         src/engine/texture.cpp

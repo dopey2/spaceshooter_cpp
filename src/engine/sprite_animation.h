@@ -5,7 +5,7 @@
 #include "world_object.h"
 #include "texture.h"
 
-class SpriteAnimated : public WorldObject {
+class SpriteAnimation : public WorldObject {
 private:
     const char *m_bmp_file_path;
     SDL_Texture *m_texture = nullptr;
@@ -16,7 +16,7 @@ private:
     uint16_t loop_per_frame_count = 3;
 
 public:
-    SpriteAnimated(char* file_path);
+    SpriteAnimation(char* file_path);
     void setX(float x);
     void setY(float y);
     void setWidth(float width);

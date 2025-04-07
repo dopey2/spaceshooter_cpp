@@ -2,7 +2,6 @@
 #include "../engine/keyboard.h"
 #include "../engine/scene.h"
 #include "../engine/text.h"
-#include "../engine/sprite_animated.h"
 
 #define MENU_PLAY 0
 #define MENU_SETTINGS 1

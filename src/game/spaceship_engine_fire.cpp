@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../engine/sprite_animated.h"
+#include "../engine/sprite_animation.h"
 
-class SpaceshipEngineFire : public SpriteAnimated {
+class SpaceshipEngineFire : public SpriteAnimation {
 public:
-    SpaceshipEngineFire() : SpriteAnimated("../assets/img/fires.bmp") {
+    SpaceshipEngineFire() : SpriteAnimation("../assets/img/fires.bmp") {
         this->load(this->m_application->scene_manager->getRenderer());
         this->addFrameFromTexture(new SDL_FRect({416, 48, 16, 16}));
         this->addFrameFromTexture(new SDL_FRect({432, 48, 16, 16}));
