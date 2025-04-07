@@ -12,6 +12,7 @@ private:
     SDL_FRect *m_source_rect = nullptr;
     // Describe the object position & size for rendering
     SDL_FRect *m_target_rect = nullptr;
+    float alpha = 1;
 
 public:
     Sprite(const char *bmpFilePath);
@@ -20,6 +21,7 @@ public:
     void setY(float y);
     void setWidth(float width);
     void setHeight(float height);
+    void setAlpha(float alpha);
     void load(SDL_Renderer *renderer);
     void unload();
     void render(SDL_Renderer *renderer);

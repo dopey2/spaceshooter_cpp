@@ -43,9 +43,15 @@ void Sprite::setHeight(float height) {
     }
 }
 
+void Sprite::setAlpha(float alpha) {
+    this->alpha = alpha;
+    SDL_SetTextureAlphaMod(this->m_texture, this->alpha * 255);
+}
+
 void Sprite::load(SDL_Renderer *renderer) {
     if (this->m_texture == nullptr) {
         this->m_texture = loadTexture(renderer, m_bmp_file_path);
+        SDL_SetTextureAlphaMod(this->m_texture, this->alpha * 255);
 
 
         if (this->m_x == nullptr) {
