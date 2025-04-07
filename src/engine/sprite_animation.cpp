@@ -93,10 +93,11 @@ void SpriteAnimation::render(SDL_Renderer *renderer) {
         SDL_FLIP_NONE
     );
 
-    this->loop_per_frame++;
-    if(this->loop_per_frame == this->loop_per_frame_count) {
-        this->loop_per_frame = 0;
+    int delta = SDL_GetTicks();
+
+    if(delta > this->last_update_time + this->frame_update_interval) {
         this->frame_index++;
+        this->last_update_time = delta;
         if(this->frame_index >= this->frames.size()) {
             this->frame_index = 0;
         }

@@ -12,8 +12,8 @@ private:
     std::vector<SDL_FRect*> frames;
     SDL_FRect *m_target_rect = nullptr;
     uint16_t frame_index = 0;
-    uint16_t loop_per_frame = 0;
-    uint16_t loop_per_frame_count = 3;
+    uint16_t frame_update_interval = 50;
+    uint16_t last_update_time = 0;
 
 public:
     SpriteAnimation(char* file_path);
