@@ -50,6 +50,12 @@ void SceneManager::setActiveScene(std::string key) {
     this->active_scene = key;
 }
 
+void SceneManager::callOnUpdateCallback(Uint64 delta) {
+    Scene* activeScene = this->getActiveScene();
+    if (activeScene != nullptr) {
+        activeScene->callOnUpdateCallback(delta);
+    }
+}
 
 void SceneManager::renderScene() {
     Scene* scene = this->getActiveScene();

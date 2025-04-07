@@ -5,7 +5,6 @@ Scene::Scene() {
     this->application = Application::getInstance();
 }
 
-
 Scene::Scene(std::string key) {
     this->application = Application::getInstance();
     application->scene_manager->addScene(key, this);
@@ -16,6 +15,8 @@ Scene::~Scene() {
         delete object;
     }
 }
+
+void Scene::onUpdate(Uint64 delta) {}
 
 void Scene::addObject(WorldObject* object) {
     this->objects.push_back(object);
@@ -28,6 +29,13 @@ void Scene::removeObject(WorldObject* object) {
             objects.erase(iterator);
             return;
         }
+    }
+}
+
+void Scene::callOnUpdateCallback(Uint64 delta) {
+    this->onUpdate(delta);
+    for(WorldObject* object: this->objects) {
+        object->onUpdate(delta);
     }
 }
 

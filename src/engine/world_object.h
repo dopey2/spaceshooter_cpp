@@ -3,7 +3,6 @@
 #include <SDL3/SDL.h>
 #include <optional>
 
-
 class Application;
 
 class WorldObject {
@@ -23,6 +22,7 @@ class WorldObject {
     virtual void load(SDL_Renderer *renderer);
     virtual void unload();
     virtual void render(SDL_Renderer *renderer);
+    virtual void onUpdate(Uint64 delta);
 
     void setX(float x);
     void setY(float x);

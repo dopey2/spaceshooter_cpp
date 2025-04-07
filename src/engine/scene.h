@@ -15,7 +15,15 @@ public:
     Scene();
     Scene(std::string key);
     ~Scene();
+
+    // callback to be override
+    virtual void onUpdate(Uint64 delta);
+
     void addObject(WorldObject* object);
     void removeObject(WorldObject* object);
+
+
+    // make private and friend of scene manager
+    void callOnUpdateCallback(Uint64 delta);
     void renderAllObjects(SDL_Renderer* m_renderer);
 };

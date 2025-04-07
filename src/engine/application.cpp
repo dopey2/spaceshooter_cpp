@@ -73,6 +73,10 @@ void Application::run() {
             }
         }
 
+        // scene scoped on update
+        this->scene_manager->callOnUpdateCallback(SDL_GetTicks());
+
+        // global on update
         for (auto callback: this->m_callbacks_update) {
             callback(SDL_GetTicks());
         }
