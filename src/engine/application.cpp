@@ -1,14 +1,14 @@
+#include "application.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <functional>
 #include <iostream>
-#include "application.h"
 #include "keyboard.h"
 
 #define TARGET_FPS 60
 #define INTERVAL_BETWEEN_DRAWS_CALL (1000 / TARGET_FPS)
 
-Application::Application(const char* title, uint16_t width, uint16_t height) {
+Application::Application(const char *title, uint16_t width, uint16_t height) {
     this->m_title = title;
     this->m_width = width;
     this->m_height = height;
@@ -22,7 +22,7 @@ Application::~Application() {
     SDL_DestroyWindow(_window);
 }
 
-Application* Application::createInstance(const char* title, uint16_t width, uint16_t height) {
+Application *Application::createInstance(const char *title, uint16_t width, uint16_t height) {
     if (m_instance == nullptr) {
         m_instance = new Application(title, width, height);
     }
@@ -30,9 +30,7 @@ Application* Application::createInstance(const char* title, uint16_t width, uint
     return m_instance;
 }
 
-Application* Application::getInstance() {
-    return m_instance;
-}
+Application *Application::getInstance() { return m_instance; }
 
 void Application::initSDL() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -45,19 +43,15 @@ void Application::initSDL() {
 }
 
 void Application::initWindow() {
-    this->_window = SDL_CreateWindow(this->m_title, this->m_width, this-> m_height, SDL_WINDOW_OPENGL);
+    this->_window = SDL_CreateWindow(this->m_title, this->m_width, this->m_height, SDL_WINDOW_OPENGL);
     if (this->_window == NULL) {
         std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
     }
 }
 
-uint16_t Application::getWidth() {
-    return this->m_width;
-}
+uint16_t Application::getWidth() { return this->m_width; }
 
-uint16_t Application::getHeight() {
-    return this->m_height;
-}
+uint16_t Application::getHeight() { return this->m_height; }
 
 void Application::run() {
     this->m_is_running = true;
@@ -71,7 +65,7 @@ void Application::run() {
                 std::cout << "Quitting..." << std::endl;
             } else if (event.type == SDL_EVENT_KEY_DOWN) {
                 Keyboard::onKeyDown(event.key.key);
-                for (auto callback : this->m_callbacks_keyPress) {
+                for (auto callback: this->m_callbacks_keyPress) {
                     callback(event.key);
                 }
             } else if (event.type == SDL_EVENT_KEY_UP) {
@@ -79,7 +73,7 @@ void Application::run() {
             }
         }
 
-        for (auto callback : this->m_callbacks_update) {
+        for (auto callback: this->m_callbacks_update) {
             callback(SDL_GetTicks());
         }
 
@@ -91,9 +85,7 @@ void Application::run() {
     SDL_DestroyWindow(this->_window);
 }
 
-void Application::stop() {
-    this->m_is_running = false;
-}
+void Application::stop() { this->m_is_running = false; }
 
 void Application::register_update_callback(std::function<void(Uint64 delta)> update_callback) {
     this->m_callbacks_update.push_back(update_callback);
@@ -103,5 +95,4 @@ void Application::register_keyPress_callback(std::function<void(SDL_KeyboardEven
     this->m_callbacks_keyPress.push_back(keyPress_callback);
 }
 
-Application* Application::Application::m_instance = nullptr;
-
+Application *Application::Application::m_instance = nullptr;
