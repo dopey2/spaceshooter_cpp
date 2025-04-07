@@ -14,11 +14,9 @@ private:
     Uint64 lastSpawnTimeAsteroid = -1000;
     Uint64 spawnInterval = 4000;
 
-    SDL_Color* colorRed = new SDL_Color({255, 0, 0, SDL_ALPHA_OPAQUE});
-
 public:
     GameScene() {
-        Sprite* background = new Sprite("../assets/img/bg_3.bmp");
+        Sprite* background = new Sprite("../assets/img/bg.bmp");
         this->addObject(background);
 
         background->setWidth(this->application->getWidth());
