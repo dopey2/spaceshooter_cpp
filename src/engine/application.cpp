@@ -62,6 +62,8 @@ void Application::run() {
     while (this->m_is_running) {
         SDL_Event event;
 
+        float start_work_delta = SDL_GetTicks();
+
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) {
                 this->m_is_running = false;
@@ -85,7 +87,11 @@ void Application::run() {
             }
 
             this->scene_manager->renderScene();
-            SDL_Delay(INTERVAL_BETWEEN_DRAWS_CALL);
+            float work_duration = SDL_GetTicks() - start_work_delta;
+            if (work_duration > INTERVAL_BETWEEN_DRAWS_CALL) {
+                work_duration = INTERVAL_BETWEEN_DRAWS_CALL;
+            }
+            SDL_Delay(INTERVAL_BETWEEN_DRAWS_CALL - work_duration);
         }
     }
 
