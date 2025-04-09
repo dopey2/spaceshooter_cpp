@@ -28,7 +28,7 @@ public:
 
     void setX(float x);
     void setY(float x);
-    void setRotation(float rotation);
     void setWidth(float width);
     void setHeight(float height);
+    void setRotation(float rotation);
 };

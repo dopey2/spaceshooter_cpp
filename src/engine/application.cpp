@@ -3,6 +3,7 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <functional>
 #include <iostream>
+#include <thread>
 #include "keyboard.h"
 
 #define TARGET_FPS 60
@@ -20,6 +21,8 @@ Application::Application(const char *title, uint16_t width, uint16_t height) {
 Application::~Application() {
     m_instance = nullptr;
     SDL_DestroyWindow(_window);
+    delete this->scene_manager;
+    this->scene_manager = nullptr;
 }
 
 Application *Application::createInstance(const char *title, uint16_t width, uint16_t height) {
@@ -73,20 +76,22 @@ void Application::run() {
             }
         }
 
-        // scene scoped on update
-        this->scene_manager->callOnUpdateCallback(SDL_GetTicks());
+        if (this->m_is_running) {
+            // scene scoped on update
+            this->scene_manager->callOnUpdateCallback(SDL_GetTicks());
+            // global on update
+            for (auto callback: this->m_callbacks_update) {
+                callback(SDL_GetTicks());
+            }
 
-        // global on update
-        for (auto callback: this->m_callbacks_update) {
-            callback(SDL_GetTicks());
+            this->scene_manager->renderScene();
+            SDL_Delay(INTERVAL_BETWEEN_DRAWS_CALL);
         }
-
-        this->scene_manager->renderScene();
-        SDL_Delay(INTERVAL_BETWEEN_DRAWS_CALL);
     }
 
-    delete this->scene_manager;
     SDL_DestroyWindow(this->_window);
+    this->scene_manager = nullptr;
+    delete this->scene_manager;
 }
 
 void Application::stop() { this->m_is_running = false; }
