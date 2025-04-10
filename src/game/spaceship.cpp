@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../engine/application.h"
 #include "../engine/keyboard.h"
 #include "../engine/sprite.h"

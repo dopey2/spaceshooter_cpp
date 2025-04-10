@@ -1,9 +1,10 @@
 #include "../engine/application.h"
+#include "../engine/logger.h"
 #include "../engine/scene.h"
 #include "../engine/sprite.h"
+#include "asteroid.cpp"
 #include "spaceship.cpp"
 #include "spaceship_engine_fire.cpp"
-#include "asteroid.cpp"
 
 class GameScene : public Scene {
 private:
@@ -41,7 +42,7 @@ public:
             asteroid->updateAsteroidPosition();
 
             if (asteroid->isHittingTheSpaceship(this->m_spaceship)) {
-                std::cout << "Collision " << SDL_GetTicks() << std::endl;
+                Logger::debug("Collision " + SDL_GetTicks());
             }
 
             if (asteroid->isOutOfScreen()) {
