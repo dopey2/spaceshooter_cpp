@@ -5,7 +5,7 @@
 #include "texture.h"
 
 class Sprite : public WorldObject {
-private:
+protected:
     const char *m_bmp_file_path;
     SDL_Texture *m_texture = nullptr;
     // Describe the object position & size in the source file
@@ -17,10 +17,10 @@ private:
 public:
     Sprite(const char *bmpFilePath);
     ~Sprite();
-    void setX(float x);
-    void setY(float y);
-    void setWidth(float width);
-    void setHeight(float height);
+//     void setX(float x);
+//     void setY(float y);
+//     void setWidth(float width);
+//     void setHeight(float height);
     void setAlpha(float alpha);
     void load(SDL_Renderer *renderer);
     void unload();

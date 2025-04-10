@@ -3,25 +3,17 @@
 #include <vector>
 #include <SDL3/SDL.h>
 #include "world_object.h"
-#include "texture.h"
+#include "sprite.h"
 
-class SpriteAnimation : public WorldObject {
+class SpriteAnimation : public Sprite {
 private:
-    const char *m_bmp_file_path;
-    SDL_Texture *m_texture = nullptr;
     std::vector<SDL_FRect*> frames;
-    SDL_FRect *m_target_rect = nullptr;
     uint16_t frame_index = 0;
     uint16_t frame_update_interval = 50;
     uint16_t last_update_time = 0;
 
 public:
     SpriteAnimation(char* file_path);
-    void setX(float x);
-    void setY(float y);
-    void setWidth(float width);
-    void setHeight(float height);
     void addFrameFromTexture(SDL_FRect* source_rect);
-    void load(SDL_Renderer *renderer);
     void render(SDL_Renderer *renderer);
 };

@@ -25,10 +25,4 @@ public:
     virtual void load(SDL_Renderer *renderer);
     virtual void unload();
     virtual void render(SDL_Renderer *renderer);
-
-    void setX(float x);
-    void setY(float x);
-    void setWidth(float width);
-    void setHeight(float height);
-    void setRotation(float rotation);
 };

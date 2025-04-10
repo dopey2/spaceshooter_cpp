@@ -1,3 +1,4 @@
+#include <limits>
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include "world_object.h"
@@ -11,17 +12,17 @@ class Text : public WorldObject {
         SDL_FRect *m_target_rect = nullptr;
         SDL_Texture* texture = nullptr;
 
+        float prev_x = std::numeric_limits<float>::infinity();
+        float prev_y = std::numeric_limits<float>::infinity();
+        float prev_width = -1;
+        float prev_height = -1;
+
+        void savePrevTransform();
 
     public:
         Text(char* fontFilePath, char* text, float fontSize);
         ~Text();
-
         void setColor(SDL_Color *color);
-
-        void setX(float x);
-        void setY(float y);
-        void setWidth(float width);
-        void setHeight(float height);
         void load(SDL_Renderer* renderer);
         void render(SDL_Renderer* renderer);
 };
