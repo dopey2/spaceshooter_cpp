@@ -7,7 +7,8 @@ int main() {
   Application* application = Application::createInstance("Spaceship", 800, 600);
   AssetsLoaders::loadTexturesInCache({
    "../assets/img/hand_made_spaceship.bmp",
-   "../assets/img/fires.bmp",
+   "../assets/img/fire_bullet_default.bmp",
+   "../assets/img/fire_bullet_blue.bmp",
    "../assets/img/asteroid.bmp",
    "../assets/img/bg.bmp"
   });
