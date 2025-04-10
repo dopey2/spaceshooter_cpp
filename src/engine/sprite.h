@@ -17,10 +17,6 @@ protected:
 public:
     Sprite(const char *bmpFilePath);
     ~Sprite();
-//     void setX(float x);
-//     void setY(float y);
-//     void setWidth(float width);
-//     void setHeight(float height);
     void setAlpha(float alpha);
     void load(SDL_Renderer *renderer);
     void unload();
