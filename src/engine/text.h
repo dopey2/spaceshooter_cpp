@@ -24,5 +24,5 @@ class Text : public WorldObject {
         ~Text();
         void setColor(SDL_Color *color);
         void load(SDL_Renderer* renderer);
-        void render(SDL_Renderer* renderer);
+        virtual void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };

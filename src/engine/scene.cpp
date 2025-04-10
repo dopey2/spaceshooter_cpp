@@ -43,7 +43,7 @@ void Scene::renderAllObjects(SDL_Renderer* renderer) {
     SDL_RenderClear(renderer);
 
     for(WorldObject* object: this->objects) {
-        object->render(renderer);
+        object->render(renderer, 0, 0);
     }
 
     SDL_RenderPresent(renderer);

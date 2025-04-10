@@ -4,7 +4,7 @@
 #include "application.h"
 #include "assets_loader.h"
 
-Sprite::Sprite(const char *bmpFilePath) {
+Sprite::Sprite(std::string bmpFilePath) {
     this->m_bmp_file_path = bmpFilePath;
     this->load(m_application->scene_manager->getRenderer());
 }
@@ -42,10 +42,13 @@ void Sprite::load(SDL_Renderer *renderer) {
     }
 }
 
-void Sprite::render(SDL_Renderer *renderer) {
+void Sprite::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
     if (this->m_texture == nullptr) {
         this->load(renderer);
     }
+
+    this->m_target_rect->x += parent_x;
+    this->m_target_rect->y += parent_y;
 
     SDL_RenderTextureRotated(
         renderer,
@@ -56,4 +59,7 @@ void Sprite::render(SDL_Renderer *renderer) {
         NULL,
         SDL_FLIP_NONE
     );
+
+    this->m_target_rect->x -= parent_x;
+    this->m_target_rect->y -= parent_y;
 }

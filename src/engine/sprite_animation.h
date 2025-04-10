@@ -15,5 +15,5 @@ private:
 public:
     SpriteAnimation(char* file_path);
     void addFrameFromTexture(SDL_FRect* source_rect);
-    void render(SDL_Renderer *renderer);
+    void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };

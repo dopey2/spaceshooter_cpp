@@ -103,9 +103,16 @@ void Text::load(SDL_Renderer *renderer) {
     }
 }
 
-void Text::render(SDL_Renderer *renderer) {
+void Text::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
     if(this->texture == nullptr) {
         this->load(renderer);
     }
+
+    this->m_target_rect->x += parent_x;
+    this->m_target_rect->y += parent_y;
+
     SDL_RenderTexture(renderer, texture, NULL, m_target_rect);
+
+    this->m_target_rect->x -= parent_x;
+    this->m_target_rect->y -= parent_y;
 }

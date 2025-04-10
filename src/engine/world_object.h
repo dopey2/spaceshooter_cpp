@@ -21,7 +21,6 @@ public:
 
     WorldObject();
     virtual ~WorldObject();
-
     virtual void load(SDL_Renderer *renderer);
-    virtual void render(SDL_Renderer *renderer);
+    virtual void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };

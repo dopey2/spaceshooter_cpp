@@ -7,10 +7,13 @@ void SpriteAnimation::addFrameFromTexture(SDL_FRect* source_rect) {
     this->frames.push_back(source_rect);
 }
 
-void SpriteAnimation::render(SDL_Renderer *renderer) {
+void SpriteAnimation::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
     if (this->m_texture == nullptr) {
         this->load(renderer);
     }
+
+    this->m_target_rect->x += parent_x;
+    this->m_target_rect->y += parent_y;
 
     SDL_FRect* source_rect = this->frames.at(this->frame_index);
 
@@ -23,6 +26,9 @@ void SpriteAnimation::render(SDL_Renderer *renderer) {
         NULL,
         SDL_FLIP_NONE
     );
+
+    this->m_target_rect->x -= parent_x;
+    this->m_target_rect->y -= parent_y;
 
     int delta = SDL_GetTicks();
 
