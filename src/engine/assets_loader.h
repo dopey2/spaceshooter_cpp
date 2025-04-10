@@ -10,4 +10,5 @@ namespace AssetsLoaders {
     bool hasTextureInCache(const std::string bmpFilePath);
     SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string bmpFilePath);
     void loadTexturesInCache(std::vector<std::string> texture_paths);
+    void clearTexturesFromCache();
 }

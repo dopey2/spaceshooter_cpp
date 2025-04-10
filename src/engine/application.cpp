@@ -3,6 +3,8 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <functional>
 #include <iostream>
+
+#include "assets_loader.h"
 #include "keyboard.h"
 
 #define TARGET_FPS 60
@@ -22,6 +24,7 @@ Application::~Application() {
     SDL_DestroyWindow(_window);
     delete this->scene_manager;
     this->scene_manager = nullptr;
+    AssetsLoaders::clearTexturesFromCache();
 }
 
 Application *Application::createInstance(const char *title, uint16_t width, uint16_t height) {
@@ -94,9 +97,7 @@ void Application::run() {
         }
     }
 
-    SDL_DestroyWindow(this->_window);
-    this->scene_manager = nullptr;
-    delete this->scene_manager;
+    Application::~Application();
 }
 
 void Application::stop() { this->m_is_running = false; }

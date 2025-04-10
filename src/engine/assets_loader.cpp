@@ -24,6 +24,7 @@ namespace AssetsLoaders {
     SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string bmpFilePath) {
         if (hasTextureInCache(bmpFilePath)) {
             // if the texture was already loaded return it from cache
+            std::cout << "AssetsLoader: Loading texture from cache (" << bmpFilePath << ")" << std::endl;
             return getTextureFromCache(bmpFilePath);
         }
 
@@ -34,6 +35,8 @@ namespace AssetsLoaders {
 
         if (bmp == nullptr) {
             throw std::runtime_error("SDL_LoadBMP Error: " + std::string(SDL_GetError()));
+        } else {
+            std::cout << "AssetsLoader: Loading texture (" << bmpFilePath << ")" << std::endl;
         }
 
         tex = SDL_CreateTextureFromSurface(renderer, bmp);
@@ -53,6 +56,16 @@ namespace AssetsLoaders {
                     Application::getInstance()->scene_manager->getRenderer(),
                     path
             );
+        }
+    }
+
+    void clearTexturesFromCache() {
+        for (auto it = textures_by_path.begin(); it != textures_by_path.end(); it++)
+        {
+            if(it->second != nullptr) {
+                SDL_DestroyTexture(it->second);
+            }
+            textures_by_path.erase(it);
         }
     }
 }
