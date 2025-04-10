@@ -39,12 +39,18 @@ public:
 
         for (auto asteroid : this->asteroids_list) {
             asteroid->updateAsteroidPosition();
-            if (asteroid->isOutOfScreen()) {
-                this->removeObject(asteroid);
-            }
 
             if (asteroid->isHittingTheSpaceship(this->m_spaceship)) {
                 std::cout << "Collision " << SDL_GetTicks() << std::endl;
+            }
+
+            if (asteroid->isOutOfScreen()) {
+                this->removeObject(asteroid);
+                this->asteroids_list.erase(
+                    std::remove(this->asteroids_list.begin(), this->asteroids_list.end(), asteroid),
+                    this->asteroids_list.end()
+                );
+                delete asteroid;
             }
         }
     }
