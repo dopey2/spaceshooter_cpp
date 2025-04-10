@@ -18,6 +18,7 @@ add_executable(${PROJECT_NAME}
         src/engine/text.cpp
         src/engine/assets_loader.cpp
         src/engine/keyboard.cpp
+        src/engine/logger.cpp
 )
 
 # Link against SDL3
