@@ -13,7 +13,7 @@ private:
     SpaceshipEngineFire* engine_fire = nullptr;
 
 public:
-    Spaceship(SpaceshipEngineFire* engine_fire) : Sprite("../assets/img/hand_made.bmp") {
+    Spaceship(SpaceshipEngineFire* engine_fire) : Sprite("../assets/img/hand_made_spaceship.bmp") {
         this->engine_fire = engine_fire;
 
         *this->m_width = 60;

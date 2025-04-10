@@ -8,5 +8,6 @@ namespace AssetsLoaders {
     SDL_Texture* getTextureFromCache(const std::string bmpFilePath);
     void setTextureInCache(const std::string bmpFilePath, SDL_Texture* texture);
     bool hasTextureInCache(const std::string bmpFilePath);
-    SDL_Texture* loadTexture(SDL_Renderer* renderer, const char* bmpFilePath);
+    SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string bmpFilePath);
+    void loadTexturesInCache(std::vector<std::string> texture_paths);
 }

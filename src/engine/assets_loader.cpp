@@ -1,7 +1,9 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
 #include <SDL3/SDL.h>
+#include "application.h"
 
 namespace AssetsLoaders {
     std::map<std::string, SDL_Texture*> textures_by_path;
@@ -19,7 +21,7 @@ namespace AssetsLoaders {
         return iterator != textures_by_path.end();
     }
 
-    SDL_Texture* loadTexture(SDL_Renderer* renderer, const char* bmpFilePath) {
+    SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string bmpFilePath) {
         if (hasTextureInCache(bmpFilePath)) {
             // if the texture was already loaded return it from cache
             return getTextureFromCache(bmpFilePath);
@@ -28,7 +30,7 @@ namespace AssetsLoaders {
         SDL_Surface* bmp = nullptr;
         SDL_Texture* tex = nullptr;
 
-        bmp = SDL_LoadBMP(bmpFilePath);
+        bmp = SDL_LoadBMP(bmpFilePath.c_str());
 
         if (bmp == nullptr) {
             throw std::runtime_error("SDL_LoadBMP Error: " + std::string(SDL_GetError()));
@@ -43,5 +45,14 @@ namespace AssetsLoaders {
 
         setTextureInCache(bmpFilePath, tex);
         return tex;
+    }
+
+    void loadTexturesInCache(std::vector<std::string> texture_paths) {
+        for(auto path : texture_paths) {
+            loadTexture(
+                    Application::getInstance()->scene_manager->getRenderer(),
+                    path
+            );
+        }
     }
 }
