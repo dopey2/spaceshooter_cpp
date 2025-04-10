@@ -16,11 +16,10 @@ public:
     Spaceship(SpaceshipEngineFire* engine_fire) : Sprite("../assets/img/hand_made.bmp") {
         this->engine_fire = engine_fire;
 
-        this->setWidth(60);
-        this->setHeight(60);
-
-        this->setX((this->m_application->getWidth() - 60) / 2);
-        this->setY(this->m_application->getHeight() - 90);
+        *this->m_width = 60;
+        *this->m_height = 60;
+        *this->m_x = (this->m_application->getWidth() - 60) / 2;
+        *this->m_y = this->m_application->getHeight() - 90;
     }
 
     void onUpdate(Uint64 delta) override {
@@ -45,8 +44,8 @@ public:
 
         if (this->x_velocity != 0) {
             float new_x = *this->m_x + this->x_velocity;
-            this->setX(new_x);
-            this->engine_fire->setX(new_x + 24);
+            *this->m_x = new_x;
+            *this->engine_fire->m_x = new_x + 22;
         }
     }
 };

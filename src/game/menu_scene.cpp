@@ -28,13 +28,13 @@ public:
         this->addObject(menu__settings_button);
         this->addObject(menu__quit_button);
 
-        this->menu__play_button->setX((this->application->getWidth() - *menu__play_button->m_width) / 2);
-        this->menu__settings_button->setX((this->application->getWidth() - *menu__settings_button->m_width) / 2);
-        this->menu__quit_button->setX((this->application->getWidth() - *menu__quit_button->m_width) / 2);
+        *this->menu__play_button->m_x = (this->application->getWidth() - *menu__play_button->m_width) / 2;
+        *this->menu__settings_button->m_x = (this->application->getWidth() - *menu__settings_button->m_width) / 2;
+        *this->menu__quit_button->m_x = (this->application->getWidth() - *menu__quit_button->m_width) / 2;
 
-        this->menu__play_button->setY(this->application->getHeight() / 2 - 30);
-        this->menu__settings_button->setY(this->application->getHeight() / 2);
-        this->menu__quit_button->setY(this->application->getHeight() / 2 + 30);
+        *this->menu__play_button->m_y = this->application->getHeight() / 2 - 30;
+        *this->menu__settings_button->m_y = this->application->getHeight() / 2;
+        *this->menu__quit_button->m_y = this->application->getHeight() / 2 + 30;
 
         this->menu__play_button->setColor(this->selected_color);
 

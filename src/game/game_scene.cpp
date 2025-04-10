@@ -19,8 +19,8 @@ public:
         Sprite* background = new Sprite("../assets/img/bg.bmp");
         this->addObject(background);
 
-        background->setWidth(this->application->getWidth());
-        background->setHeight(this->application->getHeight());
+        *background->m_width = this->application->getWidth();
+        *background->m_height = this->application->getHeight();
 
         this->m_spaceship_engine_fire = new SpaceshipEngineFire();
         this->addObject(this->m_spaceship_engine_fire);

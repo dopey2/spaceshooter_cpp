@@ -7,15 +7,15 @@
 class Asteroid : public Sprite {
 public:
     Asteroid() : Sprite("../assets/img/asteroid.bmp") {
-        this->setWidth(50);
-        this->setHeight(50);
+        *this->m_width = 50;
+        *this->m_height = 50;
         int random_x_position = rand() % (this->m_application->getWidth() - 50);
-        this->setX(random_x_position);
-        this->setY(-50);
+        *this->m_x = random_x_position;
+        *this->m_y = -50;
     }
 
     void updateAsteroidPosition() {
-        this->setY(*this->m_y + 1);
+        *this->m_y = *this->m_y + 1;
     }
 
     bool isOutOfScreen() {
