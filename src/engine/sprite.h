@@ -18,6 +18,5 @@ public:
     ~Sprite();
     void setAlpha(float alpha);
     void load(SDL_Renderer *renderer);
-    void unload();
     void render(SDL_Renderer *renderer);
 };

@@ -23,6 +23,5 @@ public:
     virtual ~WorldObject();
 
     virtual void load(SDL_Renderer *renderer);
-    virtual void unload();
     virtual void render(SDL_Renderer *renderer);
 };

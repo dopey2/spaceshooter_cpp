@@ -44,14 +44,6 @@ void Sprite::load(SDL_Renderer *renderer) {
     }
 }
 
-void Sprite::unload() {
-    // if (this->m_texture != nullptr) {
-    //     std::cout << "Destroy sprite texture";
-    //     SDL_DestroyTexture(this->m_texture);
-    // }
-}
-
-
 void Sprite::render(SDL_Renderer *renderer) {
     if (this->m_texture == nullptr) {
         this->load(renderer);
