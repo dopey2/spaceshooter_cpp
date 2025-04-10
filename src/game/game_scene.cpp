@@ -1,7 +1,4 @@
-#include "../engine/application.h"
-#include "../engine/logger.h"
-#include "../engine/scene.h"
-#include "../engine/sprite.h"
+#include "../engine/__engine.h"
 #include "asteroid.cpp"
 #include "spaceship.cpp"
 #include "spaceship_engine_fire.cpp"

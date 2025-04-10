@@ -1,8 +1,6 @@
 #pragma once
 
-#include "../engine/application.h"
-#include "../engine/keyboard.h"
-#include "../engine/sprite.h"
+#include "../engine/__engine.h"
 #include "spaceship_engine_fire.cpp"
 
 #define MAX_VELOCITY 5

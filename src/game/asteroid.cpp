@@ -1,6 +1,4 @@
-#include "cstdlib"
-#include "../engine/sprite.h"
-#include "../engine/application.h"
+#include "../engine/__engine.h"
 #include "spaceship.cpp"
 
 #define COLLISION_MARGIN 4

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../engine/sprite_animation.h"
+#include "../engine/__engine.h"
+
 
 class SpaceshipEngineFire : public SpriteAnimation {
 public:

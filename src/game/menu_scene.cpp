@@ -1,7 +1,4 @@
-#include "../engine/application.h"
-#include "../engine/keyboard.h"
-#include "../engine/scene.h"
-#include "../engine/text.h"
+#include "../engine/__engine.h"
 
 #define MENU_PLAY 0
 #define MENU_SETTINGS 1
