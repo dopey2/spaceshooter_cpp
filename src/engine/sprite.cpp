@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <limits>
 #include "application.h"
+#include "assets_loader.h"
 
 Sprite::Sprite(const char *bmpFilePath) {
     this->m_bmp_file_path = bmpFilePath;
@@ -23,7 +24,7 @@ void Sprite::setAlpha(float alpha) {
 
 void Sprite::load(SDL_Renderer *renderer) {
     if (this->m_texture == nullptr) {
-        this->m_texture = loadTexture(renderer, m_bmp_file_path);
+        this->m_texture = AssetsLoaders::loadTexture(renderer, m_bmp_file_path);
         SDL_SetTextureAlphaMod(this->m_texture, this->alpha * 255);
 
         m_target_rect = new SDL_FRect({

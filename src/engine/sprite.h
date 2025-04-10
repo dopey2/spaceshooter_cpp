@@ -2,7 +2,6 @@
 
 #include <SDL3/SDL.h>
 #include "world_object.h"
-#include "texture.h"
 
 class Sprite : public WorldObject {
 protected:

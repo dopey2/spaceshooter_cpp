@@ -16,7 +16,7 @@ add_executable(${PROJECT_NAME}
         src/engine/sprite_animation.cpp
         src/engine/world_object.cpp
         src/engine/text.cpp
-        src/engine/texture.cpp
+        src/engine/assets_loader.cpp
         src/engine/keyboard.cpp
 )
 

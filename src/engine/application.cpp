@@ -3,7 +3,6 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <functional>
 #include <iostream>
-#include <thread>
 #include "keyboard.h"
 
 #define TARGET_FPS 60
