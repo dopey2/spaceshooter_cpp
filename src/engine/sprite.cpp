@@ -11,8 +11,6 @@ Sprite::Sprite(const char *bmpFilePath) {
 
 Sprite::~Sprite() {
     if (this->m_texture != nullptr) {
-        std::cout << "Destroying sprite texture" << std::endl;
-        SDL_DestroyTexture(this->m_texture);
         this->m_texture = nullptr;
     }
 }

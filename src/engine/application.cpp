@@ -6,6 +6,7 @@
 
 #include "assets_loader.h"
 #include "keyboard.h"
+#include "logger.h"
 
 #define TARGET_FPS 60
 #define INTERVAL_BETWEEN_DRAWS_CALL (1000 / TARGET_FPS)
@@ -38,19 +39,23 @@ Application *Application::createInstance(const char *title, uint16_t width, uint
 Application *Application::getInstance() { return m_instance; }
 
 void Application::initSDL() {
+
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::cerr << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
+        Logger::error("Application: SDL could not initialize !");
+        Logger::error("SDL_Error: " + (std::string)SDL_GetError());
     }
 
     if (!TTF_Init()) {
-        std::cerr << "SDL could not initialize SDL_ttf ! SDL_Error: " << SDL_GetError() << std::endl;
+        Logger::error("Application: SDL could not initialize SDL_TTF!");
+        Logger::error("SDL_Error: " + (std::string)SDL_GetError());
     }
 }
 
 void Application::initWindow() {
     this->_window = SDL_CreateWindow(this->m_title, this->m_width, this->m_height, SDL_WINDOW_OPENGL);
     if (this->_window == NULL) {
-        std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
+        Logger::error("Application: Window could not be created !");
+        Logger::error("SDL_Error: " + (std::string)SDL_GetError());
     }
 }
 
@@ -69,7 +74,7 @@ void Application::run() {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) {
                 this->m_is_running = false;
-                std::cout << "Quitting..." << std::endl;
+                Logger::debug("Application: Quit");
             } else if (event.type == SDL_EVENT_KEY_DOWN) {
                 Keyboard::onKeyDown(event.key.key);
                 for (auto callback: this->m_callbacks_keyPress) {

@@ -1,11 +1,13 @@
 #include "scene_manager.h"
 #include "scene.h"
+#include "logger.h"
 
 SceneManager::SceneManager(SDL_Window* window) {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
 
     if (renderer == nullptr) {
-        std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+        Logger::error("SceneManager: Renderer could not be created !");
+        Logger::error("SDL_Error: " + (std::string)SDL_GetError());
         SDL_DestroyWindow(window);
         SDL_Quit();
     }
@@ -18,7 +20,7 @@ SceneManager::~SceneManager() {
     this->m_renderer = nullptr;
     for (auto const& iterator : this->scenes_by_id)
     {
-        std::cout << "SCENE_MANAGER: Deleting scene " << iterator.first  << std::endl;
+        Logger::debug("SceneManager: Deleting scene " + iterator.first);
         if (iterator.second != nullptr) {
             delete iterator.second;
         }

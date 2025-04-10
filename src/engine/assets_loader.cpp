@@ -4,6 +4,7 @@
 #include <vector>
 #include <SDL3/SDL.h>
 #include "application.h"
+#include "logger.h"
 
 namespace AssetsLoaders {
     std::map<std::string, SDL_Texture*> textures_by_path;
@@ -24,7 +25,7 @@ namespace AssetsLoaders {
     SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string bmpFilePath) {
         if (hasTextureInCache(bmpFilePath)) {
             // if the texture was already loaded return it from cache
-            std::cout << "AssetsLoader: Loading texture from cache (" << bmpFilePath << ")" << std::endl;
+            Logger::debug("AssetsLoader: Loading texture from cache (" + bmpFilePath + ")");
             return getTextureFromCache(bmpFilePath);
         }
 
@@ -36,7 +37,7 @@ namespace AssetsLoaders {
         if (bmp == nullptr) {
             throw std::runtime_error("SDL_LoadBMP Error: " + std::string(SDL_GetError()));
         } else {
-            std::cout << "AssetsLoader: Loading texture (" << bmpFilePath << ")" << std::endl;
+            Logger::debug("AssetsLoader: Loading texture (" + bmpFilePath + ")");
         }
 
         tex = SDL_CreateTextureFromSurface(renderer, bmp);
