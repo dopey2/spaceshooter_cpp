@@ -1,6 +1,6 @@
 #include <iostream>
 
-#define ENABLE_LOGGER 0
+#define ENABLE_LOGGER 1
 
 namespace Logger {
 

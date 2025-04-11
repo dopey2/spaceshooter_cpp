@@ -17,7 +17,7 @@ add_executable(${PROJECT_NAME}
         src/engine/world_object.cpp
         src/engine/text.cpp
         src/engine/assets_loader.cpp
-        src/engine/keyboard.cpp
+        src/engine/mouse_keyboard.cpp
         src/engine/logger.cpp
         src/engine/view.cpp
 )

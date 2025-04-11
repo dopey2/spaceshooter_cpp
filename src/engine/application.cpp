@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "assets_loader.h"
-#include "keyboard.h"
+#include "mouse_keyboard.h"
 #include "logger.h"
 
 #define TARGET_FPS 60
@@ -76,12 +76,15 @@ void Application::run() {
                 this->m_is_running = false;
                 Logger::debug("Application: Quit");
             } else if (event.type == SDL_EVENT_KEY_DOWN) {
-                Keyboard::onKeyDown(event.key.key);
+                MouseAndKeyboard::onKeyDown(event.key.key);
                 for (auto callback: this->m_callbacks_keyPress) {
                     callback(event.key);
                 }
             } else if (event.type == SDL_EVENT_KEY_UP) {
-                Keyboard::onKeyUp(event.key.key);
+                MouseAndKeyboard::onKeyUp(event.key.key);
+            } else if (event.type == SDL_EVENT_MOUSE_MOTION) {
+                *MouseAndKeyboard::mouse_x = event.motion.x;
+                *MouseAndKeyboard::mouse_y = event.motion.y;
             }
         }
 
