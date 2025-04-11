@@ -1,10 +1,6 @@
 #pragma once
 
 #include "../engine/__engine.h"
-#include "spaceship_view.cpp"
-
-#define COLLISION_MARGIN 4
-
 
 class Asteroid : public View {
 public:
@@ -36,15 +32,6 @@ public:
         }
 
         velocity *= 0.985;
-        return;
-
-        if (velocity > 0) {
-            velocity -= 0.02;
-        }
-
-        if (velocity < 0) {
-            velocity += 0.02;
-        }
     }
 
     void updateAsteroidPosition() {
@@ -76,19 +63,19 @@ public:
         return *this->m_y > Application::getInstance()->getHeight() * 2;
     }
 
-    bool isColliding(WorldObject* object) {
+    bool isColliding(WorldObject* object, int collision_offset = 0) {
         if (this->is_destroyed) {
             return false;
         }
 
         if (
-            *object->m_x + *object->m_width - COLLISION_MARGIN >= *this->m_x &&
-            *object->m_x + COLLISION_MARGIN <= *this->m_x + *this->m_width &&
-            *object->m_y <= *this->m_y + *this->m_height &&
-            *object->m_y + *object->m_height >= *this->m_y
-            ) {
+            *object->m_x + *object->m_width - collision_offset >= *this->m_x &&
+            *object->m_x + collision_offset <= *this->m_x + *this->m_width &&
+            *object->m_y + *object->m_height - collision_offset >= *this->m_y &&
+            *object->m_y + collision_offset <= *this->m_y + *this->m_height
+        ) {
             return true;
-            }
+        }
 
         return false;
     }

@@ -43,19 +43,19 @@ public:
     }
 
     void onUpdate(Uint64 delta) override {
-        if (Keyboard::isKeyDown(SDLK_LEFT) || Keyboard::isKeyDown(SDLK_Q)) {
+        if (MouseAndKeyboard::isKeyDown(SDLK_LEFT) || MouseAndKeyboard::isKeyDown(SDLK_Q)) {
             if (this->x_velocity > -MAX_VELOCITY) {
                 this->x_velocity -= VELOCITY_STEP;
             }
-        } else if (Keyboard::isKeyDown(SDLK_RIGHT) || Keyboard::isKeyDown(SDLK_D)) {
+        } else if (MouseAndKeyboard::isKeyDown(SDLK_RIGHT) || MouseAndKeyboard::isKeyDown(SDLK_D)) {
             if (this->x_velocity < MAX_VELOCITY) {
                 this->x_velocity += VELOCITY_STEP;
             }
         } else if (
-            !Keyboard::isKeyDown(SDLK_LEFT) &&
-            !Keyboard::isKeyDown(SDLK_RIGHT) &&
-            !Keyboard::isKeyDown(SDLK_Q) &&
-            !Keyboard::isKeyDown(SDLK_D)
+            !MouseAndKeyboard::isKeyDown(SDLK_LEFT) &&
+            !MouseAndKeyboard::isKeyDown(SDLK_RIGHT) &&
+            !MouseAndKeyboard::isKeyDown(SDLK_Q) &&
+            !MouseAndKeyboard::isKeyDown(SDLK_D)
         ) {
             if (abs(x_velocity) < VELOCITY_FRICTION) {
                 this->x_velocity = 0;
