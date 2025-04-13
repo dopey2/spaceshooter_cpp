@@ -6,9 +6,6 @@
 #include "asteroids_view.cpp"
 #include "missiles_view.cpp"
 
-
-#define COLLISION_OFFSET 4
-
 class GameScene : public Scene {
 private:
     bool is_game_over = false;
@@ -53,10 +50,9 @@ public:
             return;
         }
 
-        this->asteroids_view->update(delta);
+        this->asteroids_view->update(delta, this->missiles_view);
         this->missiles_view->update(delta, this->spaceship_view);
 
-        this->asteroids_view->isCollidingWithMissiles(this->missiles_view);
         if (this->asteroids_view->isCollidingWithSpaceship(this->spaceship_view)) {
             this->setGameOver();
         }
