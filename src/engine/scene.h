@@ -18,6 +18,7 @@ protected:
     Application* application;
     // callback to be override
     virtual void onUpdate(Uint64 delta);
+    virtual void onActive();
 public:
     Scene();
     Scene(std::string key);

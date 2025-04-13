@@ -36,10 +36,9 @@ namespace AssetsLoaders {
 
         if (bmp == nullptr) {
             throw std::runtime_error("SDL_LoadBMP Error: " + std::string(SDL_GetError()));
-        } else {
-            Logger::debug("AssetsLoader: Loading texture (" + bmpFilePath + ")");
         }
 
+        Logger::debug("AssetsLoader: Loading texture (" + bmpFilePath + ")");
         tex = SDL_CreateTextureFromSurface(renderer, bmp);
         SDL_DestroySurface(bmp);
 

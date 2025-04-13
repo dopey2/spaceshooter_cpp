@@ -49,6 +49,8 @@ Scene* SceneManager::getActiveScene() {
 
 void SceneManager::setActiveScene(std::string key) {
     this->active_scene = key;
+    Scene* active_scene = this->getActiveScene();
+    active_scene->onActive();
 }
 
 void SceneManager::callOnUpdateCallback(Uint64 delta) {

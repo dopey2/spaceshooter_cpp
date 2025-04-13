@@ -32,6 +32,11 @@ void Sprite::load(SDL_Renderer *renderer) {
             (float)m_texture->h
         });
 
+        free(this->m_x);
+        free(this->m_y);
+        free(this->m_width);
+        free(this->m_height);
+
         this->m_x = &m_target_rect->x;
         this->m_y = &m_target_rect->y;
         this->m_width = &m_target_rect->w;
@@ -49,6 +54,10 @@ void Sprite::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
 
     this->m_target_rect->x += parent_x;
     this->m_target_rect->y += parent_y;
+
+    if (this->name == "asteroid_part") {
+        // std::cout << "Hello" << std::endl;
+    }
 
     SDL_RenderTextureRotated(
         renderer,

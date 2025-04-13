@@ -5,6 +5,11 @@
 
 class Text : public WorldObject {
     private:
+        // this methods should not be available since a sprite cannot contain any children
+        using WorldObject::children;
+        using WorldObject::addObject;
+        using WorldObject::removeObject;
+
         char* m_font_file_path = nullptr;
         char* m_text = nullptr;
         float m_font_size = 16;

@@ -5,6 +5,12 @@
 #include "world_object.h"
 
 class Sprite : public WorldObject {
+private:
+    // this methods should not be available since a sprite cannot contain any children
+    using WorldObject::children;
+    using WorldObject::addObject;
+    using WorldObject::removeObject;
+
 protected:
     std::string m_bmp_file_path;
     SDL_Texture *m_texture = nullptr;

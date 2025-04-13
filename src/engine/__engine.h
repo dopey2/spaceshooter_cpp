@@ -9,5 +9,4 @@
 #include "sprite.h"
 #include "sprite_animation.h"
 #include "text.h"
-#include "view.h"
 #include "world_object.h"
