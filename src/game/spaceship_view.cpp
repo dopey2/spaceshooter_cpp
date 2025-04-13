@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../engine/__engine.h"
+#include "spaceship_aim_laser.cpp"
 
 #define MAX_VELOCITY 5
 #define VELOCITY_STEP 0.1
@@ -13,6 +14,7 @@ private:
 
     Sprite *spaceship_sprite = nullptr;
     SpriteAnimation *engine_fire_animations = nullptr;
+    SpaceshipAimLaser* aim_laser = nullptr;
 
 public:
     SpaceshipView() {
@@ -41,6 +43,17 @@ public:
 
         this->addObject(spaceship_sprite);
         this->addObject(engine_fire_animations);
+
+        this->aim_laser = new SpaceshipAimLaser();
+        this->addObject(aim_laser);
+    }
+
+    float getLaserTargetX() {
+        return *this->m_x + (*this->m_width / 2) + this->aim_laser->getTargetX();
+    }
+
+    float getLaserTargetY() {
+        return 0;
     }
 
     void init() {
@@ -57,17 +70,18 @@ public:
         if (this->is_game_over) {
             return;
         }
-        if (MouseAndKeyboard::isKeyDown(SDLK_LEFT) || MouseAndKeyboard::isKeyDown(SDLK_Q)) {
+
+        this->aim_laser->update(this->m_y);
+
+        if (MouseAndKeyboard::isKeyDown(SDLK_Q)) {
             if (this->x_velocity > -MAX_VELOCITY) {
                 this->x_velocity -= VELOCITY_STEP;
             }
-        } else if (MouseAndKeyboard::isKeyDown(SDLK_RIGHT) || MouseAndKeyboard::isKeyDown(SDLK_D)) {
+        } else if (MouseAndKeyboard::isKeyDown(SDLK_D)) {
             if (this->x_velocity < MAX_VELOCITY) {
                 this->x_velocity += VELOCITY_STEP;
             }
         } else if (
-            !MouseAndKeyboard::isKeyDown(SDLK_LEFT) &&
-            !MouseAndKeyboard::isKeyDown(SDLK_RIGHT) &&
             !MouseAndKeyboard::isKeyDown(SDLK_Q) &&
             !MouseAndKeyboard::isKeyDown(SDLK_D)
         ) {

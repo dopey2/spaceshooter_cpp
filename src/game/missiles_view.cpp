@@ -37,8 +37,8 @@ public:
                 *missile->m_x = *spaceship->m_x + *spaceship->m_width / 2 - *missile->m_width / 2;
                 *missile->m_y = *spaceship->m_y;
                 missile->setTargetPosition(
-                    (float)*MouseAndKeyboard::mouse_x,
-                    (float)*MouseAndKeyboard::mouse_y
+                    spaceship->getLaserTargetX(),
+                    spaceship->getLaserTargetY()
                 );
                 this->lastMissileSpawnTime = delta;
             }

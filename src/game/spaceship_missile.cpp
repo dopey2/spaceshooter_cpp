@@ -25,7 +25,7 @@ public:
     }
 
     void setTargetPosition(float target_x, float target_y) {
-        float xdiff = target_x - *this->m_x;
+        float xdiff = target_x - *this->m_x - *this->m_width / 2;
         float ydiff = target_y - *this->m_y;
         auto [length, degree] = Math::cartesianToPolar(xdiff, ydiff);
         auto [step_x, step_y] = Math::polarToCartesian(DISTANCE_PER_FRAME, degree);
