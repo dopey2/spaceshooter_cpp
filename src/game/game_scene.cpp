@@ -2,23 +2,19 @@
 
 #include "../engine/__engine.h"
 #include "../engine/mouse_keyboard.h"
-#include "asteroid.cpp"
-#include "spaceship_missile.cpp"
 #include "spaceship_view.cpp"
+#include "asteroids_view.cpp"
+#include "missiles_view.cpp"
+
 
 #define COLLISION_OFFSET 4
 
 class GameScene : public Scene {
 private:
-    SpaceshipView* m_spaceship = nullptr;
-    std::vector<Asteroid*> asteroids_list;
-    std::vector<SpaceshipMissile*> missiles_list;
-
-    Uint64 lastAsteroidSpawnTime = -1000;
-    Uint64 asteroidSpawnInterval = 4000;
-
-    Uint64 lastMissileSpawnTime = 0;
-    Uint64 missileSpawnInterval = 500;
+    bool is_game_over = false;
+    SpaceshipView* spaceship_view = nullptr;
+    AsteroidsView* asteroids_view = nullptr;
+    MissilesView* missiles_view = nullptr;
 
 public:
     GameScene() {
@@ -28,82 +24,41 @@ public:
         *background->m_width = this->application->getWidth();
         *background->m_height = this->application->getHeight();
 
-        this->m_spaceship = new SpaceshipView();
-        this->addObject(this->m_spaceship);
+        this->spaceship_view = new SpaceshipView();
+        this->addObject(this->spaceship_view);
+
+        this->asteroids_view = new AsteroidsView();
+        this->addObject(this->asteroids_view);
+
+        this->missiles_view = new MissilesView();
+        this->addObject(this->missiles_view);
     }
 
-    void deleteMissile(SpaceshipMissile* missile) {
-        this->removeObject(missile);
-        this->missiles_list.erase(
-                 std::remove(this->missiles_list.begin(), this->missiles_list.end(), missile),
-                 this->missiles_list.end()
-        );
-        delete missile;
+    void setGameOver() {
+        this->is_game_over = true;
+        this->spaceship_view->setGameOver(true);
+        this->application->scene_manager->setActiveScene("menu");
     }
 
-    void handleMissiles(Uint64 delta) {
-        if (MouseAndKeyboard::isKeyDown(SDLK_SPACE)) {
-            if (this->lastMissileSpawnTime + this->missileSpawnInterval < delta) {
-                SpaceshipMissile* missile = new SpaceshipMissile();
-                this->addObject(missile);
-                this->missiles_list.push_back(missile);
-                *missile->m_x = *this->m_spaceship->m_x + *this->m_spaceship->m_width / 2 - *missile->m_width / 2;
-                *missile->m_y = *this->m_spaceship->m_y;
-                missile->setTargetPosition(
-                    (float)*MouseAndKeyboard::mouse_x,
-                    (float)*MouseAndKeyboard::mouse_y
-                );
-                this->lastMissileSpawnTime = delta;
-            }
-        }
 
-        for (auto missile : this->missiles_list) {
-            if (*missile->m_y + *missile->m_height < 0) {
-                Logger::debug("delete missile");
-                this->deleteMissile(missile);
-            }
-        }
+    void onActive() override {
+        this->is_game_over = false;
+        this->spaceship_view->init();
+        this->asteroids_view->init();
+        this->missiles_view->init();
     }
-
-    void handleAsteroids(Uint64 delta) {
-        // Spawn new asteroid
-        if (lastAsteroidSpawnTime + asteroidSpawnInterval < delta) {
-            this->lastAsteroidSpawnTime = delta;
-            Asteroid* asteroid = new Asteroid();
-            this->addObject(asteroid);
-            this->asteroids_list.push_back(asteroid);
-        }
-
-
-        // Update asteroids
-        for (auto asteroid : this->asteroids_list) {
-            asteroid->updateAsteroidPosition();
-
-            if (asteroid->isColliding(this->m_spaceship, COLLISION_OFFSET)) {
-                Logger::debug("Collision " + SDL_GetTicks());
-            }
-
-            if (asteroid->isOutOfScreen()) {
-                this->removeObject(asteroid);
-                this->asteroids_list.erase(
-                    std::remove(this->asteroids_list.begin(), this->asteroids_list.end(), asteroid),
-                    this->asteroids_list.end()
-                );
-                delete asteroid;
-            }
-
-            for (auto missile : this->missiles_list) {
-                if (asteroid->isColliding(missile, COLLISION_OFFSET)) {
-                    asteroid->destroyAsteroid();
-                    this->deleteMissile(missile);
-                }
-            }
-        }
-    }
-
 
     void onUpdate(Uint64 delta) override {
-        this->handleMissiles(delta);
-        this->handleAsteroids(delta);
+        if (this->is_game_over) {
+            return;
+        }
+
+        this->asteroids_view->update(delta);
+        this->missiles_view->update(delta, this->spaceship_view);
+
+        this->asteroids_view->isCollidingWithMissiles(this->missiles_view);
+        if (this->asteroids_view->isCollidingWithSpaceship(this->spaceship_view)) {
+            this->setGameOver();
+        }
     }
 };

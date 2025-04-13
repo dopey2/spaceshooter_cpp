@@ -2,12 +2,11 @@
 
 #include "../engine/__engine.h"
 
-class Asteroid : public View {
+class Asteroid : public WorldObject {
 public:
     std::vector<Sprite*> asteroid_parts;
     bool is_destroyed = 0;
     std::vector<std::pair<float, float>> parts_velocity;
-
 
     Asteroid() {
         int random_x_position = rand() % (Application::getInstance()->getWidth() - 50);
