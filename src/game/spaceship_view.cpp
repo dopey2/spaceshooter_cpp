@@ -82,6 +82,13 @@ public:
         }
 
         if (this->x_velocity != 0) {
+            if (
+                (this->x_velocity < 0 && *this->m_x + *this->m_width / 2 <= 0) ||
+                (this->x_velocity > 0 && *this->m_x + *this->m_width / 2 >= this->m_application->getWidth())
+            ) {
+                this->x_velocity = 0;
+                return;
+            }
             float new_x = *this->m_x + this->x_velocity;
             *this->m_x = new_x;
         }
