@@ -25,7 +25,6 @@ public:
     void update(Uint64 delta, MissilesView* missiles_view) {
         // Spawn new asteroid
         if (this->lastAsteroidSpawnTime + this->asteroidSpawnInterval < delta) {
-            std::cout << "Spawn asteroid" << std::endl;
             this->lastAsteroidSpawnTime = delta;
             Asteroid* asteroid = new Asteroid();
             this->addObject(asteroid);
