@@ -2,17 +2,46 @@
 
 #include "../engine/__engine.h"
 
+#define DISTANCE_PER_FRAME 1
+
 class Asteroid : public WorldObject {
+private:
+    float velocity_x = 0;
+    float velocity_y = 0;
+
+
 public:
     std::vector<Sprite*> asteroid_parts;
     bool is_destroyed = 0;
     std::vector<std::pair<float, float>> parts_velocity;
 
     Asteroid() {
-        int random_x_position = rand() % (Application::getInstance()->getWidth() - 50);
         *this->m_width = 50;
         *this->m_height = 50;
-        *this->m_x = random_x_position;
+
+        int max_x = Application::getInstance()->getWidth() - (int)*this->m_width;
+        int random_x_spawn_position = rand() % max_x;
+
+        int random_offset_target_x_position = (rand() % 200) - 60;
+        int random_x_target_position = random_x_spawn_position + random_offset_target_x_position;
+
+        if (random_x_target_position < 0) {
+            random_x_target_position = 0;
+        }
+        if (random_x_target_position > max_x) {
+            random_x_target_position = max_x;
+        }
+
+        float xdiff = random_x_spawn_position - random_x_target_position;
+        float ydiff = this->m_application->getHeight();
+        auto [length, degree] = Math::cartesianToPolar(xdiff, ydiff);
+        auto [step_x, step_y] = Math::polarToCartesian(DISTANCE_PER_FRAME, degree);
+        this->velocity_x = step_x;
+        this->velocity_y = step_y;
+
+
+
+        *this->m_x = random_x_spawn_position;
         *this->m_y = -50;
 
         for (int i = 1; i < 12; i++) {
@@ -34,7 +63,8 @@ public:
     }
 
     void updateAsteroidPosition() {
-        *this->m_y = *this->m_y + 1;
+        *this->m_x += this->velocity_x;
+        *this->m_y += this->velocity_y;
 
         if (this->is_destroyed) {
             for (int i = 0; i < 11; i++) {
