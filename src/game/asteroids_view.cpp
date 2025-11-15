@@ -43,6 +43,7 @@ public:
                     this->asteroids_list.end()
                 );
                 delete asteroid;
+                continue;
             }
 
             // check collision with missiles
