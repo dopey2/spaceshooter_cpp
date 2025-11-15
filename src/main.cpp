@@ -1,5 +1,4 @@
-#include "./engine/application.h"
-#include "./engine/assets_loader.h"
+#include "./engine/__engine.h"
 #include "./game/game_scene.cpp"
 #include "./game/menu_scene.cpp"
 

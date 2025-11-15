@@ -87,12 +87,10 @@ public:
         ) {
             if (abs(x_velocity) < VELOCITY_FRICTION) {
                 this->x_velocity = 0;
+            } else {
+                this->x_velocity -= (this->x_velocity / abs(this->x_velocity)) * VELOCITY_FRICTION;
             }
-            if (this->x_velocity > 0) {
-                this->x_velocity -= VELOCITY_FRICTION;
-            } else if (this->x_velocity < 0) {
-                this->x_velocity += VELOCITY_FRICTION;
-            }
+
         }
 
         if (this->x_velocity != 0) {

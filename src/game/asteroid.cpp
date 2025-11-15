@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../engine/__engine.h"
+#include "./math.cpp"
 
 #define DISTANCE_PER_FRAME 1
 
@@ -37,7 +38,7 @@ public:
         auto [length, degree] = Math::cartesianToPolar(xdiff, ydiff);
         auto [step_x, step_y] = Math::polarToCartesian(DISTANCE_PER_FRAME, degree);
         this->velocity_x = step_x;
-        this->velocity_y = step_y;
+        this->velocity_y = step_y * 2;
 
 
 
@@ -66,6 +67,10 @@ public:
         *this->m_x += this->velocity_x;
         *this->m_y += this->velocity_y;
 
+        for (int i = 0; i < 11; i++) {
+            *this->asteroid_parts[i]->m_rotation += 2;
+        }
+
         if (this->is_destroyed) {
             for (int i = 0; i < 11; i++) {
                 *this->asteroid_parts[i]->m_x += this->parts_velocity[i].first;
@@ -84,7 +89,10 @@ public:
         this->is_destroyed = true;
 
         for (int i = 0; i < 11; i++) {
-            parts_velocity.push_back({(rand() % 6) - 3, (rand() % 6) - 3});
+            float x_velocity = (rand() % 8) - 4;
+            float y_velocity = (rand() % 4) - 2;
+
+            parts_velocity.push_back({x_velocity, y_velocity});
         }
     }
 
