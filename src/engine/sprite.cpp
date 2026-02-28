@@ -35,18 +35,12 @@ void Sprite::load(SDL_Renderer *renderer) {
             (float)m_texture->h
         });
 
-        free(this->m_x);
-        free(this->m_y);
-        free(this->m_width);
-        free(this->m_height);
+        this->m_x = m_target_rect->x;
+        this->m_y = m_target_rect->y;
+        this->m_width = m_target_rect->w;
+        this->m_height = m_target_rect->h;
 
-        this->m_x = &m_target_rect->x;
-        this->m_y = &m_target_rect->y;
-        this->m_width = &m_target_rect->w;
-        this->m_height = &m_target_rect->h;
-
-        this->m_rotation = (float*) malloc(sizeof(float));
-        *this->m_rotation = 0;
+        this->m_rotation = 0;
     }
 }
 
@@ -55,19 +49,18 @@ void Sprite::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
         this->load(renderer);
     }
 
-    this->m_target_rect->x += parent_x;
-    this->m_target_rect->y += parent_y;
+    this->m_target_rect->x = this->m_x + parent_x;
+    this->m_target_rect->y = this->m_y + parent_y;
+    this->m_target_rect->w = this->m_width;
+    this->m_target_rect->h = this->m_width;
 
     SDL_RenderTextureRotated(
         renderer,
         this->m_texture,
         this->m_source_rect,
         this->m_target_rect,
-        *this->m_rotation,
+        this->m_rotation,
         NULL,
         SDL_FLIP_NONE
     );
-
-    this->m_target_rect->x -= parent_x;
-    this->m_target_rect->y -= parent_y;
 }

@@ -21,13 +21,13 @@ public:
         this->name = "missile_view";
 
         // view
-        *this->m_width = 60;
-        *this->m_height = 60;
+        this->m_width = 60;
+        this->m_height = 60;
 
         // spaceship sprite
         this->spaceship_sprite = new Sprite("../assets/img/hand_made_spaceship.bmp");
-        *this->spaceship_sprite->m_width = 60;
-        *this->spaceship_sprite->m_height = 60;
+        this->spaceship_sprite->m_width = 60;
+        this->spaceship_sprite->m_height = 60;
 
         // engine fire animation
         this->engine_fire_animations = new SpriteAnimation("../assets/img/fire_bullet_default.bmp");
@@ -35,11 +35,11 @@ public:
         this->engine_fire_animations->addFrameFromTexture(new SDL_FRect({432, 48, 16, 16}));
         this->engine_fire_animations->addFrameFromTexture(new SDL_FRect({448, 48, 16, 16}));
         this->engine_fire_animations->addFrameFromTexture(new SDL_FRect({464, 48, 16, 16}));
-        *this->engine_fire_animations->m_width = 16;
-        *this->engine_fire_animations->m_height = 16;
-        *this->engine_fire_animations->m_x = 22;
-        *this->engine_fire_animations->m_y = 60;
-        *this->engine_fire_animations->m_rotation = 270;
+        this->engine_fire_animations->m_width = 16;
+        this->engine_fire_animations->m_height = 16;
+        this->engine_fire_animations->m_x = 22;
+        this->engine_fire_animations->m_y = 60;
+        this->engine_fire_animations->m_rotation = 270;
 
         this->addObject(spaceship_sprite);
         this->addObject(engine_fire_animations);
@@ -49,7 +49,7 @@ public:
     }
 
     float getLaserTargetX() {
-        return *this->m_x + (*this->m_width / 2) + this->aim_laser->getTargetX();
+        return this->m_x + (this->m_width / 2) + this->aim_laser->getTargetX();
     }
 
     float getLaserTargetY() {
@@ -58,8 +58,8 @@ public:
 
     void init() {
         this->is_game_over = false;
-        *this->m_x = (this->m_application->getWidth() - 60) / 2;
-        *this->m_y = this->m_application->getHeight() - 90;
+        this->m_x = (this->m_application->getWidth() - 60) / 2;
+        this->m_y = this->m_application->getHeight() - 90;
     }
 
     void setGameOver(bool game_over) {
@@ -95,14 +95,14 @@ public:
 
         if (this->x_velocity != 0) {
             if (
-                (this->x_velocity < 0 && *this->m_x + *this->m_width / 2 <= 0) ||
-                (this->x_velocity > 0 && *this->m_x + *this->m_width / 2 >= this->m_application->getWidth())
+                (this->x_velocity < 0 && this->m_x + this->m_width / 2 <= 0) ||
+                (this->x_velocity > 0 && this->m_x + this->m_width / 2 >= this->m_application->getWidth())
             ) {
                 this->x_velocity = 0;
                 return;
             }
-            float new_x = *this->m_x + this->x_velocity;
-            *this->m_x = new_x;
+            float new_x = this->m_x + this->x_velocity;
+            this->m_x = new_x;
         }
     }
 };

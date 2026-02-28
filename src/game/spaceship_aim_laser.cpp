@@ -11,9 +11,9 @@ private:
 public:
     float getTargetX() { return this->target_x; }
 
-    void update(float *spaceship_y) {
+    void update(float spaceship_y) {
         float xdiff = this->target_x;
-        float ydiff = -*spaceship_y;
+        float ydiff = -spaceship_y;
         auto [length, degree] = Math::cartesianToPolar(xdiff, ydiff);
 
         if (MouseAndKeyboard::isKeyDown(SDLK_LEFT)) {

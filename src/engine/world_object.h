@@ -26,11 +26,11 @@ public:
     WorldObject* parent = nullptr;
     std::vector<WorldObject*> children;
 
-    float* m_x = nullptr;
-    float* m_y = nullptr;
-    float* m_width = nullptr;
-    float* m_height = nullptr;
-    float* m_rotation = nullptr;
+    float m_x;
+    float m_y;
+    float m_width;
+    float m_height;
+    float m_rotation;
 
     WorldObject();
     virtual ~WorldObject();

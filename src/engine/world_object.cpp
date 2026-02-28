@@ -5,20 +5,11 @@
 WorldObject::WorldObject() {
     this->m_application = Application::getInstance();
 
-    this->m_x = (float*) malloc(sizeof(float));
-    *this->m_x = 0;
-
-    this->m_y = (float*) malloc(sizeof(float));
-    *this->m_y = 0;
-
-    this->m_width = (float*) malloc(sizeof(float));
-    *this->m_width = 0;
-
-    this->m_height = (float*) malloc(sizeof(float));
-    *this->m_height = 0;
-
-    this->m_rotation = (float*) malloc(sizeof(float));
-    *this->m_rotation = 0;
+    this->m_x = 0;
+    this->m_y = 0;
+    this->m_width = 0;
+    this->m_height = 0;
+    this->m_rotation = 0;
 }
 
 
@@ -46,7 +37,7 @@ void WorldObject::load(SDL_Renderer *renderer) {}
 
 static void renderChildren(WorldObject* object, SDL_Renderer *renderer, float parent_x, float parent_y) {
     for (WorldObject* child : object->children) {
-        child->render(renderer, * object->m_x + parent_x, *object->m_y + parent_y);
+        child->render(renderer, object->m_x + parent_x, object->m_y + parent_y);
         renderChildren(child, renderer, parent_x, parent_y);
     }
 }
@@ -54,7 +45,7 @@ static void renderChildren(WorldObject* object, SDL_Renderer *renderer, float pa
 void WorldObject::callRender(SDL_Renderer *renderer, float parent_x, float parent_y) {
     this->render(renderer, parent_x, parent_y);
     for(WorldObject* object : this->children) {
-        object->render(renderer, *this->m_x + parent_x, *this->m_y + parent_y);
+        object->render(renderer, this->m_x + parent_x, this->m_y + parent_y);
         if (object->children.size() > 0) {
             renderChildren(object, renderer, parent_x, parent_y);
         }

@@ -38,10 +38,10 @@ void Text::setColor(SDL_Color *color) {
 }
 
 void Text::savePrevTransform() {
-    this->prev_x = *this->m_x;
-    this->prev_y = *this->m_y;
-    this->prev_width = *this->m_width;
-    this->prev_height = *this->m_height;
+    this->prev_x = this->m_x;
+    this->prev_y = this->m_y;
+    this->prev_width = this->m_width;
+    this->prev_height = this->m_height;
 }
 
 
@@ -83,25 +83,25 @@ void Text::load(SDL_Renderer *renderer) {
            texture_height
     });
 
-    this->m_x = &m_target_rect->x;
-    this->m_y = &m_target_rect->y;
-    this->m_width = &m_target_rect->w;
-    this->m_height = &m_target_rect->h;
+    this->m_x = m_target_rect->x;
+    this->m_y = m_target_rect->y;
+    this->m_width = m_target_rect->w;
+    this->m_height = m_target_rect->h;
 
     if (prev_x != std::numeric_limits<float>::infinity()) {
-        *this->m_x = prev_x;
+        this->m_x = prev_x;
     }
 
     if (prev_y != std::numeric_limits<float>::infinity()) {
-        *this->m_y = prev_y;
+        this->m_y = prev_y;
     }
 
     if (prev_width != -1) {
-        *this->m_width = prev_width;
+        this->m_width = prev_width;
     }
 
     if (prev_height != -1) {
-        *this->m_height = prev_height;
+        this->m_height = prev_height;
     }
 }
 
@@ -110,11 +110,8 @@ void Text::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
         this->load(renderer);
     }
 
-    this->m_target_rect->x += parent_x;
-    this->m_target_rect->y += parent_y;
+    this->m_target_rect->x = this->m_x + parent_x;
+    this->m_target_rect->y = this->m_y + parent_y;
 
     SDL_RenderTexture(renderer, texture, NULL, m_target_rect);
-
-    this->m_target_rect->x -= parent_x;
-    this->m_target_rect->y -= parent_y;
 }

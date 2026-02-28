@@ -20,8 +20,10 @@ void SpriteAnimation::render(SDL_Renderer *renderer, float parent_x, float paren
         this->load(renderer);
     }
 
-    this->m_target_rect->x += parent_x;
-    this->m_target_rect->y += parent_y;
+    this->m_target_rect->x = this->m_x + parent_x;
+    this->m_target_rect->y = this->m_y + parent_y;
+    this->m_target_rect->w = this->m_width;
+    this->m_target_rect->h = this->m_width;
 
     SDL_FRect* source_rect = this->frames.at(this->frame_index);
 
@@ -30,13 +32,10 @@ void SpriteAnimation::render(SDL_Renderer *renderer, float parent_x, float paren
         this->m_texture,
         source_rect,
         this->m_target_rect,
-        *this->m_rotation,
+        this->m_rotation,
         NULL,
         SDL_FLIP_NONE
     );
-
-    this->m_target_rect->x -= parent_x;
-    this->m_target_rect->y -= parent_y;
 
     int delta = SDL_GetTicks();
 

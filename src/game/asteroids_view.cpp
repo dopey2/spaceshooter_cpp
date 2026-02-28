@@ -58,7 +58,7 @@ public:
 
     bool isCollidingWithSpaceship(SpaceshipView* spaceship) {
         for (auto asteroid : this->asteroids_list) {
-            float additionalOffset = abs(*spaceship->m_x - *asteroid->m_x) / 2;
+            float additionalOffset = abs(spaceship->m_x - asteroid->m_x) / 2;
             if (asteroid->isColliding(spaceship, 8 + additionalOffset)) {
                 return true;
             }

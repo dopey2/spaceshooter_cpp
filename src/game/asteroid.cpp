@@ -17,10 +17,10 @@ public:
     std::vector<std::pair<float, float>> parts_velocity;
 
     Asteroid() {
-        *this->m_width = 50;
-        *this->m_height = 50;
+        this->m_width = 50;
+        this->m_height = 50;
 
-        int max_x = Application::getInstance()->getWidth() - (int)*this->m_width;
+        int max_x = Application::getInstance()->getWidth() - (int)this->m_width;
         int random_x_spawn_position = rand() % max_x;
 
         int random_offset_target_x_position = (rand() % 200) - 60;
@@ -42,14 +42,14 @@ public:
 
 
 
-        *this->m_x = random_x_spawn_position;
-        *this->m_y = -50;
+        this->m_x = random_x_spawn_position;
+        this->m_y = -50;
 
         for (int i = 1; i < 12; i++) {
             std::string part_path = "../assets/img/asteroid/variant_A/variant_A_" + std::to_string(i) + ".bmp";
             Sprite* part = new Sprite(part_path);
-            *part->m_width = 50;
-            *part->m_height = 50;
+            part->m_width = 50;
+            part->m_height = 50;
             this->asteroid_parts.push_back(part);
             this->addObject(part);
         }
@@ -64,17 +64,17 @@ public:
     }
 
     void updateAsteroidPosition() {
-        *this->m_x += this->velocity_x;
-        *this->m_y += this->velocity_y;
+        this->m_x += this->velocity_x;
+        this->m_y += this->velocity_y;
 
         for (int i = 0; i < 11; i++) {
-            *this->asteroid_parts[i]->m_rotation += 2;
+            this->asteroid_parts[i]->m_rotation += 2;
         }
 
         if (this->is_destroyed) {
             for (int i = 0; i < 11; i++) {
-                *this->asteroid_parts[i]->m_x += this->parts_velocity[i].first;
-                *this->asteroid_parts[i]->m_y += this->parts_velocity[i].second;
+                this->asteroid_parts[i]->m_x += this->parts_velocity[i].first;
+                this->asteroid_parts[i]->m_y += this->parts_velocity[i].second;
                 this->updateVelocity(this->parts_velocity[i].first);
                 this->updateVelocity(this->parts_velocity[i].second);
             }
@@ -97,7 +97,7 @@ public:
     }
 
     bool isOutOfScreen() {
-        return *this->m_y > Application::getInstance()->getHeight() * 2;
+        return this->m_y > Application::getInstance()->getHeight() * 2;
     }
 
     bool isColliding(WorldObject* object, int collision_offset = 0) {
@@ -106,10 +106,10 @@ public:
         }
 
         if (
-            *object->m_x + *object->m_width - collision_offset >= *this->m_x &&
-            *object->m_x + collision_offset <= *this->m_x + *this->m_width &&
-            *object->m_y + *object->m_height - collision_offset >= *this->m_y &&
-            *object->m_y + collision_offset <= *this->m_y + *this->m_height
+            object->m_x + object->m_width - collision_offset >= this->m_x &&
+            object->m_x + collision_offset <= this->m_x + this->m_width &&
+            object->m_y + object->m_height - collision_offset >= this->m_y &&
+            object->m_y + collision_offset <= this->m_y + this->m_height
         ) {
             return true;
         }
