@@ -13,6 +13,9 @@ Sprite::~Sprite() {
     if (this->m_texture != nullptr) {
         this->m_texture = nullptr;
     }
+
+    delete m_source_rect;
+    delete m_target_rect;
 }
 
 void Sprite::setAlpha(float alpha) {

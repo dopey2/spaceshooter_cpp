@@ -15,6 +15,8 @@ Text::Text(char *fontFilePath, char *text, float fontSize) {
 Text::~Text() {
     SDL_DestroyTexture(texture);
     texture = nullptr;
+    delete m_text_color;
+    delete m_target_rect;
 }
 
 void Text::setColor(SDL_Color *color) {

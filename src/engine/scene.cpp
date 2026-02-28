@@ -12,9 +12,9 @@ Scene::Scene(std::string key) {
 
 Scene::~Scene() {
     this->objects.clear();
-    // for(WorldObject* object: this->objects) {
-    //     delete object;
-    // }
+    for(WorldObject* object: this->objects) {
+        delete object;
+    }
 }
 
 void Scene::onUpdate(Uint64 delta) {}

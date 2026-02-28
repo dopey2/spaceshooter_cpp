@@ -23,9 +23,13 @@ Application::Application(const char *title, uint16_t width, uint16_t height) {
 Application::~Application() {
     m_instance = nullptr;
     SDL_DestroyWindow(_window);
+
     delete this->scene_manager;
     this->scene_manager = nullptr;
+
     AssetsLoaders::clearTexturesFromCache();
+
+    delete this->m_instance;
 }
 
 Application *Application::createInstance(const char *title, uint16_t width, uint16_t height) {

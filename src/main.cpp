@@ -16,5 +16,7 @@ int main() {
   application->scene_manager->addScene("menu", menu_scene);
   application->scene_manager->addScene("game", game_scene);
   application->run();
+  delete menu_scene;
+  delete game_scene;
   return 0;
 }

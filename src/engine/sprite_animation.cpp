@@ -3,6 +3,14 @@
 
 SpriteAnimation::SpriteAnimation(char* file_path) : Sprite(file_path) {}
 
+ SpriteAnimation::~SpriteAnimation() {
+    for (auto frame : this->frames) {
+        delete frame;
+    }
+    this->frames.clear();
+}
+
+
 void SpriteAnimation::addFrameFromTexture(SDL_FRect* source_rect) {
     this->frames.push_back(source_rect);
 }
