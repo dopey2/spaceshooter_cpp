@@ -25,12 +25,12 @@ public:
         this->m_height = 60;
 
         // spaceship sprite
-        this->spaceship_sprite = new Sprite("../assets/img/hand_made_spaceship.bmp");
+        this->spaceship_sprite = new Sprite(AssetsLoaders::getAsset("img/hand_made_spaceship.bmp"));
         this->spaceship_sprite->m_width = 60;
         this->spaceship_sprite->m_height = 60;
 
         // engine fire animation
-        this->engine_fire_animations = new SpriteAnimation("../assets/img/fire_bullet_default.bmp");
+        this->engine_fire_animations = new SpriteAnimation(AssetsLoaders::getAsset("img/fire_bullet_default.bmp"));
         this->engine_fire_animations->addFrameFromTexture(new SDL_FRect({416, 48, 16, 16}));
         this->engine_fire_animations->addFrameFromTexture(new SDL_FRect({432, 48, 16, 16}));
         this->engine_fire_animations->addFrameFromTexture(new SDL_FRect({448, 48, 16, 16}));

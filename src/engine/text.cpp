@@ -4,7 +4,7 @@
 #include "application.h"
 
 
-Text::Text(char *fontFilePath, char *text, float fontSize) {
+Text::Text(std::string fontFilePath, std::string text, float fontSize) {
     this->m_font_file_path = fontFilePath;
     this->m_text = text;
     this->m_font_size = fontSize;
@@ -49,14 +49,14 @@ void Text::savePrevTransform() {
 // must also be called every time a changes occurs in the text content or properties.
 // no need to be called if only x & y positions changes.
 void Text::load(SDL_Renderer *renderer) {
-    TTF_Font *font = TTF_OpenFont(this->m_font_file_path, m_font_size);
+    TTF_Font *font = TTF_OpenFont(this->m_font_file_path.c_str(), m_font_size);
 
     if (!font) {
         SDL_Log("Couldn't open font: %s\n", SDL_GetError());
     }
 
 
-    SDL_Surface *text_surface = TTF_RenderText_Blended(font, this->m_text, 0, *m_text_color);
+    SDL_Surface *text_surface = TTF_RenderText_Blended(font, this->m_text.c_str(), 0, *m_text_color);
 
     if (text_surface) {
         texture = SDL_CreateTextureFromSurface(renderer, text_surface);

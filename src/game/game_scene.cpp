@@ -14,7 +14,7 @@ private:
 
 public:
     GameScene() {
-        Sprite* background = new Sprite("../assets/img/bg.bmp");
+        Sprite* background = new Sprite(AssetsLoaders::getAsset("img/bg.bmp"));
         this->addObject(background);
 
         background->m_width = this->application->getWidth();

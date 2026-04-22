@@ -10,8 +10,8 @@ class Text : public WorldObject {
         using WorldObject::addObject;
         using WorldObject::removeObject;
 
-        char* m_font_file_path = nullptr;
-        char* m_text = nullptr;
+        std::string m_font_file_path;
+        std::string m_text;
         float m_font_size = 16;
         SDL_Color* m_text_color = nullptr;
         SDL_FRect *m_target_rect = nullptr;
@@ -25,7 +25,7 @@ class Text : public WorldObject {
         void savePrevTransform();
 
     public:
-        Text(char* fontFilePath, char* text, float fontSize);
+        Text(std::string fontFilePath, std::string text, float fontSize);
         ~Text();
         void setColor(SDL_Color *color);
         void load(SDL_Renderer* renderer);

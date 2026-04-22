@@ -46,8 +46,8 @@ public:
         this->m_y = -50;
 
         for (int i = 1; i < 12; i++) {
-            std::string part_path = "../assets/img/asteroid/variant_A/variant_A_" + std::to_string(i) + ".bmp";
-            Sprite* part = new Sprite(part_path);
+            std::string part_path = "./img/asteroid/variant_A/variant_A_" + std::to_string(i) + ".bmp";
+            Sprite* part = new Sprite(AssetsLoaders::getAsset(part_path));
             part->m_width = 50;
             part->m_height = 50;
             this->asteroid_parts.push_back(part);

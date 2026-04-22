@@ -68,4 +68,10 @@ namespace AssetsLoaders {
             textures_by_path.erase(it);
         }
     }
+
+    std::string getAsset(const std::string filePath) {
+        const char* base = SDL_GetBasePath();
+        return std::string(base) + "../../assets/" + filePath;
+    }
+
 }

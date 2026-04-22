@@ -13,7 +13,7 @@ private:
     uint16_t last_update_time = 0;
 
 public:
-    SpriteAnimation(char* file_path);
+    SpriteAnimation(std::string file_path);
     ~SpriteAnimation();
     void addFrameFromTexture(SDL_FRect* source_rect);
     void render(SDL_Renderer *renderer, float parent_x, float parent_y);

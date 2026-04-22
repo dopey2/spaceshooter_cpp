@@ -12,7 +12,7 @@ private:
     float velocity_y = 0;
 
 public:
-    SpaceshipMissile() : SpriteAnimation("../assets/img/fire_bullet_blue.bmp") {
+    SpaceshipMissile() : SpriteAnimation(AssetsLoaders::getAsset("img/fire_bullet_blue.bmp")) {
         this->m_width = 16;
         this->m_height = 16;
         this->m_x = 0;

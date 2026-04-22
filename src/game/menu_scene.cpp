@@ -17,9 +17,9 @@ private:
 
 public:
     MenuScene() {
-        this->menu__play_button = new Text("../assets/font/Arial.ttf", "Play", 24);
-        this->menu__settings_button = new Text("../assets/font/Arial.ttf", "Settings", 24);
-        this->menu__quit_button = new Text("../assets/font/Arial.ttf", "Quit", 24);
+        this->menu__play_button = new Text(AssetsLoaders::getAsset("font/Arial.ttf"), "Play", 24);
+        this->menu__settings_button = new Text(AssetsLoaders::getAsset("font/Arial.ttf"), "Settings", 24);
+        this->menu__quit_button = new Text(AssetsLoaders::getAsset("font/Arial.ttf"), "Quit", 24);
 
         this->addObject(menu__play_button);
         this->addObject(menu__settings_button);

@@ -1,7 +1,7 @@
 #include "sprite_animation.h"
 
 
-SpriteAnimation::SpriteAnimation(char* file_path) : Sprite(file_path) {}
+SpriteAnimation::SpriteAnimation(std::string file_path) : Sprite(file_path) {}
 
  SpriteAnimation::~SpriteAnimation() {
     for (auto frame : this->frames) {
