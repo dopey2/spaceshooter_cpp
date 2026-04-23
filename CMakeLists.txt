@@ -26,4 +26,13 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     SDL3_ttf::SDL3_ttf
 )
 
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
+target_compile_options(${PROJECT_NAME} PRIVATE
+    -Wall -Wextra -Wpedantic
+    -Wshadow -Wconversion -Wsign-conversion
+    -Wold-style-cast -Wnull-dereference
+)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_options(${PROJECT_NAME} PRIVATE -fsanitize=address,undefined)
+    target_link_options(${PROJECT_NAME} PRIVATE -fsanitize=address,undefined)
+endif()
