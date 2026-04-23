@@ -44,7 +44,7 @@ Application *Application::getInstance() { return m_instance; }
 
 void Application::initSDL() {
 
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if (!SDL_Init(SDL_INIT_VIDEO)) {
         Logger::error("Application: SDL could not initialize !");
         Logger::error("SDL_Error: " + (std::string)SDL_GetError());
     }
