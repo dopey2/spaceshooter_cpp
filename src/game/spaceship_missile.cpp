@@ -4,10 +4,10 @@
 #include "math.cpp"
 
 
-#define DISTANCE_PER_FRAME 3
 
 class SpaceshipMissile : public SpriteAnimation {
 private:
+    static constexpr int distance_per_frame = 3;
     float velocity_x = 0;
     float velocity_y = 0;
 
@@ -28,7 +28,7 @@ public:
         float xdiff = target_x - this->m_x - this->m_width / 2;
         float ydiff = target_y - this->m_y;
         auto [length, degree] = Math::cartesianToPolar(xdiff, ydiff);
-        auto [step_x, step_y] = Math::polarToCartesian(DISTANCE_PER_FRAME, degree);
+        auto [step_x, step_y] = Math::polarToCartesian(distance_per_frame, degree);
         this->velocity_x = step_x;
         this->velocity_y = step_y;
     }
