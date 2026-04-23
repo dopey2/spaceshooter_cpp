@@ -22,7 +22,7 @@ protected:
 public:
     Scene();
     Scene(std::string key);
-    ~Scene();
+    virtual ~Scene();
     void addObject(WorldObject* object);
     void removeObject(WorldObject* object);
 };
