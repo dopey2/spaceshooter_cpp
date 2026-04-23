@@ -66,7 +66,7 @@ public:
         this->is_game_over = game_over;
     }
 
-    void onUpdate(Uint64 delta) override {
+    void onUpdate(Uint64) override {
         if (this->is_game_over) {
             return;
         }

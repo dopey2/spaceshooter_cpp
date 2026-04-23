@@ -17,9 +17,6 @@ Scene::~Scene() {
     }
 }
 
-void Scene::onUpdate(Uint64 delta) {}
-void Scene::onActive() {}
-
 void Scene::addObject(WorldObject* object) {
     this->objects.push_back(object);
 }
@@ -50,3 +47,9 @@ void Scene::renderAllObjects(SDL_Renderer* renderer) {
 
     SDL_RenderPresent(renderer);
 }
+
+
+/** Base class, no implementation, leave empty */
+void Scene::onUpdate(Uint64) {}
+/** Base class, no implementation, leave empty */
+void Scene::onActive() {}

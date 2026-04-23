@@ -33,7 +33,7 @@ public:
         this->velocity_y = step_y;
     }
 
-    void onUpdate(Uint64 delta) override {
+    void onUpdate(Uint64) override {
         this->m_y += this->velocity_y;
         this->m_x += this->velocity_x;
     }

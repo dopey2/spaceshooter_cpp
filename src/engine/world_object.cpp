@@ -33,8 +33,6 @@ void WorldObject::removeObject(WorldObject* object) {
     }
 }
 
-void WorldObject::load(SDL_Renderer *renderer) {}
-
 static void renderChildren(WorldObject* object, SDL_Renderer *renderer, float parent_x, float parent_y) {
     for (WorldObject* child : object->children) {
         child->render(renderer, object->m_x + parent_x, object->m_y + parent_y);
@@ -69,5 +67,9 @@ void WorldObject::callUpdateCallback(Uint64 delta) {
     }
 }
 
-void WorldObject::render(SDL_Renderer *renderer, float parent_x, float parent_y) {}
-void WorldObject::onUpdate(Uint64 delta) {}
+/** Base class, no implementation, leave empty */
+void WorldObject::load(SDL_Renderer*) {}
+/** Base class, no implementation, leave empty */
+void WorldObject::render(SDL_Renderer*, float, float) {}
+/** Base class, no implementation, leave empty */
+void WorldObject::onUpdate(Uint64) {}
