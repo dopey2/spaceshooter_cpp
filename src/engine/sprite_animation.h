@@ -10,7 +10,8 @@ private:
     std::vector<SDL_FRect*> frames;
     uint16_t frame_index = 0;
     uint16_t frame_update_interval = 50;
-    uint64_t last_update_time = 0;
+    // Use Uint64 from SDL, this is an SDL driven value
+    Uint64 last_update_time = 0;
 
 public:
     SpriteAnimation(std::string file_path);
