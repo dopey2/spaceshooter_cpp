@@ -3,9 +3,9 @@
 #include <utility>
 #include <math.h>
 
-#define PI 3.14159274101257324219
-
 class Math {
+private:
+    static constexpr float PI = 3.14159274101257324219;    
 public:
     static float degToRadian(float deg) {
         return deg * PI / 180;

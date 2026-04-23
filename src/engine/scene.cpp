@@ -22,7 +22,7 @@ void Scene::addObject(WorldObject* object) {
 }
 
 void Scene::removeObject(WorldObject* object) {
-    int i = 0;
+    size_t i = 0;
     for (auto iterator = this->objects.begin(); iterator != this->objects.end(); iterator++, i++) {
         if (objects.at(i) == object) {
             objects.erase(iterator);

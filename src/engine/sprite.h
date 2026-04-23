@@ -18,7 +18,7 @@ protected:
     SDL_FRect *m_source_rect = nullptr;
     // Describe the object position & size for rendering
     SDL_FRect *m_target_rect = nullptr;
-    float alpha = 1;
+    float m_alpha = 1;
 
 public:
     Sprite(std::string bmpFilePath);

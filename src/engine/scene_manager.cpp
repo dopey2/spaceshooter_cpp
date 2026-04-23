@@ -7,7 +7,7 @@ SceneManager::SceneManager(SDL_Window* window) {
 
     if (renderer == nullptr) {
         Logger::error("SceneManager: Renderer could not be created !");
-        Logger::error("SDL_Error: " + (std::string)SDL_GetError());
+        Logger::error("SDL_Error: " + static_cast<std::string>(SDL_GetError()));
         SDL_DestroyWindow(window);
         SDL_Quit();
     }
@@ -49,14 +49,16 @@ Scene* SceneManager::getActiveScene() {
 
 void SceneManager::setActiveScene(std::string key) {
     this->active_scene = key;
-    Scene* active_scene = this->getActiveScene();
-    active_scene->onActive();
+    Scene* scene = this->getActiveScene();
+    if(scene != nullptr) {
+        scene->onActive();
+    }
 }
 
 void SceneManager::callOnUpdateCallback(Uint64 delta) {
-    Scene* activeScene = this->getActiveScene();
-    if (activeScene != nullptr) {
-        activeScene->callOnUpdateCallback(delta);
+    Scene* scene = this->getActiveScene();
+    if (scene != nullptr) {
+        scene->callOnUpdateCallback(delta);
     }
 }
 

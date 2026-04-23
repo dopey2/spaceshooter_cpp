@@ -37,7 +37,7 @@ void SpriteAnimation::render(SDL_Renderer *renderer, float parent_x, float paren
         SDL_FLIP_NONE
     );
 
-    int delta = SDL_GetTicks();
+    Uint64 delta = SDL_GetTicks();
 
     if(delta > this->last_update_time + this->frame_update_interval) {
         this->frame_index++;

@@ -3,12 +3,14 @@
 #include "../engine/__engine.h"
 #include "spaceship_aim_laser.cpp"
 
-#define MAX_VELOCITY 5
-#define VELOCITY_STEP 0.1
-#define VELOCITY_FRICTION 0.1
-
 class SpaceshipView : public WorldObject {
 private:
+    // constants
+    static constexpr int MAX_VELOCITY = 5;
+    static constexpr float VELOCITY_STEP = 0.1f;
+    static constexpr float VELOCITY_FRICTION = 0.1f;
+
+
     bool is_game_over = false;
     float x_velocity = 0;
 
@@ -58,8 +60,8 @@ public:
 
     void init() {
         this->is_game_over = false;
-        this->m_x = (this->m_application->getWidth() - 60) / 2;
-        this->m_y = this->m_application->getHeight() - 90;
+        this->m_x = static_cast<float>((this->m_application->getWidth() - 60) / 2);
+        this->m_y = static_cast<float>(this->m_application->getHeight() - 90);
     }
 
     void setGameOver(bool game_over) {

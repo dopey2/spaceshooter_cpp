@@ -46,12 +46,12 @@ void Application::initSDL() {
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         Logger::error("Application: SDL could not initialize !");
-        Logger::error("SDL_Error: " + (std::string)SDL_GetError());
+        Logger::error("SDL_Error: " + static_cast<std::string>(SDL_GetError()));
     }
 
     if (!TTF_Init()) {
         Logger::error("Application: SDL could not initialize SDL_TTF!");
-        Logger::error("SDL_Error: " + (std::string)SDL_GetError());
+        Logger::error("SDL_Error: " + static_cast<std::string>(SDL_GetError()));
     }
 }
 
@@ -59,7 +59,7 @@ void Application::initWindow() {
     this->_window = SDL_CreateWindow(this->m_title, this->m_width, this->m_height, SDL_WINDOW_OPENGL);
     if (this->_window == NULL) {
         Logger::error("Application: Window could not be created !");
-        Logger::error("SDL_Error: " + (std::string)SDL_GetError());
+        Logger::error("SDL_Error: " + static_cast<std::string>(SDL_GetError()));
     }
 }
 
@@ -73,7 +73,7 @@ void Application::run() {
     while (this->m_is_running) {
         SDL_Event event;
 
-        float start_work_delta = SDL_GetTicks();
+        Uint64 start_work_delta = SDL_GetTicks();
 
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) {
@@ -87,8 +87,8 @@ void Application::run() {
             } else if (event.type == SDL_EVENT_KEY_UP) {
                 MouseAndKeyboard::onKeyUp(event.key.key);
             } else if (event.type == SDL_EVENT_MOUSE_MOTION) {
-                *MouseAndKeyboard::mouse_x = event.motion.x;
-                *MouseAndKeyboard::mouse_y = event.motion.y;
+                *MouseAndKeyboard::mouse_x = static_cast<int>(event.motion.x);
+                *MouseAndKeyboard::mouse_y = static_cast<int>(event.motion.y);
             }
         }
 
@@ -101,11 +101,12 @@ void Application::run() {
             }
 
             this->scene_manager->renderScene();
-            float work_duration = SDL_GetTicks() - start_work_delta;
+            Uint64 work_duration = static_cast<Uint64>(SDL_GetTicks() - start_work_delta);
             if (work_duration > INTERVAL_BETWEEN_DRAWS_CALL) {
                 work_duration = INTERVAL_BETWEEN_DRAWS_CALL;
             }
-            SDL_Delay(INTERVAL_BETWEEN_DRAWS_CALL - work_duration);
+            const Uint32 delay = static_cast<Uint32>(INTERVAL_BETWEEN_DRAWS_CALL - work_duration);
+            SDL_Delay(delay);
         }
     }
 

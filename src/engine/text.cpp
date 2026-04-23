@@ -77,8 +77,8 @@ void Text::load(SDL_Renderer *renderer) {
     SDL_GetTextureSize(texture, &texture_width, &texture_height);
 
     this->m_target_rect = new SDL_FRect({
-           (renderer_w - texture_width) / 2,
-           (renderer_h - texture_height) / 2,
+           (static_cast<float>(renderer_w) - texture_width) / 2,
+           (static_cast<float>(renderer_h) - texture_height) / 2,
            texture_width,
            texture_height
     });

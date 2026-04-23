@@ -24,7 +24,7 @@ void WorldObject::addObject(WorldObject* object) {
 }
 
 void WorldObject::removeObject(WorldObject* object) {
-    int i = 0;
+    size_t i = 0;
     for (auto iterator = this->children.begin(); iterator != this->children.end(); iterator++, i++) {
         if (children.at(i) == object) {
             children.erase(iterator);

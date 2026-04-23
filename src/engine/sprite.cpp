@@ -19,20 +19,20 @@ Sprite::~Sprite() {
 }
 
 void Sprite::setAlpha(float alpha) {
-    this->alpha = alpha;
-    SDL_SetTextureAlphaMod(this->m_texture, this->alpha * 255);
+    this->m_alpha = alpha;
+    SDL_SetTextureAlphaMod(this->m_texture, static_cast<Uint8>(this->m_alpha * 255));
 }
 
 void Sprite::load(SDL_Renderer *renderer) {
     if (this->m_texture == nullptr) {
         this->m_texture = AssetsLoaders::loadTexture(renderer, m_bmp_file_path);
-        SDL_SetTextureAlphaMod(this->m_texture, this->alpha * 255);
+        SDL_SetTextureAlphaMod(this->m_texture, static_cast<Uint8>(this->m_alpha * 255));
 
         m_target_rect = new SDL_FRect({
             0,
             0,
-            (float)m_texture->w,
-            (float)m_texture->h
+            static_cast<float>(m_texture->w),
+            static_cast<float>(m_texture->h)
         });
 
         this->m_x = m_target_rect->x;

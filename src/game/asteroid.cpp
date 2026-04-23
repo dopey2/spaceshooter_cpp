@@ -20,7 +20,7 @@ public:
         this->m_width = 50;
         this->m_height = 50;
 
-        int max_x = Application::getInstance()->getWidth() - (int)this->m_width;
+        int max_x = Application::getInstance()->getWidth() - static_cast<int>(this->m_width);
         int random_x_spawn_position = rand() % max_x;
 
         int random_offset_target_x_position = (rand() % 200) - 60;
@@ -33,7 +33,7 @@ public:
             random_x_target_position = max_x;
         }
 
-        float xdiff = random_x_spawn_position - random_x_target_position;
+        float xdiff = static_cast<float>(random_x_spawn_position - random_x_target_position);
         float ydiff = this->m_application->getHeight();
         auto [length, degree] = Math::cartesianToPolar(xdiff, ydiff);
         auto [step_x, step_y] = Math::polarToCartesian(distance_per_frame, degree);
@@ -42,7 +42,7 @@ public:
 
 
 
-        this->m_x = random_x_spawn_position;
+        this->m_x = static_cast<float>(random_x_spawn_position);
         this->m_y = -50;
 
         for (int i = 1; i < 12; i++) {
@@ -60,19 +60,19 @@ public:
             velocity = 0;
         }
 
-        velocity *= 0.985;
+        velocity *= 0.985f;
     }
 
     void updateAsteroidPosition() {
         this->m_x += this->velocity_x;
         this->m_y += this->velocity_y;
 
-        for (int i = 0; i < 11; i++) {
+        for (size_t i = 0; i < 11; i++) {
             this->asteroid_parts[i]->m_rotation += 2;
         }
 
         if (this->is_destroyed) {
-            for (int i = 0; i < 11; i++) {
+            for (size_t i = 0; i < 11; i++) {
                 this->asteroid_parts[i]->m_x += this->parts_velocity[i].first;
                 this->asteroid_parts[i]->m_y += this->parts_velocity[i].second;
                 this->updateVelocity(this->parts_velocity[i].first);
@@ -89,8 +89,8 @@ public:
         this->is_destroyed = true;
 
         for (int i = 0; i < 11; i++) {
-            float x_velocity = (rand() % 8) - 4;
-            float y_velocity = (rand() % 4) - 2;
+            float x_velocity = static_cast<float>((rand() % 8) - 4);
+            float y_velocity = static_cast<float>((rand() % 4) - 2);
 
             parts_velocity.push_back({x_velocity, y_velocity});
         }
@@ -100,7 +100,7 @@ public:
         return this->m_y > Application::getInstance()->getHeight() * 2;
     }
 
-    bool isColliding(WorldObject* object, int collision_offset = 0) {
+    bool isColliding(WorldObject* object, float collision_offset = 0) {
         if (this->is_destroyed) {
             return false;
         }
