@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../engine/__engine.h"
+#include "engine/__engine.h"
 #include "./asteroid.hpp"
 #include "../spaceship/spaceship_view.hpp"
 #include "../spaceship/missiles_view.hpp"

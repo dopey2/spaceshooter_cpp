@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../engine/__engine.h"
+#include "engine/__engine.h"
 #include "./spaceship_missile.hpp"
 
 class MissilesView : public WorldObject {
