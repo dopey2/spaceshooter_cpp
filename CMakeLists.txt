@@ -7,24 +7,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(SDL3 REQUIRED)
 find_package(SDL3_ttf REQUIRED)
 
-add_executable(${PROJECT_NAME}
-        src/main.cpp
-        src/engine/application.cpp
-        src/engine/scene.cpp
-        src/engine/scene_manager.cpp
-        src/engine/sprite.cpp
-        src/engine/sprite_animation.cpp
-        src/engine/world_object.cpp
-        src/engine/text.cpp
-        src/engine/assets_loader.cpp
-        src/engine/mouse_keyboard.cpp
-        src/engine/logger.cpp
-)
+add_subdirectory(src/engine)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-    SDL3::SDL3
-    SDL3_ttf::SDL3_ttf
-)
+add_executable(${PROJECT_NAME} src/main.cpp)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE engine)
 
 target_compile_options(${PROJECT_NAME} PRIVATE
     -Wall -Wextra -Wpedantic
