@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../../../engine/__engine.h"
-#include "./asteroid.cpp"
-#include "../spaceship/spaceship_view.cpp"
-#include "../spaceship/missiles_view.cpp"
+#include "./asteroid.hpp"
+#include "../spaceship/spaceship_view.hpp"
+#include "../spaceship/missiles_view.hpp"
 
 class AsteroidsView : public WorldObject {
 private:

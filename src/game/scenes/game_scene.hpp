@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../../engine/__engine.h"
-#include "../world_objects/spaceship/spaceship_view.cpp"
-#include "../world_objects/spaceship/missiles_view.cpp"
-#include "../world_objects/asteroids/asteroids_view.cpp"
+#include "../world_objects/spaceship/spaceship_view.hpp"
+#include "../world_objects/spaceship/missiles_view.hpp"
+#include "../world_objects/asteroids/asteroids_view.hpp"
 
 
 

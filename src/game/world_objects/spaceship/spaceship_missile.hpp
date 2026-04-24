@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../../engine/__engine.h"
-#include "../../misc/math.cpp"
+#include "../../misc/math.hpp"
 
 
 

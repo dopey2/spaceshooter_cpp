@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../../engine/__engine.h"
-#include "./spaceship_aim_laser.cpp"
+#include "./spaceship_aim_laser.hpp"
 
 class SpaceshipView : public WorldObject {
 private:
