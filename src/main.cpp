@@ -1,6 +1,6 @@
 #include "./engine/__engine.h"
-#include "./game/game_scene.cpp"
-#include "./game/menu_scene.cpp"
+#include "./game/scenes/game_scene.cpp"
+#include "./game/scenes/menu_scene.cpp"
 
 int main() {
   Application* application = Application::createInstance("Spaceship", 800, 600);

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../engine/__engine.h"
-#include "spaceship_missile.cpp"
+#include "../../../engine/__engine.h"
+#include "./spaceship_missile.cpp"
 
 class MissilesView : public WorldObject {
     Uint64 lastMissileSpawnTime = 0;

@@ -1,5 +1,5 @@
-#include "../engine/__engine.h"
-#include "math.cpp"
+#include "../../../engine/__engine.h"
+#include "../../misc/math.cpp"
 
 #define spaceship_w 60
 
