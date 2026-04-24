@@ -2,3 +2,5 @@ build
 cmake-build-debug
 .idea
 .clangd
+
+draft
