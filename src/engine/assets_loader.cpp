@@ -27,16 +27,11 @@ namespace AssetsLoaders {
         textures_by_path[bmpFilePath] = texture;
     }
 
-    bool hasTextureInCache(const std::string bmpFilePath) {
-        auto iterator = textures_by_path.find(bmpFilePath);
-        return iterator != textures_by_path.end();
-    }
-
     SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string bmpFilePath) {
-        if (hasTextureInCache(bmpFilePath)) {
-            // if the texture was already loaded return it from cache
+        SDL_Texture* cachedTexture = getTextureFromCache(bmpFilePath);
+        if (cachedTexture != nullptr) {
             Logger::debug("AssetsLoader: Loading texture from cache (" + bmpFilePath + ")");
-            return getTextureFromCache(bmpFilePath);
+            return cachedTexture;
         }
 
         SDL_Surface* bmp = nullptr;
