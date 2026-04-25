@@ -34,12 +34,19 @@ Add `VCPKG_ROOT` to your shell config (`~/.zshrc` or `~/.bashrc`):
 
 ```bash
 export VCPKG_ROOT=~/vcpkg
+export PATH="$VCPKG_ROOT:$PATH"
 ```
 
 Reload your shell:
 
 ```bash
 source ~/.zshrc   # or ~/.bashrc
+```
+
+Verify vcpkg is working:
+
+```bash
+vcpkg --version
 ```
 
 ---
