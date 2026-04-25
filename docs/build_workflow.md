@@ -49,10 +49,23 @@
 ### Cross-platform Build Commands
 
 ```
-       Command                                Binary
-  ┌───────────────┐        Produce        ┌─────────────┐
-  │ $: make build │  ──────────────────►  │  Spaceship  │
-  └───────────────┘                       └─────────────┘
+       Command                            
+  ┌───────────────┐    build/output folder   ┌────────────────────────────┐
+  │ $: make build │─────────────────────────►│  ┌───────────┐             │
+  └───────────────┘                          │  │ Spaceship │ // binary   │
+                 │                           │  └───────────┘             │
+                 │                           │  ┌───────────────────────┐ │
+                 │                           │  │ compile_commands.json │ │ // compile flags per source file
+                 │                           │  └───────────────────────┘ │
+                 │                           │      ▲                     │
+                 │                           │      │                     │
+                 │                           └────────────────────────────┘
+                 │                                  │ references
+                 │                                  │
+                 │                                  │ 
+                 │                           ┌─────────────┐
+                 └──────────────────────────►│  .clangd    │
+                 IDE language server config  └─────────────┘
 ```
 
 The command  `make build` work on both linux and macOS by resolving the CMake preset based on the OS in the `Makefile`.
