@@ -11,7 +11,7 @@
             │
             ▼
     ┌──────────────────────────────────────────┐
-    │    cmake                                 │ ← generates platform-specific build files (Makefiles)
+    │    cmake                                 │ ◄── generates platform-specific build files (Makefiles)
     │                                          │
     │    loads vcpkg toolchain                 │
     │         │                                │
@@ -29,17 +29,17 @@
             │
             ▼
     ┌──────────────┐
-    │     make     │  reads the generated Makefiles and calls the compiler
+    │     make     │  ◄── reads the generated Makefiles and calls the compiler
     └──────────────┘
             │
             ▼
     ┌──────────────┐
-    │  clang / g++ │  compiles .cpp files into object files, then links them
+    │  clang / g++ │  ◄── compiles .cpp files into object files, then links them
     └──────────────┘
             │   
             │ 
             ▼
-       App Binary →
+       App Binary ──►
                        - build/linux-debug/Spaceship     
                        - build/macos-debug/Spaceship     
 ```
@@ -51,7 +51,7 @@
 ```
        Command                                Binary
   ┌───────────────┐        Produce        ┌─────────────┐
-  │ $: make build │  ──────────────────→  │  Spaceship  │
+  │ $: make build │  ──────────────────►  │  Spaceship  │
   └───────────────┘                       └─────────────┘
 ```
 
@@ -60,8 +60,8 @@ The command  `make build` work on both linux and macOS by resolving the CMake pr
 ```
   uname -s
       │
-      ├── Darwin  →  PRESET_DEBUG = macos-debug  /  PRESET_RELEASE = macos-release
-      └── Linux   →  PRESET_DEBUG = linux-debug  /  PRESET_RELEASE = linux-release
+      ├── Darwin  ─►  PRESET_DEBUG = macos-debug  /  PRESET_RELEASE = macos-release
+      └── Linux   ─►  PRESET_DEBUG = linux-debug  /  PRESET_RELEASE = linux-release
                               │
                               ▼
                    cmake --preset $(PRESET_DEBUG)
