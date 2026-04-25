@@ -1,7 +1,7 @@
 #pragma once
 
+#include <algorithm>
 #include <vector>
-#include <bits/stdc++.h>
 #include <SDL3/SDL.h>
 
 

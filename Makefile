@@ -1,7 +1,17 @@
 .PHONY: help build build-release test lint run run-release clean
 
-BUILD_DEBUG   := build/linux-debug
-BUILD_RELEASE := build/linux-release
+OS := $(shell uname -s)
+
+ifeq ($(OS), Darwin)
+  PRESET_DEBUG   := macos-debug
+  PRESET_RELEASE := macos-release
+else
+  PRESET_DEBUG   := linux-debug
+  PRESET_RELEASE := linux-release
+endif
+
+BUILD_DEBUG   := build/$(PRESET_DEBUG)
+BUILD_RELEASE := build/$(PRESET_RELEASE)
 BIN           := Spaceship
 
 help:
@@ -14,12 +24,12 @@ help:
 	@echo "clean         - remove build directories"
 
 build:
-	cmake --preset linux-debug
-	cmake --build --preset linux-debug
+	cmake --preset $(PRESET_DEBUG)
+	cmake --build --preset $(PRESET_DEBUG)
 
 build-release:
-	cmake --preset linux-release
-	cmake --build --preset linux-release
+	cmake --preset $(PRESET_RELEASE)
+	cmake --build --preset $(PRESET_RELEASE)
 
 test: build
 	ctest --test-dir $(BUILD_DEBUG) --output-on-failure
