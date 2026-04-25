@@ -60,18 +60,16 @@ namespace AssetsLoaders {
     }
 
     void clearTexturesFromCache() {
-        for (auto it = textures_by_path.begin(); it != textures_by_path.end(); it++)
-        {
-            if(it->second != nullptr) {
-                SDL_DestroyTexture(it->second);
+        for (auto & it : textures_by_path) {
+            if(it.second != nullptr) {
+                SDL_DestroyTexture(it.second);
             }
-            textures_by_path.erase(it);
         }
+        textures_by_path.clear();
     }
 
     std::string getAsset(const std::string filePath) {
         const char* base = SDL_GetBasePath();
         return std::string(base) + "../../assets/" + filePath;
     }
-
 }
