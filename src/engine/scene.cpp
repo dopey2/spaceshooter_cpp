@@ -11,10 +11,10 @@ Scene::Scene(std::string key) {
 }
 
 Scene::~Scene() {
-    this->objects.clear();
     for(WorldObject* object: this->objects) {
         delete object;
     }
+    this->objects.clear();
 }
 
 void Scene::addObject(WorldObject* object) {
