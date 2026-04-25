@@ -10,8 +10,8 @@ private:
     Text* menu__settings_button = nullptr;
     Text* menu__quit_button = nullptr;
 
-    SDL_Color* selected_color = new SDL_Color({200, 50, 50, SDL_ALPHA_OPAQUE});
-    SDL_Color* unselected_color = new SDL_Color({255, 255, 255, SDL_ALPHA_OPAQUE});
+    SDL_Color selected_color = {200, 50, 50, SDL_ALPHA_OPAQUE};
+    SDL_Color unselected_color = {255, 255, 255, SDL_ALPHA_OPAQUE};
 
     int8_t menu_choice = MENU_PLAY;
 
@@ -64,9 +64,9 @@ public:
     };
 
     void updateButtons() {
-        SDL_Color* menu_play_color = this->menu_choice == MENU_PLAY ? this->selected_color : this->unselected_color;
-        SDL_Color* menu_settings_color = this->menu_choice == MENU_SETTINGS ? this->selected_color : this->unselected_color;
-        SDL_Color* menu_quit_color = this->menu_choice == MENU_QUIT ? this->selected_color : this->unselected_color;
+        SDL_Color menu_play_color = this->menu_choice == MENU_PLAY ? this->selected_color : this->unselected_color;
+        SDL_Color menu_settings_color = this->menu_choice == MENU_SETTINGS ? this->selected_color : this->unselected_color;
+        SDL_Color menu_quit_color = this->menu_choice == MENU_QUIT ? this->selected_color : this->unselected_color;
 
         this->menu__play_button->setColor(menu_play_color);
         this->menu__settings_button->setColor(menu_settings_color);

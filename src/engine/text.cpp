@@ -8,23 +8,22 @@ Text::Text(std::string fontFilePath, std::string text, float fontSize) {
     this->m_font_file_path = fontFilePath;
     this->m_text = text;
     this->m_font_size = fontSize;
-    this->m_text_color = new SDL_Color({255, 255, 255, SDL_ALPHA_OPAQUE});
+    this->m_text_color = {255, 255, 255, SDL_ALPHA_OPAQUE};
     this->load(m_application->scene_manager->getRenderer());
 }
 
 Text::~Text() {
     SDL_DestroyTexture(texture);
     texture = nullptr;
-    delete m_text_color;
     delete m_target_rect;
 }
 
-void Text::setColor(SDL_Color *color) {
+void Text::setColor(SDL_Color color) {
     if (
-        this->m_text_color->a == color->a &&
-        this->m_text_color->r == color->r &&
-        this->m_text_color->g == color->g &&
-        this->m_text_color->b == color->b) {
+        this->m_text_color.a == color.a &&
+        this->m_text_color.r == color.r &&
+        this->m_text_color.g == color.g &&
+        this->m_text_color.b == color.b) {
         return;
     }
 
@@ -56,7 +55,7 @@ void Text::load(SDL_Renderer *renderer) {
     }
 
 
-    SDL_Surface *text_surface = TTF_RenderText_Blended(font, this->m_text.c_str(), 0, *m_text_color);
+    SDL_Surface *text_surface = TTF_RenderText_Blended(font, this->m_text.c_str(), 0, m_text_color);
 
     if (text_surface) {
         texture = SDL_CreateTextureFromSurface(renderer, text_surface);

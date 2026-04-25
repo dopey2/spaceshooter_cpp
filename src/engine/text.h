@@ -13,8 +13,8 @@ class Text : public WorldObject {
         std::string m_font_file_path;
         std::string m_text;
         float m_font_size = 16;
-        SDL_Color* m_text_color = nullptr;
-        SDL_FRect *m_target_rect = nullptr;
+        SDL_Color m_text_color;
+        SDL_FRect* m_target_rect = nullptr;
         SDL_Texture* texture = nullptr;
 
         float prev_x = std::numeric_limits<float>::infinity();
@@ -27,7 +27,7 @@ class Text : public WorldObject {
     public:
         Text(std::string fontFilePath, std::string text, float fontSize);
         ~Text();
-        void setColor(SDL_Color *color);
+        void setColor(SDL_Color color);
         void load(SDL_Renderer* renderer);
         virtual void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };
