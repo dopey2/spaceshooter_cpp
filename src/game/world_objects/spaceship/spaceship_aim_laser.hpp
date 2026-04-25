@@ -17,12 +17,12 @@ public:
         auto [length, degree] = Math::cartesianToPolar(xdiff, ydiff);
 
         if (MouseAndKeyboard::isKeyDown(SDLK_LEFT)) {
-            if (degree < (270 - 20)) {
+            if (degree > 180.0f && degree < 340.0f) {
                 return;
             }
             target_x -= 3;
         } else if (MouseAndKeyboard::isKeyDown(SDLK_RIGHT)) {
-            if (degree > (270 + 20)) {
+            if (degree > 20.0f && degree < 180.0f) {
                 return;
             }
             target_x += 3;

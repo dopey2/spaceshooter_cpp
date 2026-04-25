@@ -15,9 +15,16 @@ public:
         return radian * 180 / PI;
     }
 
+    /**
+    * Compass convention (clockwise from top):
+    * 0°   -> UP
+    * 90°  -> RIGHT
+    * 180° -> DOWN
+    * 270° -> LEFT
+    */
     static std::pair<float, float> cartesianToPolar(float x, float y) {
         float h = hypot(x, y);
-        float rad = atan2(y, x);
+        float rad = atan2(x, -y);
         float deg = Math::radianToDeg(rad);
         if(deg < 0) {
             deg += 360;
@@ -27,8 +34,8 @@ public:
     };
 
     static std::pair<float, float> polarToCartesian(float length, float degree) {
-        float x = cos(Math::degToRadian(degree)) * length;
-        float y = sin(Math::degToRadian(degree)) * length;
+        float x = sin(Math::degToRadian(degree)) * length;
+        float y = -cos(Math::degToRadian(degree)) * length;
         return {x, y};
     }
 };
