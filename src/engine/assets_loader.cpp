@@ -10,7 +10,14 @@ namespace AssetsLoaders {
     std::map<std::string, SDL_Texture*> textures_by_path;
 
     SDL_Texture* getTextureFromCache(const std::string bmpFilePath) {
-        return textures_by_path[bmpFilePath];
+        auto it = textures_by_path.find(bmpFilePath);
+        if (it == textures_by_path.end()) return nullptr;
+        return it->second;
+
+        // May insert a default entry as nullptr if key doesn't exist 
+        // Risky when clearing all assets by key iteration (clearing a nullptr) 
+        // See https://en.cppreference.com/cpp/container/map/operator_at
+        // return textures_by_path[bmpFilePath]; 
     }
 
     void setTextureInCache(const std::string bmpFilePath, SDL_Texture* texture) {
