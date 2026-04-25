@@ -15,7 +15,6 @@ Text::Text(std::string fontFilePath, std::string text, float fontSize) {
 Text::~Text() {
     SDL_DestroyTexture(texture);
     texture = nullptr;
-    delete m_target_rect;
 }
 
 void Text::setColor(SDL_Color color) {
@@ -58,12 +57,12 @@ void Text::load(SDL_Renderer *renderer) {
     SDL_Surface *text_surface = TTF_RenderText_Blended(font, this->m_text.c_str(), 0, m_text_color);
 
     if (text_surface) {
-        texture = SDL_CreateTextureFromSurface(renderer, text_surface);
+        this->texture = SDL_CreateTextureFromSurface(renderer, text_surface);
         SDL_DestroySurface(text_surface);
         TTF_CloseFont(font);
     }
 
-    if (!texture) {
+    if (!this->texture) {
         SDL_Log("Couldn't create text: %s\n", SDL_GetError());
     }
 
@@ -73,19 +72,19 @@ void Text::load(SDL_Renderer *renderer) {
 
     float texture_width = 0;
     float texture_height = 0;
-    SDL_GetTextureSize(texture, &texture_width, &texture_height);
+    SDL_GetTextureSize(this->texture, &texture_width, &texture_height);
 
-    this->m_target_rect = new SDL_FRect({
+    this->m_target_rect = {
            (static_cast<float>(renderer_w) - texture_width) / 2,
            (static_cast<float>(renderer_h) - texture_height) / 2,
            texture_width,
            texture_height
-    });
+    };
 
-    this->m_x = m_target_rect->x;
-    this->m_y = m_target_rect->y;
-    this->m_width = m_target_rect->w;
-    this->m_height = m_target_rect->h;
+    this->m_x = m_target_rect.x;
+    this->m_y = m_target_rect.y;
+    this->m_width = m_target_rect.w;
+    this->m_height = m_target_rect.h;
 
     if (prev_x != std::numeric_limits<float>::infinity()) {
         this->m_x = prev_x;
@@ -109,8 +108,8 @@ void Text::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
         this->load(renderer);
     }
 
-    this->m_target_rect->x = this->m_x + parent_x;
-    this->m_target_rect->y = this->m_y + parent_y;
+    this->m_target_rect.x = this->m_x + parent_x;
+    this->m_target_rect.y = this->m_y + parent_y;
 
-    SDL_RenderTexture(renderer, texture, NULL, m_target_rect);
+    SDL_RenderTexture(renderer, texture, NULL, &m_target_rect);
 }

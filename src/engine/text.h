@@ -14,7 +14,7 @@ class Text : public WorldObject {
         std::string m_text;
         float m_font_size = 16;
         SDL_Color m_text_color;
-        SDL_FRect* m_target_rect = nullptr;
+        SDL_FRect m_target_rect;
         SDL_Texture* texture = nullptr;
 
         float prev_x = std::numeric_limits<float>::infinity();
