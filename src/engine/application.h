@@ -20,7 +20,6 @@ class Application {
     std::vector<std::function<void(SDL_KeyboardEvent)>> m_callbacks_keyPress;
 
     Application(const char* title, uint16_t width, uint16_t height);
-    ~Application();
 
 
   public:
@@ -40,6 +39,7 @@ class Application {
   Application(Application const&) = delete;
   // for the singleton pattern: disable the assignment operator
   void operator=(Application const&) = delete;
+  ~Application();
   static Application* createInstance(const char* title, uint16_t width, uint16_t height);
   static Application* getInstance();
   void run();

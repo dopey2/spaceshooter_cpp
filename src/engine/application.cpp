@@ -26,10 +26,8 @@ Application::~Application() {
 
     delete this->scene_manager;
     this->scene_manager = nullptr;
-
+    
     AssetsLoaders::clearTexturesFromCache();
-
-    delete this->m_instance;
 }
 
 Application *Application::createInstance(const char *title, uint16_t width, uint16_t height) {
@@ -109,8 +107,6 @@ void Application::run() {
             SDL_Delay(delay);
         }
     }
-
-    Application::~Application();
 }
 
 void Application::stop() { this->m_is_running = false; }
