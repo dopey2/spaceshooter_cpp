@@ -6,10 +6,10 @@
 #include <SDL3/SDL.h>
 
 namespace AssetsLoaders {
-    SDL_Texture* getTextureFromCache(const std::string bmpFilePath);
-    void setTextureInCache(const std::string bmpFilePath, SDL_Texture* texture);
-    SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string bmpFilePath);
-    void loadTexturesInCache(std::vector<std::string> texture_paths);
+    SDL_Texture* getTextureFromCache(const std::string& bmpFilePath);
+    void setTextureInCache(const std::string& bmpFilePath, SDL_Texture* texture);
+    SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string& bmpFilePath);
+    void loadTexturesInCache(const std::vector<std::string>& texture_paths);
     void clearTexturesFromCache();
-    std::string getAsset(const std::string filePath);
+    std::string getAsset(const std::string& filePath);
 }

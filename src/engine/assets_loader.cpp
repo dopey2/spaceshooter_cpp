@@ -9,7 +9,7 @@
 namespace AssetsLoaders {
     std::map<std::string, SDL_Texture*> textures_by_path;
 
-    SDL_Texture* getTextureFromCache(const std::string bmpFilePath) {
+    SDL_Texture* getTextureFromCache(const std::string& bmpFilePath) {
         auto it = textures_by_path.find(bmpFilePath);
         if (it == textures_by_path.end()) return nullptr;
         return it->second;
@@ -20,14 +20,14 @@ namespace AssetsLoaders {
         // return textures_by_path[bmpFilePath]; 
     }
 
-    void setTextureInCache(const std::string bmpFilePath, SDL_Texture* texture) {
+    void setTextureInCache(const std::string& bmpFilePath, SDL_Texture* texture) {
         if (textures_by_path.count(bmpFilePath)) {
           SDL_DestroyTexture(textures_by_path[bmpFilePath]);
         }
         textures_by_path[bmpFilePath] = texture;
     }
 
-    SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string bmpFilePath) {
+    SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string& bmpFilePath) {
         SDL_Texture* cachedTexture = getTextureFromCache(bmpFilePath);
         if (cachedTexture != nullptr) {
             Logger::debug("AssetsLoader: Loading texture from cache (" + bmpFilePath + ")");
@@ -55,8 +55,8 @@ namespace AssetsLoaders {
         return tex;
     }
 
-    void loadTexturesInCache(std::vector<std::string> texture_paths) {
-        for(auto path : texture_paths) {
+    void loadTexturesInCache(const std::vector<std::string>& texture_paths) {
+        for(const auto& path : texture_paths) {
             loadTexture(
                     Application::getInstance()->scene_manager->getRenderer(),
                     path
@@ -73,7 +73,7 @@ namespace AssetsLoaders {
         textures_by_path.clear();
     }
 
-    std::string getAsset(const std::string filePath) {
+    std::string getAsset(const std::string& filePath) {
         const char* base = SDL_GetBasePath();
         return std::string(base) + "../../assets/" + filePath;
     }
