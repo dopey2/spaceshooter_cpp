@@ -1,4 +1,4 @@
-.PHONY: help build build-release test lint run run-release clean
+.PHONY: help build build-release test lint run run-release clean clangd
 
 OS := $(shell uname -s)
 
@@ -22,8 +22,12 @@ help:
 	@echo "run           - build and launch game (debug)"
 	@echo "run-release   - build and launch game (release)"
 	@echo "clean         - remove build directories"
+	@echo "clangd        - generate .clangd for the current platform"
 
-build:
+clangd:
+	@printf 'CompileFlags:\n  CompilationDatabase: $(CURDIR)/$(BUILD_DEBUG)\n' > .clangd
+
+build: clangd
 	cmake --preset $(PRESET_DEBUG)
 	cmake --build --preset $(PRESET_DEBUG)
 
