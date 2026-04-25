@@ -14,6 +14,9 @@ namespace AssetsLoaders {
     }
 
     void setTextureInCache(const std::string bmpFilePath, SDL_Texture* texture) {
+        if (textures_by_path.count(bmpFilePath)) {
+          SDL_DestroyTexture(textures_by_path[bmpFilePath]);
+        }
         textures_by_path[bmpFilePath] = texture;
     }
 
