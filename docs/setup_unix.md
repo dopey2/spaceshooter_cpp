@@ -58,7 +58,28 @@ vcpkg --version
 
 ---
 
-## 3. Build
+## 3. Install clang-tidy (optional)
+
+clang-tidy is a static analyzer tool, that may be useful for catching common errors, bad patterns.
+
+**Ubuntu / Debian**
+```bash
+sudo apt install clang-tidy
+```
+
+**OpenSUSE Tumbleweed**
+```bash
+sudo zypper install clang-tools
+```
+
+**macOS**
+```bash
+brew install llvm
+```
+
+---
+
+## 4. Build
 
 ```bash
 make build
@@ -71,7 +92,7 @@ This will:
 
 ---
 
-## 4. Run
+## 5. Run
 
 ```bash
 make run
@@ -79,7 +100,7 @@ make run
 
 ---
 
-## 5. Test
+## 6. Test
 
 ```bash
 make test
