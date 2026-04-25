@@ -1,5 +1,5 @@
 # Build Workflow
-> This document describe the build workflow for educational purposes using ascii art schema.
+> This document describe the build workflow for educational purposes using ascii art diagrams.
 
 ## Build tool chain
 
