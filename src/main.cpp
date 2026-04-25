@@ -19,7 +19,7 @@ int main() {
   application->scene_manager->addScene("menu", menu_scene);
   application->scene_manager->addScene("game", game_scene);
   application->run();
-  delete menu_scene;
-  delete game_scene;
+  // Do note delete scenes manually 
+  // SceneManager tooked the ownership and that care of that
   return 0;
 }
