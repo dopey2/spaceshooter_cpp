@@ -41,8 +41,6 @@ void Text::savePrevTransform() {
     this->prev_height = this->m_height;
 }
 
-
-
 // must also be called every time a changes occurs in the text content or properties.
 // no need to be called if only x & y positions changes.
 void Text::load(SDL_Renderer *renderer) {
@@ -50,6 +48,7 @@ void Text::load(SDL_Renderer *renderer) {
 
     if (font == nullptr) {
         SDL_Log("Couldn't open font: %s\n", SDL_GetError());
+        return;
     }
 
     if(this->texture != nullptr) {
