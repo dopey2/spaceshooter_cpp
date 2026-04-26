@@ -13,7 +13,7 @@ private:
 
 public:
     std::vector<Sprite*> asteroid_parts;
-    bool is_destroyed = 0;
+    bool is_destroyed = false;
     std::vector<std::pair<float, float>> parts_velocity;
 
     Asteroid() {
