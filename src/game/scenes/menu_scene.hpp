@@ -1,4 +1,5 @@
 #include "engine/__engine.h"
+#include <array>
 #include <cstdint>
 
 enum MenuOptions : std::uint8_t {
@@ -7,79 +8,82 @@ enum MenuOptions : std::uint8_t {
     QUIT = 2
 };
 
+struct MenuItem {
+    const MenuOptions value;
+    const MenuOptions previousValue;
+    const MenuOptions nextValue;
+    const std::string label;
+    Text* text = nullptr;
+};
 
 class MenuScene : public Scene {
 private:
-    Text* menu_play_button = nullptr;
-    Text* menu_settings_button = nullptr;
-    Text* menu_quit_button = nullptr;
-
     SDL_Color selected_color = {200, 50, 50, SDL_ALPHA_OPAQUE};
     SDL_Color unselected_color = {255, 255, 255, SDL_ALPHA_OPAQUE};
 
-    int8_t menu_choice = MenuOptions::PLAY;
+    MenuOptions currentSelected = PLAY;
+
+    std::array<MenuItem, 3> items = {{
+        {PLAY,     QUIT,     SETTINGS, "Play"},
+        {SETTINGS, PLAY,     QUIT,     "Settings"},
+        {QUIT,     SETTINGS, PLAY,     "Quit"},
+    }};
 
 public:
     MenuScene() {
-        this->menu_play_button = new Text(AssetsLoaders::getAsset("font/Arial.ttf"), "Play", 24);
-        this->menu_settings_button = new Text(AssetsLoaders::getAsset("font/Arial.ttf"), "Settings", 24);
-        this->menu_quit_button = new Text(AssetsLoaders::getAsset("font/Arial.ttf"), "Quit", 24);
+        float start_y = this->application->getHeightF() / 2.0f - 30.0f;
 
-        this->addObject(menu_play_button);
-        this->addObject(menu_settings_button);
-        this->addObject(menu_quit_button);
+        for (size_t i = 0; i < items.size(); i++) {
+            auto* text = new Text(AssetsLoaders::getAsset("font/Arial.ttf"), items[i].label, 24);
+            items[i].text = text;
+            this->addObject(text);
+            text->m_x = (this->application->getWidthF() - text->m_width) / 2.0f;
+            text->m_y = start_y + static_cast<float>(i) * 30.0f;
+        }
 
-        this->menu_play_button->m_x = (this->application->getWidthF() - menu_play_button->m_width) / 2;
-        this->menu_settings_button->m_x = (this->application->getWidthF() - menu_settings_button->m_width) / 2;
-        this->menu_quit_button->m_x = (this->application->getWidthF() - menu_quit_button->m_width) / 2;
-
-        this->menu_play_button->m_y = this->application->getHeightF() / 2 - 30;
-        this->menu_settings_button->m_y = this->application->getHeightF() / 2;
-        this->menu_quit_button->m_y = this->application->getHeightF() / 2 + 30;
-
-        this->menu_play_button->setColor(this->selected_color);
-
-        this->application->register_keyPress_callback([&](SDL_KeyboardEvent event) -> void {
-           if (event.key == SDLK_UP) {
-               this->menu_choice--;
-               if (this->menu_choice < MenuOptions::PLAY) {
-                   this->menu_choice = MenuOptions::QUIT;
-               }
-           } else if (event.key == SDLK_DOWN) {
-               this->menu_choice++;
-               if (this->menu_choice > MenuOptions::QUIT) {
-                   this->menu_choice = MenuOptions::PLAY;
-               }
-           }
-
-           this->updateButtons();
-
-           if (event.key == SDLK_RETURN) {
-               switch (this->menu_choice) {
-                   case MenuOptions::PLAY:
-                       this->application->scene_manager->setActiveScene("game");
-                       break;
-                   case MenuOptions::QUIT:
-                       this->application->stop();
-                       break;    
-               }
-           }
-        });
+        this->applyButtonStyles();
+        this->setupKeyPressListener();
     };
 
-    void updateButtons() {
-        SDL_Color menu_play_color = this->menu_choice == MenuOptions::PLAY 
-            ? this->selected_color
-            : this->unselected_color;
-        SDL_Color menu_settings_color = this->menu_choice == MenuOptions::SETTINGS
-            ? this->selected_color
-            : this->unselected_color;
-        SDL_Color menu_quit_color = this->menu_choice == MenuOptions::QUIT
-            ? this->selected_color 
-            : this->unselected_color;
+    void setupKeyPressListener() {
+        this->application->register_keyPress_callback([&](SDL_KeyboardEvent event) -> void {
+            if (event.key == SDLK_UP) {
+                // on press up
+                this->currentSelected = this->items[this->currentSelected].previousValue;
+            } else if (event.key == SDLK_DOWN) {
+                // on press down
+                this->currentSelected = this->items[this->currentSelected].nextValue;
+            }
 
-        this->menu_play_button->setColor(menu_play_color);
-        this->menu_settings_button->setColor(menu_settings_color);
-        this->menu_quit_button->setColor(menu_quit_color);
+            this->applyButtonStyles();
+
+            if (event.key == SDLK_RETURN) {
+                if (this->currentSelected == PLAY) this->actionPlay();
+                else if (this->currentSelected == SETTINGS) this->actionSettings();
+                else if (this->currentSelected == QUIT) this->actionQuit();
+            }
+        });
+    }
+
+    void actionPlay()     {
+         this->application->scene_manager->setActiveScene("game"); 
+    }
+
+    void actionSettings() {
+        // not implemented yet
+        // will be later used for:
+        //  - key bindings
+        //  - resolution
+        //  - sound ON/OFF
+     }
+
+    void actionQuit() { 
+        this->application->stop(); 
+    }
+
+    void applyButtonStyles() {
+        for (auto& item : this->items) {
+            item.text->setColor(item.value == this->currentSelected ? this->selected_color : this->unselected_color);
+        }
     }
 };
