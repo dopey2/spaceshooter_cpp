@@ -25,14 +25,14 @@ int main() {
   });
 
   // scenes creation
-  // * do note delete scenes manually, SceneManager takes ownership over it and handle it implicitely 
+  // do note delete scenes manually, SceneManager takes ownership over it and handle it implicitely 
   auto* menu_scene = new MenuScene();
   auto *game_scene = new GameScene();
   application->scene_manager->addScene("menu", menu_scene);
   application->scene_manager->addScene("game", game_scene);
 
-
   // start app
+  // application being a singleton must be deleted manually after it stops running
   application->run();
   delete application;
   return 0;
