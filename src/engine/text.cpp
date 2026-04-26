@@ -4,7 +4,7 @@
 #include "application.h"
 
 
-Text::Text(std::string fontFilePath, std::string text, float fontSize) {
+Text::Text(const std::string &fontFilePath,const std::string &text, float fontSize) {
     this->m_font_file_path = fontFilePath;
     this->m_text = text;
     this->m_font_size = fontSize;

@@ -21,7 +21,7 @@ protected:
     virtual void onActive();
 public:
     Scene();
-    Scene(std::string key);
+    Scene(const std::string &key);
     virtual ~Scene();
     void addObject(WorldObject* object);
     void removeObject(WorldObject* object);

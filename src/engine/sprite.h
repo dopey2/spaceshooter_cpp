@@ -21,7 +21,7 @@ protected:
     float m_alpha = 1;
 
 public:
-    Sprite(std::string bmpFilePath);
+    Sprite(const std::string &bmpFilePath);
     ~Sprite();
     void setAlpha(float alpha);
     void load(SDL_Renderer *renderer);

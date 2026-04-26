@@ -4,7 +4,7 @@
 #include "application.h"
 #include "assets_loader.h"
 
-Sprite::Sprite(std::string bmpFilePath) {
+Sprite::Sprite(const std::string &bmpFilePath) {
     this->m_bmp_file_path = bmpFilePath;
     this->load(m_application->scene_manager->getRenderer());
 }

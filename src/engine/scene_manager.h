@@ -17,9 +17,9 @@ class SceneManager {
        SceneManager(SDL_Window* window);
        ~SceneManager();
        SDL_Renderer* getRenderer();
-       void addScene(std::string key, Scene* scene);
+       void addScene(const std::string &key, Scene* scene);
        Scene* getActiveScene();
-       void setActiveScene(std::string key);
+       void setActiveScene(const std::string &key);
        void callOnUpdateCallback(Uint64 delta);
        void renderScene(); // make this private later
 };

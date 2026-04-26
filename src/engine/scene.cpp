@@ -5,7 +5,7 @@ Scene::Scene() {
     this->application = Application::getInstance();
 }
 
-Scene::Scene(std::string key) {
+Scene::Scene(const std::string &key) {
     this->application = Application::getInstance();
     application->scene_manager->addScene(key, this);
 }

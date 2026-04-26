@@ -31,7 +31,7 @@ SDL_Renderer* SceneManager::getRenderer() {
     return this->m_renderer;
 }
 
-void SceneManager::addScene(std::string key, Scene* scene) {
+void SceneManager::addScene(const std::string &key, Scene* scene) {
     this->scenes_by_id.insert({key, scene});
     // the first scene becomes the active scene
     if(scenes_by_id.size() == 1) {
@@ -47,7 +47,7 @@ Scene* SceneManager::getActiveScene() {
     return nullptr;
 }
 
-void SceneManager::setActiveScene(std::string key) {
+void SceneManager::setActiveScene(const std::string &key) {
     this->active_scene = key;
     Scene* scene = this->getActiveScene();
     if(scene != nullptr) {

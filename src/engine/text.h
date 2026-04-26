@@ -25,7 +25,7 @@ class Text : public WorldObject {
         void savePrevTransform();
 
     public:
-        Text(std::string fontFilePath, std::string text, float fontSize);
+        Text(const std::string &fontFilePath,const std::string &text, float fontSize);
         ~Text();
         void setColor(SDL_Color color);
         void load(SDL_Renderer* renderer);
