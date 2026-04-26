@@ -21,7 +21,8 @@ void Text::setColor(SDL_Color color) {
         this->m_text_color.a == color.a &&
         this->m_text_color.r == color.r &&
         this->m_text_color.g == color.g &&
-        this->m_text_color.b == color.b) {
+        this->m_text_color.b == color.b
+    ) {
         return;
     }
 
@@ -29,7 +30,6 @@ void Text::setColor(SDL_Color color) {
 
     if (this->texture != nullptr) {
         this->savePrevTransform();
-        this->texture = nullptr;
         this->load(this->m_application->scene_manager->getRenderer());
     }
 }
@@ -48,20 +48,26 @@ void Text::savePrevTransform() {
 void Text::load(SDL_Renderer *renderer) {
     TTF_Font *font = TTF_OpenFont(this->m_font_file_path.c_str(), m_font_size);
 
-    if (!font) {
+    if (font == nullptr) {
         SDL_Log("Couldn't open font: %s\n", SDL_GetError());
+    }
+
+    if(this->texture != nullptr) {
+        // destroy previous texture before creating a new one
+        SDL_DestroyTexture(this->texture);
+        this->texture = nullptr;
     }
 
 
     SDL_Surface *text_surface = TTF_RenderText_Blended(font, this->m_text.c_str(), 0, m_text_color);
 
-    if (text_surface) {
+    if (text_surface != nullptr) {
         this->texture = SDL_CreateTextureFromSurface(renderer, text_surface);
         SDL_DestroySurface(text_surface);
         TTF_CloseFont(font);
     }
 
-    if (!this->texture) {
+    if (this->texture == nullptr) {
         SDL_Log("Couldn't create text: %s\n", SDL_GetError());
     }
 
