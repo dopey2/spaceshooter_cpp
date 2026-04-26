@@ -31,7 +31,7 @@ public:
     void update(Uint64 delta, SpaceshipView* spaceship) {
         if (MouseAndKeyboard::isKeyDown(SDLK_SPACE)) {
             if (this->lastMissileSpawnTime + this->missileSpawnInterval < delta) {
-                SpaceshipMissile* missile = new SpaceshipMissile();
+                auto* missile = new SpaceshipMissile();
                 this->addObject(missile);
                 this->missiles_list.push_back(missile);
                 missile->m_x = spaceship->m_x + spaceship->m_width / 2 - missile->m_width / 2;

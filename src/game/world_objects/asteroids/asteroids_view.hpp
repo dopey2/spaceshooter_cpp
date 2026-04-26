@@ -26,7 +26,7 @@ public:
         // Spawn new asteroid
         if (this->lastAsteroidSpawnTime + this->asteroidSpawnInterval < delta) {
             this->lastAsteroidSpawnTime = delta;
-            Asteroid* asteroid = new Asteroid();
+            auto* asteroid = new Asteroid();
             this->addObject(asteroid);
             this->asteroids_list.push_back(asteroid);
         }

@@ -99,11 +99,11 @@ void Application::run() {
             }
 
             this->scene_manager->renderScene();
-            Uint64 work_duration = static_cast<Uint64>(SDL_GetTicks() - start_work_delta);
+            auto work_duration = static_cast<Uint64>(SDL_GetTicks() - start_work_delta);
             if (work_duration > INTERVAL_BETWEEN_DRAWS_CALL) {
                 work_duration = INTERVAL_BETWEEN_DRAWS_CALL;
             }
-            const Uint32 delay = static_cast<Uint32>(INTERVAL_BETWEEN_DRAWS_CALL - work_duration);
+            const auto delay = static_cast<Uint32>(INTERVAL_BETWEEN_DRAWS_CALL - work_duration);
             SDL_Delay(delay);
         }
     }

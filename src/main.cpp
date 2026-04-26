@@ -14,8 +14,8 @@ int main() {
     AssetsLoaders::getAsset("img/asteroid.bmp"),
     AssetsLoaders::getAsset("img/bg.bmp"),
   });
-  MenuScene* menu_scene = new MenuScene();
-  GameScene *game_scene = new GameScene();
+  auto* menu_scene = new MenuScene();
+  auto *game_scene = new GameScene();
   application->scene_manager->addScene("menu", menu_scene);
   application->scene_manager->addScene("game", game_scene);
   application->run();

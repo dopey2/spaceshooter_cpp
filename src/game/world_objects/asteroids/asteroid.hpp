@@ -33,8 +33,8 @@ public:
             random_x_target_position = max_x;
         }
 
-        float xdiff = static_cast<float>(random_x_spawn_position - random_x_target_position);
-        float ydiff = this->m_application->getHeight();
+        auto xdiff = static_cast<float>(random_x_spawn_position - random_x_target_position);
+        auto ydiff = this->m_application->getHeight();
         auto [length, degree] = Math::cartesianToPolar(xdiff, ydiff);
         auto [step_x, step_y] = Math::polarToCartesian(distance_per_frame, degree);
         this->velocity_x = step_x;
@@ -47,7 +47,7 @@ public:
 
         for (int i = 1; i < 12; i++) {
             std::string part_path = "img/asteroid/variant_A/variant_A_" + std::to_string(i) + ".bmp";
-            Sprite* part = new Sprite(AssetsLoaders::getAsset(part_path));
+            auto* part = new Sprite(AssetsLoaders::getAsset(part_path));
             part->m_width = 50;
             part->m_height = 50;
             this->asteroid_parts.push_back(part);
@@ -89,8 +89,8 @@ public:
         this->is_destroyed = true;
 
         for (int i = 0; i < 11; i++) {
-            float x_velocity = static_cast<float>((rand() % 8) - 4);
-            float y_velocity = static_cast<float>((rand() % 4) - 2);
+            auto x_velocity = static_cast<float>((rand() % 8) - 4);
+            auto y_velocity = static_cast<float>((rand() % 4) - 2);
 
             parts_velocity.push_back({x_velocity, y_velocity});
         }
