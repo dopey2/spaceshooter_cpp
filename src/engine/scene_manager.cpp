@@ -3,7 +3,7 @@
 #include "logger.h"
 
 SceneManager::SceneManager(SDL_Window* window) {
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
 
     if (renderer == nullptr) {
         Logger::error("SceneManager: Renderer could not be created !");

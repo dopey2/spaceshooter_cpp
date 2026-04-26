@@ -1,6 +1,7 @@
 #include "text.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
+#include <cstddef>
 #include "application.h"
 
 
@@ -111,5 +112,5 @@ void Text::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
     this->m_target_rect.x = this->m_x + parent_x;
     this->m_target_rect.y = this->m_y + parent_y;
 
-    SDL_RenderTexture(renderer, texture, NULL, &m_target_rect);
+    SDL_RenderTexture(renderer, texture, nullptr, &m_target_rect);
 }

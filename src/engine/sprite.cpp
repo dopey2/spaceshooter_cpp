@@ -60,7 +60,7 @@ void Sprite::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
         this->m_source_rect,
         this->m_target_rect,
         this->m_rotation,
-        NULL,
+        nullptr,
         SDL_FLIP_NONE
     );
 }

@@ -55,7 +55,7 @@ void Application::initSDL() {
 
 void Application::initWindow() {
     this->_window = SDL_CreateWindow(this->m_title, this->m_width, this->m_height, SDL_WINDOW_OPENGL);
-    if (this->_window == NULL) {
+    if (this->_window == nullptr) {
         Logger::error("Application: Window could not be created !");
         Logger::error("SDL_Error: " + static_cast<std::string>(SDL_GetError()));
     }
