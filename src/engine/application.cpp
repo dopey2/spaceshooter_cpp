@@ -20,7 +20,7 @@ Application::Application(const char *title, int width, int height, int targetFps
 
 Application::~Application() {
     m_instance = nullptr;
-    SDL_DestroyWindow(_window);
+    SDL_DestroyWindow(this->_window);
 
     delete this->scene_manager;
     this->scene_manager = nullptr;

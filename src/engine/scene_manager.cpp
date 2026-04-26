@@ -8,8 +8,8 @@ SceneManager::SceneManager(SDL_Window* window) {
     if (renderer == nullptr) {
         Logger::error("SceneManager: Renderer could not be created !");
         Logger::error("SDL_Error: " + static_cast<std::string>(SDL_GetError()));
-        SDL_DestroyWindow(window);
         SDL_Quit();
+        return;
     }
 
     this->m_renderer = renderer;
