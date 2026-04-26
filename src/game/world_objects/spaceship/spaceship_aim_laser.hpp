@@ -32,7 +32,7 @@ public:
     /**
      * Custom rendering function
      */
-  void render(SDL_Renderer *renderer, float parent_x, float parent_y) {
+  void render(SDL_Renderer *renderer, float parent_x, float parent_y) override {
         if (this->render_count > 4) {
           SDL_SetRenderDrawColor(renderer, 200, 50, 50, 200);
         } else if (this->render_count > 2) {

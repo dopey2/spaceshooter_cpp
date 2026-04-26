@@ -22,8 +22,10 @@ protected:
 
 public:
     Sprite(const std::string &bmpFilePath);
-    ~Sprite();
+    ~Sprite() override;
+    void load(SDL_Renderer *renderer) override;
+    void render(SDL_Renderer *renderer, float parent_x, float parent_y) override;
+    
+    // own methods:
     void setAlpha(float alpha);
-    void load(SDL_Renderer *renderer);
-    void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };

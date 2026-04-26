@@ -5,11 +5,12 @@
 
 class Text : public WorldObject {
     private:
-        // this methods should not be available since a sprite cannot contain any children
+        // this methods should not be available since a text cannot contain any children
         using WorldObject::children;
         using WorldObject::addObject;
         using WorldObject::removeObject;
 
+        // internal fields & methods
         std::string m_font_file_path;
         std::string m_text;
         float m_font_size = 16;
@@ -26,8 +27,10 @@ class Text : public WorldObject {
 
     public:
         Text(const std::string &fontFilePath,const std::string &text, float fontSize);
-        ~Text();
+        ~Text() override;
+        void load(SDL_Renderer* renderer) override;
+        void render(SDL_Renderer *renderer, float parent_x, float parent_y) override;
+
+        // own methods:
         void setColor(SDL_Color color);
-        void load(SDL_Renderer* renderer);
-        virtual void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };

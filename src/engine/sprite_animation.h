@@ -15,7 +15,9 @@ private:
 
 public:
     SpriteAnimation(const std::string &file_path);
-    ~SpriteAnimation();
+    ~SpriteAnimation() override;
+    void render(SDL_Renderer *renderer, float parent_x, float parent_y) override;
+
+    // own methods:
     void addFrameFromTexture(SDL_FRect* source_rect);
-    void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };
