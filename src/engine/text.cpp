@@ -69,6 +69,7 @@ void Text::load(SDL_Renderer *renderer) {
 
     if (this->texture == nullptr) {
         SDL_Log("Couldn't create text: %s\n", SDL_GetError());
+        return;
     }
 
     int renderer_w = 0;
