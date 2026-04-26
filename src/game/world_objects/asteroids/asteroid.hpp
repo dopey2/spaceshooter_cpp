@@ -34,7 +34,7 @@ public:
         }
 
         auto xdiff = static_cast<float>(random_x_spawn_position - random_x_target_position);
-        auto ydiff = this->m_application->getHeight();
+        auto ydiff = this->m_application->getHeightF();
         auto [length, degree] = Math::cartesianToPolar(xdiff, ydiff);
         auto [step_x, step_y] = Math::polarToCartesian(distance_per_frame, degree);
         this->velocity_x = step_x;
@@ -97,7 +97,7 @@ public:
     }
 
     bool isOutOfScreen() {
-        return this->m_y > Application::getInstance()->getHeight() * 2;
+        return this->m_y > Application::getInstance()->getHeightF() * 2;
     }
 
     bool isColliding(WorldObject* object, float collision_offset = 0) {

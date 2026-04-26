@@ -60,8 +60,8 @@ public:
 
     void init() {
         this->is_game_over = false;
-        this->m_x = static_cast<float>((this->m_application->getWidth() - 60) / 2);
-        this->m_y = static_cast<float>(this->m_application->getHeight() - 90);
+        this->m_x = static_cast<float>(this->m_application->getWidthF() - 60) / 2;
+        this->m_y = static_cast<float>(this->m_application->getHeightF() - 90);
     }
 
     void setGameOver(bool game_over) {
@@ -98,7 +98,7 @@ public:
         if (this->x_velocity != 0) {
             if (
                 (this->x_velocity < 0 && this->m_x + this->m_width / 2 <= 0) ||
-                (this->x_velocity > 0 && this->m_x + this->m_width / 2 >= this->m_application->getWidth())
+                (this->x_velocity > 0 && this->m_x + this->m_width / 2 >= this->m_application->getWidthF())
             ) {
                 this->x_velocity = 0;
                 return;

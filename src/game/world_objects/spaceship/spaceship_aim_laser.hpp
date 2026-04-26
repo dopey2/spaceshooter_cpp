@@ -1,7 +1,7 @@
 #include "engine/__engine.h"
 #include "../../misc/math.hpp"
 
-#define spaceship_w 60
+#define spaceship_w 60.0f
 
 class SpaceshipAimLaser : public WorldObject {
 private:

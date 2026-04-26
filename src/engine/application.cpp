@@ -11,7 +11,7 @@
 #define TARGET_FPS 60
 #define INTERVAL_BETWEEN_DRAWS_CALL (1000 / TARGET_FPS)
 
-Application::Application(const char *title, uint16_t width, uint16_t height) {
+Application::Application(const char *title, int width, int height) {
     this->m_title = title;
     this->m_width = width;
     this->m_height = height;
@@ -30,7 +30,7 @@ Application::~Application() {
     AssetsLoaders::clearTexturesFromCache();
 }
 
-Application *Application::createInstance(const char *title, uint16_t width, uint16_t height) {
+Application *Application::createInstance(const char *title, int width, int height) {
     if (m_instance == nullptr) {
         m_instance = new Application(title, width, height);
     }
@@ -61,9 +61,13 @@ void Application::initWindow() {
     }
 }
 
-uint16_t Application::getWidth() { return this->m_width; }
+int Application::getWidth() { return this->m_width; }
 
-uint16_t Application::getHeight() { return this->m_height; }
+int Application::getHeight() { return this->m_height; }
+
+float Application::getWidthF() { return static_cast<float>(this->m_width); }
+
+float Application::getHeightF() { return static_cast<float>(this->m_height); }
 
 void Application::run() {
     this->m_is_running = true;

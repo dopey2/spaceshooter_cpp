@@ -12,22 +12,24 @@ class Application {
   private:
     static Application* m_instance;
     const char *m_title = nullptr;
-    uint16_t m_width = 0;
-    uint16_t m_height = 0;
+    int m_width = 0;
+    int m_height = 0;
     bool m_is_running = false;
 
     std::vector<std::function<void(Uint64 delta)>> m_callbacks_update;
     std::vector<std::function<void(SDL_KeyboardEvent)>> m_callbacks_keyPress;
 
-    Application(const char* title, uint16_t width, uint16_t height);
+    Application(const char* title, int width, int height);
 
 
   public:
     SDL_Window* _window = nullptr;
     SceneManager* scene_manager = nullptr;
 
-    uint16_t getWidth();
-    uint16_t getHeight();
+    int getWidth();
+    int getHeight();
+    float getWidthF();
+    float getHeightF();
 
   private:
     void initSDL();
@@ -40,7 +42,7 @@ class Application {
   // for the singleton pattern: disable the assignment operator
   void operator=(Application const&) = delete;
   ~Application();
-  static Application* createInstance(const char* title, uint16_t width, uint16_t height);
+  static Application* createInstance(const char* title, int width, int height);
   static Application* getInstance();
   void run();
   void stop();

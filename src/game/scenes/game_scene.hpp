@@ -19,8 +19,8 @@ public:
         auto* background = new Sprite(AssetsLoaders::getAsset("img/bg.bmp"));
         this->addObject(background);
 
-        background->m_width = this->application->getWidth();
-        background->m_height = this->application->getHeight();
+        background->m_width = this->application->getWidthF();
+        background->m_height = this->application->getHeightF();
 
         this->spaceship_view = new SpaceshipView();
         this->addObject(this->spaceship_view);
