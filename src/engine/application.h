@@ -2,7 +2,6 @@
 
 #include <SDL3/SDL.h>
 #include <functional>
-#include <iostream>
 #include <vector>
 #include "scene.h"
 #include "scene_manager.h"
@@ -47,6 +46,6 @@ class Application {
   static Application* getInstance();
   void run();
   void stop();
-  void register_update_callback(std::function<void(Uint64 delta)>);
-  void register_keyPress_callback(std::function<void(SDL_KeyboardEvent event)> keyPress_callback);
+  void register_update_callback(const std::function<void(Uint64 delta)> &update_callback);
+  void register_keyPress_callback(const std::function<void(SDL_KeyboardEvent event)> &keyPress_callback);
 };

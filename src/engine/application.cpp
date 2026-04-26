@@ -81,7 +81,7 @@ void Application::run() {
                 Logger::debug("Application: Quit");
             } else if (event.type == SDL_EVENT_KEY_DOWN) {
                 MouseAndKeyboard::onKeyDown(event.key.key);
-                for (auto callback: this->m_callbacks_keyPress) {
+                for (const auto &callback: this->m_callbacks_keyPress) {
                     callback(event.key);
                 }
             } else if (event.type == SDL_EVENT_KEY_UP) {
@@ -96,7 +96,7 @@ void Application::run() {
             // scene scoped on update
             this->scene_manager->callOnUpdateCallback(SDL_GetTicks());
             // global on update
-            for (auto callback: this->m_callbacks_update) {
+            for (const auto &callback: this->m_callbacks_update) {
                 callback(SDL_GetTicks());
             }
 
@@ -113,11 +113,11 @@ void Application::run() {
 
 void Application::stop() { this->m_is_running = false; }
 
-void Application::register_update_callback(std::function<void(Uint64 delta)> update_callback) {
+void Application::register_update_callback(const std::function<void(Uint64 delta)> &update_callback) {
     this->m_callbacks_update.push_back(update_callback);
 }
 
-void Application::register_keyPress_callback(std::function<void(SDL_KeyboardEvent event)> keyPress_callback) {
+void Application::register_keyPress_callback(const std::function<void(SDL_KeyboardEvent event)> &keyPress_callback) {
     this->m_callbacks_keyPress.push_back(keyPress_callback);
 }
 

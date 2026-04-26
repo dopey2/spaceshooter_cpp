@@ -4,13 +4,13 @@
 
 namespace Logger {
 
-    void debug(std::string str) {
+    void debug(const std::string &str) {
         #if ENABLE_LOGGER == 1
         std::cout << str << std::endl;
         #endif
     }
 
-    void error(std::string str) {
+    void error(const std::string &str) {
         std::cerr << str << std::endl;
     }
 }
