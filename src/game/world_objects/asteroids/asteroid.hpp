@@ -91,8 +91,7 @@ public:
         for (int i = 0; i < 11; i++) {
             auto x_velocity = static_cast<float>((rand() % 8) - 4);
             auto y_velocity = static_cast<float>((rand() % 4) - 2);
-
-            parts_velocity.push_back({x_velocity, y_velocity});
+            parts_velocity.emplace_back(x_velocity, y_velocity);
         }
     }
 
