@@ -1,8 +1,12 @@
-    #include "engine/__engine.h"
+#include "engine/__engine.h"
+#include <cstdint>
 
-#define MENU_PLAY 0
-#define MENU_SETTINGS 1
-#define MENU_QUIT 2
+enum MenuOptions : std::uint8_t {
+    PLAY = 0,
+    SETTINGS = 1,
+    QUIT = 2
+};
+
 
 class MenuScene : public Scene {
 private:
@@ -13,7 +17,7 @@ private:
     SDL_Color selected_color = {200, 50, 50, SDL_ALPHA_OPAQUE};
     SDL_Color unselected_color = {255, 255, 255, SDL_ALPHA_OPAQUE};
 
-    int8_t menu_choice = MENU_PLAY;
+    int8_t menu_choice = MenuOptions::PLAY;
 
 public:
     MenuScene() {
@@ -38,13 +42,13 @@ public:
         this->application->register_keyPress_callback([&](SDL_KeyboardEvent event) -> void {
            if (event.key == SDLK_UP) {
                this->menu_choice--;
-               if (this->menu_choice < MENU_PLAY) {
-                   this->menu_choice = MENU_QUIT;
+               if (this->menu_choice < MenuOptions::PLAY) {
+                   this->menu_choice = MenuOptions::QUIT;
                }
            } else if (event.key == SDLK_DOWN) {
                this->menu_choice++;
-               if (this->menu_choice > MENU_QUIT) {
-                   this->menu_choice = MENU_PLAY;
+               if (this->menu_choice > MenuOptions::QUIT) {
+                   this->menu_choice = MenuOptions::PLAY;
                }
            }
 
@@ -52,21 +56,27 @@ public:
 
            if (event.key == SDLK_RETURN) {
                switch (this->menu_choice) {
-                   case MENU_PLAY:
+                   case MenuOptions::PLAY:
                        this->application->scene_manager->setActiveScene("game");
                        break;
-                   case MENU_QUIT:
+                   case MenuOptions::QUIT:
                        this->application->stop();
-                       break;
+                       break;    
                }
            }
         });
     };
 
     void updateButtons() {
-        SDL_Color menu_play_color = this->menu_choice == MENU_PLAY ? this->selected_color : this->unselected_color;
-        SDL_Color menu_settings_color = this->menu_choice == MENU_SETTINGS ? this->selected_color : this->unselected_color;
-        SDL_Color menu_quit_color = this->menu_choice == MENU_QUIT ? this->selected_color : this->unselected_color;
+        SDL_Color menu_play_color = this->menu_choice == MenuOptions::PLAY 
+            ? this->selected_color
+            : this->unselected_color;
+        SDL_Color menu_settings_color = this->menu_choice == MenuOptions::SETTINGS
+            ? this->selected_color
+            : this->unselected_color;
+        SDL_Color menu_quit_color = this->menu_choice == MenuOptions::QUIT
+            ? this->selected_color 
+            : this->unselected_color;
 
         this->menu_play_button->setColor(menu_play_color);
         this->menu_settings_button->setColor(menu_settings_color);
