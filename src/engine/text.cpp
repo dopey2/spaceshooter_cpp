@@ -63,8 +63,9 @@ void Text::load(SDL_Renderer *renderer) {
     if (text_surface != nullptr) {
         this->texture = SDL_CreateTextureFromSurface(renderer, text_surface);
         SDL_DestroySurface(text_surface);
-        TTF_CloseFont(font);
     }
+
+    TTF_CloseFont(font);
 
     if (this->texture == nullptr) {
         SDL_Log("Couldn't create text: %s\n", SDL_GetError());
