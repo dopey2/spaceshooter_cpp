@@ -1,7 +1,6 @@
 #include "text.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
-#include <cstddef>
 #include "application.h"
 
 
@@ -10,7 +9,6 @@ Text::Text(const std::string &fontFilePath,const std::string &text, float fontSi
     this->m_text = text;
     this->m_font_size = fontSize;
     this->m_text_color = {255, 255, 255, SDL_ALPHA_OPAQUE};
-    this->load(m_application->scene_manager->getRenderer());
 }
 
 Text::~Text() {

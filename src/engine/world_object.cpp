@@ -21,6 +21,19 @@ WorldObject::~WorldObject() {
 
 void WorldObject::addObject(WorldObject* object) {
     this->children.push_back(object);
+
+    // the .addObject() method being the natural lifecycle method following the constructor
+    // i've called load() here, this ensure load is always called after constructor while respecting polymorphism rules for subclass
+    // properties like m_width & m_height are available only after the object has been added in the tree/graph
+
+    // Note 1:  
+    //  - this is only for the first loading,
+    //  - property changes like fontSize in text might require manually calling .load() again
+    // Note 2:
+    //  - dimension value which are != 0 must be preserved during loading phase
+    //  - those are set manually by the user before adding the object in the tree/add
+    object->load(this->m_application->scene_manager->getRenderer());
+    
 }
 
 void WorldObject::removeObject(WorldObject* object) {

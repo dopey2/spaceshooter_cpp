@@ -19,6 +19,9 @@ Scene::~Scene() {
 
 void Scene::addObject(WorldObject* object) {
     this->objects.push_back(object);
+
+    // post-construction hook, see WorldObject::addObject() for more details
+    object->load(this->application->scene_manager->getRenderer());
 }
 
 void Scene::removeObject(WorldObject* object) {

@@ -36,6 +36,10 @@ public:
     virtual ~WorldObject();
     void addObject(WorldObject* object);
     void removeObject(WorldObject* object);
+    
+    // load() is a post-construction hook, called automatically by addObject().
+    // override to initialize renderer dependent stuff (textures, fonts).
+    // defines m_width and m_height if not manually defined
     virtual void load(SDL_Renderer *renderer);
     virtual void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };
