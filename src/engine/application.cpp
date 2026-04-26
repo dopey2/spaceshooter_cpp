@@ -8,13 +8,11 @@
 #include "mouse_keyboard.h"
 #include "logger.h"
 
-#define TARGET_FPS 60
-#define INTERVAL_BETWEEN_DRAWS_CALL (1000 / TARGET_FPS)
-
-Application::Application(const char *title, int width, int height) {
+Application::Application(const char *title, int width, int height, int targetFps) {
     this->m_title = title;
     this->m_width = width;
     this->m_height = height;
+    this->m_interval_between_drawcall = 1000.0f / static_cast<float>(targetFps); 
     this->initWindow();
     this->initSDL();
     this->scene_manager = new SceneManager(this->_window);
@@ -30,9 +28,9 @@ Application::~Application() {
     AssetsLoaders::clearTexturesFromCache();
 }
 
-Application *Application::createInstance(const char *title, int width, int height) {
+Application *Application::createInstance(const char *title, int width, int height, int targetFps) {
     if (m_instance == nullptr) {
-        m_instance = new Application(title, width, height);
+        m_instance = new Application(title, width, height, targetFps);
     }
 
     return m_instance;
@@ -103,11 +101,11 @@ void Application::run() {
             }
 
             this->scene_manager->renderScene();
-            auto work_duration = static_cast<Uint64>(SDL_GetTicks() - start_work_delta);
-            if (work_duration > INTERVAL_BETWEEN_DRAWS_CALL) {
-                work_duration = INTERVAL_BETWEEN_DRAWS_CALL;
+            auto work_duration = static_cast<float>(SDL_GetTicks() - start_work_delta);
+            if (work_duration > this->m_interval_between_drawcall) {
+                work_duration = this->m_interval_between_drawcall;
             }
-            const auto delay = static_cast<Uint32>(INTERVAL_BETWEEN_DRAWS_CALL - work_duration);
+            const auto delay = static_cast<Uint32>(this->m_interval_between_drawcall - work_duration);
             SDL_Delay(delay);
         }
     }

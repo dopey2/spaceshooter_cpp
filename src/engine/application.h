@@ -15,11 +15,12 @@ class Application {
     int m_width = 0;
     int m_height = 0;
     bool m_is_running = false;
+    float m_interval_between_drawcall = 1000.0f / 60.0f;
 
     std::vector<std::function<void(Uint64 delta)>> m_callbacks_update;
     std::vector<std::function<void(SDL_KeyboardEvent)>> m_callbacks_keyPress;
 
-    Application(const char* title, int width, int height);
+    Application(const char* title, int width, int height, int targetFps);
 
 
   public:
@@ -42,7 +43,7 @@ class Application {
   // for the singleton pattern: disable the assignment operator
   void operator=(Application const&) = delete;
   ~Application();
-  static Application* createInstance(const char* title, int width, int height);
+  static Application* createInstance(const char* title, int width, int height, int targetFps);
   static Application* getInstance();
   void run();
   void stop();
