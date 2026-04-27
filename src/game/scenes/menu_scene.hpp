@@ -1,4 +1,5 @@
 #include "engine/__engine.h"
+#include "engine/mouse_keyboard.h"
 #include <array>
 #include <cstdint>
 
@@ -46,7 +47,7 @@ public:
     };
 
     void setupKeyPressListener() {
-        this->application->register_keyPress_callback([&](SDL_KeyboardEvent event) -> void {
+        MouseAndKeyboard::addKeyPressListener([&](SDL_KeyboardEvent event) -> void {
             if (event.key == SDLK_UP) {
                 // on press up
                 this->currentSelected = this->items[this->currentSelected].previousValue;

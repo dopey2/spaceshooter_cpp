@@ -4,6 +4,10 @@
 #include "../world_objects/spaceship/spaceship_view.hpp"
 #include "../world_objects/spaceship/missiles_view.hpp"
 #include "../world_objects/asteroids/asteroids_view.hpp"
+#include "engine/mouse_keyboard.h"
+#include "engine/logger.h"
+#include <string>
+
 
 
 
@@ -50,6 +54,8 @@ public:
         if (this->is_game_over) {
             return;
         }
+
+        Logger::debug(std::to_string(MouseAndKeyboard::mouse_x));
 
         this->asteroids_view->update(delta, this->missiles_view);
         this->missiles_view->update(delta, this->spaceship_view);

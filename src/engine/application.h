@@ -15,9 +15,7 @@ class Application {
     int m_height = 0;
     bool m_is_running = false;
     float m_interval_between_drawcall = 1000.0f / 60.0f;
-
     std::vector<std::function<void(Uint64 delta)>> m_callbacks_update;
-    std::vector<std::function<void(SDL_KeyboardEvent)>> m_callbacks_keyPress;
 
     Application(const char* title, int width, int height, int targetFps);
 

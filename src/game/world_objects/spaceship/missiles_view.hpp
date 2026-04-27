@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include "engine/__engine.h"
 #include "./spaceship_missile.hpp"
 

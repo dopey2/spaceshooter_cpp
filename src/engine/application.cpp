@@ -26,6 +26,7 @@ Application::~Application() {
     this->scene_manager = nullptr;
     
     AssetsLoaders::clearTexturesFromCache();
+    MouseAndKeyboard::clearListeners();
 }
 
 Application *Application::createInstance(const char *title, const int width, const int height, const int targetFps) {
@@ -79,16 +80,8 @@ void Application::run() {
             if (event.type == SDL_EVENT_QUIT) {
                 this->m_is_running = false;
                 Logger::debug("Application: Quit");
-            } else if (event.type == SDL_EVENT_KEY_DOWN) {
-                MouseAndKeyboard::onKeyDown(event.key.key);
-                for (const auto &callback: this->m_callbacks_keyPress) {
-                    callback(event.key);
-                }
-            } else if (event.type == SDL_EVENT_KEY_UP) {
-                MouseAndKeyboard::onKeyUp(event.key.key);
-            } else if (event.type == SDL_EVENT_MOUSE_MOTION) {
-                *MouseAndKeyboard::mouse_x = static_cast<int>(event.motion.x);
-                *MouseAndKeyboard::mouse_y = static_cast<int>(event.motion.y);
+            } else {
+                MouseAndKeyboard::processInputEvent(event);
             }
         }
 
@@ -115,10 +108,6 @@ void Application::stop() { this->m_is_running = false; }
 
 void Application::register_update_callback(const std::function<void(Uint64 delta)> &update_callback) {
     this->m_callbacks_update.push_back(update_callback);
-}
-
-void Application::register_keyPress_callback(const std::function<void(SDL_KeyboardEvent event)> &keyPress_callback) {
-    this->m_callbacks_keyPress.push_back(keyPress_callback);
 }
 
 Application *Application::Application::m_instance = nullptr;
