@@ -11,21 +11,21 @@ namespace MouseAndKeyboard {
    int* mouse_x = &internal_mouse_x;
    int* mouse_y = &internal_mouse_y;
 
-  void onKeyDown(SDL_Keycode key) {
+  void onKeyDown(const SDL_Keycode key) {
     auto iterator = find(keys_down.begin(), keys_down.end(), key);
     if (iterator == keys_down.end()) {
       keys_down.push_back(key);
     }
   }
 
-  void onKeyUp(SDL_Keycode key) {
+  void onKeyUp(const SDL_Keycode key) {
     auto iterator = find(keys_down.begin(), keys_down.end(), key);
     if (iterator != keys_down.end()) {
       keys_down.erase(iterator);
     }
   }
 
-  bool isKeyDown(SDL_Keycode key) {
+  bool isKeyDown(const SDL_Keycode key) {
     auto iterator = find(keys_down.begin(), keys_down.end(), key);
     return iterator != keys_down.end();
   }

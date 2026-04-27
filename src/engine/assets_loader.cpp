@@ -27,7 +27,7 @@ namespace AssetsLoaders {
         textures_by_path[bmpFilePath] = texture;
     }
 
-    SDL_Texture* loadTexture(SDL_Renderer* renderer, const std::string& bmpFilePath) {
+    SDL_Texture* loadTexture(SDL_Renderer* const renderer, const std::string& bmpFilePath) {
         SDL_Texture* cachedTexture = getTextureFromCache(bmpFilePath);
         if (cachedTexture != nullptr) {
             Logger::debug("AssetsLoader: Loading texture from cache (" + bmpFilePath + ")");

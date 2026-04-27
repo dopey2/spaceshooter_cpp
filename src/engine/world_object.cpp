@@ -19,7 +19,7 @@ WorldObject::~WorldObject() {
     }
 }
 
-void WorldObject::addObject(WorldObject* object) {
+void WorldObject::addObject(WorldObject* const object) {
     this->children.push_back(object);
 
     // the .addObject() method being the natural lifecycle method following the constructor
@@ -36,7 +36,7 @@ void WorldObject::addObject(WorldObject* object) {
     
 }
 
-void WorldObject::removeObject(WorldObject* object) {
+void WorldObject::removeObject(WorldObject* const object) {
     size_t i = 0;
     for (auto iterator = this->children.begin(); iterator != this->children.end(); iterator++, i++) {
         if (children.at(i) == object) {
@@ -46,14 +46,14 @@ void WorldObject::removeObject(WorldObject* object) {
     }
 }
 
-static void renderChildren(WorldObject* object, SDL_Renderer *renderer, float parent_x, float parent_y) {
+static void renderChildren(WorldObject* const object, SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
     for (WorldObject* child : object->children) {
         child->render(renderer, object->m_x + parent_x, object->m_y + parent_y);
         renderChildren(child, renderer, parent_x, parent_y);
     }
 }
 
-void WorldObject::callRender(SDL_Renderer *renderer, float parent_x, float parent_y) {
+void WorldObject::callRender(SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
     this->render(renderer, parent_x, parent_y);
     for(WorldObject* object : this->children) {
         object->render(renderer, this->m_x + parent_x, this->m_y + parent_y);
@@ -63,14 +63,14 @@ void WorldObject::callRender(SDL_Renderer *renderer, float parent_x, float paren
     }
 }
 
-void WorldObject::callOnUpdateCallbackChildren(WorldObject* object, Uint64 delta) {
+void WorldObject::callOnUpdateCallbackChildren(WorldObject* const object, const Uint64 delta) {
     for (WorldObject* child : object->children) {
         child->onUpdate(delta);
         callOnUpdateCallbackChildren(child, delta);
     }
 }
 
-void WorldObject::callUpdateCallback(Uint64 delta) {
+void WorldObject::callUpdateCallback(const Uint64 delta) {
     this->onUpdate(delta);
     for (WorldObject *object: this->children) {
         object->onUpdate(delta);
@@ -83,6 +83,6 @@ void WorldObject::callUpdateCallback(Uint64 delta) {
 /** Base class, no implementation, leave empty */
 void WorldObject::load(SDL_Renderer*) {}
 /** Base class, no implementation, leave empty */
-void WorldObject::render(SDL_Renderer*, float, float) {}
+void WorldObject::render(SDL_Renderer*, const float, const float) {}
 /** Base class, no implementation, leave empty */
 void WorldObject::onUpdate(Uint64) {}

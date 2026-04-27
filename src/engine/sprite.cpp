@@ -15,7 +15,7 @@ Sprite::~Sprite() {
     delete m_target_rect;
 }
 
-void Sprite::setAlpha(float alpha) {
+void Sprite::setAlpha(const float alpha) {
     this->m_alpha = alpha;
     SDL_SetTextureAlphaMod(this->m_texture, static_cast<Uint8>(this->m_alpha * 255));
 }
@@ -34,7 +34,7 @@ void Sprite::load(SDL_Renderer *renderer) {
     }
 }
 
-void Sprite::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
+void Sprite::render(SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
     if (this->m_texture == nullptr) {
         this->load(renderer);
     }

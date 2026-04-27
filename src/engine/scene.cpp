@@ -17,14 +17,14 @@ Scene::~Scene() {
     this->objects.clear();
 }
 
-void Scene::addObject(WorldObject* object) {
+void Scene::addObject(WorldObject* const object) {
     this->objects.push_back(object);
 
     // post-construction hook, see WorldObject::addObject() for more details
     object->load(this->application->scene_manager->getRenderer());
 }
 
-void Scene::removeObject(WorldObject* object) {
+void Scene::removeObject(WorldObject* const object) {
     size_t i = 0;
     for (auto iterator = this->objects.begin(); iterator != this->objects.end(); iterator++, i++) {
         if (objects.at(i) == object) {
@@ -34,14 +34,14 @@ void Scene::removeObject(WorldObject* object) {
     }
 }
 
-void Scene::callOnUpdateCallback(Uint64 delta) {
+void Scene::callOnUpdateCallback(const Uint64 delta) {
     this->onUpdate(delta);
     for(WorldObject* object: this->objects) {
         object->callUpdateCallback(delta);
     }
 }
 
-void Scene::renderAllObjects(SDL_Renderer* renderer) {
+void Scene::renderAllObjects(SDL_Renderer* const renderer) {
     SDL_RenderClear(renderer);
 
     for(WorldObject* object: this->objects) {

@@ -11,11 +11,11 @@ SpriteAnimation::SpriteAnimation(const std::string &file_path) : Sprite(file_pat
 }
 
 
-void SpriteAnimation::addFrameFromTexture(SDL_FRect* source_rect) {
+void SpriteAnimation::addFrameFromTexture(SDL_FRect* const source_rect) {
     this->frames.push_back(source_rect);
 }
 
-void SpriteAnimation::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
+void SpriteAnimation::render(SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
     if (this->m_texture == nullptr) {
         this->load(renderer);
     }

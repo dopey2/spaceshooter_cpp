@@ -2,7 +2,7 @@
 #include "scene.h"
 #include "logger.h"
 
-SceneManager::SceneManager(SDL_Window* window) {
+SceneManager::SceneManager(SDL_Window* const window) {
     SDL_Renderer* renderer = SDL_CreateRenderer(window, nullptr);
 
     if (renderer == nullptr) {
@@ -31,7 +31,7 @@ SDL_Renderer* SceneManager::getRenderer() {
     return this->m_renderer;
 }
 
-void SceneManager::addScene(const std::string &key, Scene* scene) {
+void SceneManager::addScene(const std::string &key, Scene* const scene) {
     this->scenes_by_id.insert({key, scene});
     // the first scene becomes the active scene
     if(scenes_by_id.size() == 1) {
@@ -55,7 +55,7 @@ void SceneManager::setActiveScene(const std::string &key) {
     }
 }
 
-void SceneManager::callOnUpdateCallback(Uint64 delta) {
+void SceneManager::callOnUpdateCallback(const Uint64 delta) {
     Scene* scene = this->getActiveScene();
     if (scene != nullptr) {
         scene->callOnUpdateCallback(delta);

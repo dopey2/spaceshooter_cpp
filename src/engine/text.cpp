@@ -4,7 +4,7 @@
 #include "application.h"
 
 
-Text::Text(const std::string &fontFilePath,const std::string &text, float fontSize) {
+Text::Text(const std::string &fontFilePath, const std::string &text, const float fontSize) {
     this->m_font_file_path = fontFilePath;
     this->m_text = text;
     this->m_font_size = fontSize;
@@ -43,7 +43,7 @@ void Text::savePrevTransform() {
 
 // must also be called every time a changes occurs in the text content or properties.
 // no need to be called if only x & y positions changes.
-void Text::load(SDL_Renderer *renderer) {
+void Text::load(SDL_Renderer* const renderer) {
     TTF_Font *font = TTF_OpenFont(this->m_font_file_path.c_str(), m_font_size);
 
     if (font == nullptr) {
@@ -109,7 +109,7 @@ void Text::load(SDL_Renderer *renderer) {
     }
 }
 
-void Text::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
+void Text::render(SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
     if(this->texture == nullptr) {
         this->load(renderer);
     }

@@ -8,7 +8,7 @@
 #include "mouse_keyboard.h"
 #include "logger.h"
 
-Application::Application(const char *title, int width, int height, int targetFps) {
+Application::Application(const char *title, const int width, const int height, const int targetFps) {
     this->m_title = title;
     this->m_width = width;
     this->m_height = height;
@@ -28,7 +28,7 @@ Application::~Application() {
     AssetsLoaders::clearTexturesFromCache();
 }
 
-Application *Application::createInstance(const char *title, int width, int height, int targetFps) {
+Application *Application::createInstance(const char *title, const int width, const int height, const int targetFps) {
     if (m_instance == nullptr) {
         m_instance = new Application(title, width, height, targetFps);
     }
