@@ -29,8 +29,4 @@ namespace MouseAndKeyboard {
     auto iterator = find(keys_down.begin(), keys_down.end(), key);
     return iterator != keys_down.end();
   }
-
-  void setMouseX(int x) {
-      *mouse_x = x;
-  }
 }
