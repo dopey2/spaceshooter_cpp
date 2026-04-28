@@ -46,21 +46,16 @@ void WorldObject::removeObject(WorldObject* const object) {
     }
 }
 
-static void renderChildren(WorldObject* const object, SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
+static void renderChildrenRecursively(WorldObject* const object, SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
     for (WorldObject* child : object->children) {
         child->render(renderer, object->m_x + parent_x, object->m_y + parent_y);
-        renderChildren(child, renderer, parent_x, parent_y);
+        renderChildrenRecursively(child, renderer, object->m_x + parent_x, object->m_y + parent_y);
     }
 }
 
 void WorldObject::callRender(SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
     this->render(renderer, parent_x, parent_y);
-    for(WorldObject* object : this->children) {
-        object->render(renderer, this->m_x + parent_x, this->m_y + parent_y);
-        if (object->children.size() > 0) {
-            renderChildren(object, renderer, parent_x, parent_y);
-        }
-    }
+    renderChildrenRecursively(this, renderer, parent_x, parent_y);
 }
 
 void WorldObject::callOnUpdateCallbackChildren(WorldObject* const object, const Uint64 delta) {
