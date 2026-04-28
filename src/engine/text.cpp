@@ -30,7 +30,7 @@ void Text::setColor(SDL_Color color) {
 
     if (this->texture != nullptr) {
         this->savePrevTransform();
-        this->load(this->m_application->scene_manager->getRenderer());
+        this->load(this->m_application->getRenderer());
     }
 }
 

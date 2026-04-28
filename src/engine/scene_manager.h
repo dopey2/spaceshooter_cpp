@@ -11,12 +11,11 @@ class SceneManager {
    private:
        std::map<std::string, Scene*> scenes_by_id;
        std::string active_scene = "";
-       SDL_Renderer* m_renderer = nullptr;
+       SDL_Renderer* renderer = nullptr;
 
    public:
-       SceneManager(SDL_Window* window);
+       SceneManager(SDL_Renderer* renderer);
        ~SceneManager();
-       SDL_Renderer* getRenderer();
        void addScene(const std::string &key, Scene* scene);
        Scene* getActiveScene();
        void setActiveScene(const std::string &key);

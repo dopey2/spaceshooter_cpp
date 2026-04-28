@@ -21,7 +21,8 @@ class Application {
 
 
   public:
-    SDL_Window* _window = nullptr;
+    SDL_Window* window = nullptr;
+    SDL_Renderer* renderer = nullptr;
     SceneManager* scene_manager = nullptr;
 
     int getWidth();
@@ -29,9 +30,12 @@ class Application {
     float getWidthF();
     float getHeightF();
 
+    SDL_Renderer* getRenderer();
+
   private:
     void initSDL();
     void initWindow();
+    void initRenderer();
 
 
   public:

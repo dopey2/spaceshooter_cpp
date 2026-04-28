@@ -58,7 +58,7 @@ namespace AssetsLoaders {
     void loadTexturesInCache(const std::vector<std::string>& texture_paths) {
         for(const auto& path : texture_paths) {
             loadTexture(
-                    Application::getInstance()->scene_manager->getRenderer(),
+                    Application::getInstance()->getRenderer(),
                     path
             );
         }

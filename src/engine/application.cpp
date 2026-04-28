@@ -13,17 +13,26 @@ Application::Application(const char *title, const int width, const int height, c
     this->m_width = width;
     this->m_height = height;
     this->m_interval_between_drawcall = 1000.0f / static_cast<float>(targetFps); 
-    this->initWindow();
+
+    // initialize sdl, window, renderer & scene manager
     this->initSDL();
-    this->scene_manager = new SceneManager(this->_window);
+
+    this->initWindow();
+    this->initRenderer(); // depende on window
+    this->scene_manager = new SceneManager(this->renderer); // depend on renderer
 }
 
 Application::~Application() {
     m_instance = nullptr;
-    SDL_DestroyWindow(this->_window);
 
     delete this->scene_manager;
     this->scene_manager = nullptr;
+
+    SDL_DestroyRenderer(this->renderer);
+    this->renderer = nullptr;
+
+    SDL_DestroyWindow(this->window);
+    this->window = nullptr;
     
     AssetsLoaders::clearTexturesFromCache();
     MouseAndKeyboard::clearListeners();
@@ -40,25 +49,37 @@ Application *Application::createInstance(const char *title, const int width, con
 Application *Application::getInstance() { return m_instance; }
 
 void Application::initSDL() {
-
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         Logger::error("Application: SDL could not initialize !");
         Logger::error("SDL_Error: " + static_cast<std::string>(SDL_GetError()));
+        SDL_Quit();
     }
 
     if (!TTF_Init()) {
         Logger::error("Application: SDL could not initialize SDL_TTF!");
         Logger::error("SDL_Error: " + static_cast<std::string>(SDL_GetError()));
+        SDL_Quit();
     }
 }
 
 void Application::initWindow() {
-    this->_window = SDL_CreateWindow(this->m_title, this->m_width, this->m_height, SDL_WINDOW_OPENGL);
-    if (this->_window == nullptr) {
+    this->window = SDL_CreateWindow(this->m_title, this->m_width, this->m_height, SDL_WINDOW_OPENGL);
+    if (this->window == nullptr) {
         Logger::error("Application: Window could not be created !");
         Logger::error("SDL_Error: " + static_cast<std::string>(SDL_GetError()));
+        SDL_Quit();
     }
 }
+
+void Application::initRenderer() {
+    this->renderer = SDL_CreateRenderer(this->window, nullptr);
+    if (this->renderer == nullptr) {
+        Logger::error("Application: Renderer could not be created !");
+        Logger::error("SDL_Error: " + static_cast<std::string>(SDL_GetError()));
+        SDL_Quit();
+    }
+}
+
 
 int Application::getWidth() { return this->m_width; }
 
@@ -67,6 +88,8 @@ int Application::getHeight() { return this->m_height; }
 float Application::getWidthF() { return static_cast<float>(this->m_width); }
 
 float Application::getHeightF() { return static_cast<float>(this->m_height); }
+
+SDL_Renderer* Application::getRenderer() { return this->renderer; }
 
 void Application::run() {
     this->m_is_running = true;

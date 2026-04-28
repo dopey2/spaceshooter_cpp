@@ -32,7 +32,7 @@ void WorldObject::addObject(WorldObject* const object) {
     // Note 2:
     //  - dimension value which are != 0 must be preserved during loading phase
     //  - those are set manually by the user before adding the object in the tree/add
-    object->load(this->m_application->scene_manager->getRenderer());
+    object->load(this->m_application->getRenderer());
     
 }
 
