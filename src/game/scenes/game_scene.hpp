@@ -55,8 +55,6 @@ public:
             return;
         }
 
-        Logger::debug(std::to_string(MouseAndKeyboard::mouse_x));
-
         this->asteroids_view->update(delta, this->missiles_view);
         this->missiles_view->update(delta, this->spaceship_view);
 
