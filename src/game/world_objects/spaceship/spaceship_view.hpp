@@ -2,6 +2,9 @@
 
 #include "engine/__engine.h"
 #include "./spaceship_aim_laser.hpp"
+#include "engine/sprite_animation.h"
+#include <algorithm>
+#include <memory>
 
 class SpaceshipView : public WorldObject {
 private:
@@ -14,25 +17,31 @@ private:
     bool is_game_over = false;
     float x_velocity = 0;
 
-    Sprite *spaceship_sprite = nullptr;
-    SpriteAnimation *engine_fire_animations = nullptr;
+    Sprite* spaceship_sprite = nullptr;
+    SpriteAnimation* engine_fire_animations = nullptr;
     SpaceshipAimLaser* aim_laser = nullptr;
 
 public:
     SpaceshipView() {
         this->name = "missile_view";
-
-        // view
         this->m_width = 60;
         this->m_height = 60;
 
-        // spaceship sprite
-        this->spaceship_sprite = new Sprite(AssetsLoaders::getAsset("img/hand_made_spaceship.bmp"));
+        auto spaceship_sprite_owner = std::make_unique<Sprite>(AssetsLoaders::getAsset("img/hand_made_spaceship.bmp"));
+        this->spaceship_sprite = spaceship_sprite_owner.get(); // non owning ref
+        this->addObject(std::move(spaceship_sprite_owner));
+
+        auto engine_fire_animations_owner = std::make_unique<SpriteAnimation>(AssetsLoaders::getAsset("img/fire_bullet_default.bmp"));
+        this->engine_fire_animations = engine_fire_animations_owner.get(); // non owning ref
+        this->addObject(std::move(engine_fire_animations_owner));
+
+        auto aim_laser_owner = std::make_unique<SpaceshipAimLaser>();
+        this->aim_laser = aim_laser_owner.get(); // non owning ref
+        this->addObject(std::move(aim_laser_owner));
+
         this->spaceship_sprite->m_width = 60;
         this->spaceship_sprite->m_height = 60;
 
-        // engine fire animation
-        this->engine_fire_animations = new SpriteAnimation(AssetsLoaders::getAsset("img/fire_bullet_default.bmp"));
         this->engine_fire_animations->addFrameFromTexture(new SDL_FRect({416, 48, 16, 16}));
         this->engine_fire_animations->addFrameFromTexture(new SDL_FRect({432, 48, 16, 16}));
         this->engine_fire_animations->addFrameFromTexture(new SDL_FRect({448, 48, 16, 16}));
@@ -42,12 +51,6 @@ public:
         this->engine_fire_animations->m_x = 22;
         this->engine_fire_animations->m_y = 60;
         this->engine_fire_animations->m_rotation = 270;
-
-        this->addObject(spaceship_sprite);
-        this->addObject(engine_fire_animations);
-
-        this->aim_laser = new SpaceshipAimLaser();
-        this->addObject(aim_laser);
     }
 
     float getLaserTargetX() {
@@ -92,7 +95,6 @@ public:
             } else {
                 this->x_velocity -= (this->x_velocity / abs(this->x_velocity)) * VELOCITY_FRICTION;
             }
-
         }
 
         if (this->x_velocity != 0) {

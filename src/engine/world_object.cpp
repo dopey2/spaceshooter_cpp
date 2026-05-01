@@ -12,34 +12,30 @@ WorldObject::WorldObject() {
     this->m_rotation = 0;
 }
 
+WorldObject::~WorldObject() = default;
 
-WorldObject::~WorldObject() {
-    for(WorldObject* object: this->children) {
-        delete object;
-    }
-}
-
-void WorldObject::addObject(WorldObject* const object) {
-    this->children.push_back(object);
+void WorldObject::addObject(std::unique_ptr<WorldObject> object) {
+    this->children.push_back(std::move(object));
 
     // the .addObject() method being the natural lifecycle method following the constructor
     // i've called load() here, this ensure load is always called after constructor while respecting polymorphism rules for subclass
     // properties like m_width & m_height are available only after the object has been added in the tree/graph
 
-    // Note 1:  
+    // Note 1:
     //  - this is only for the first loading,
     //  - property changes like fontSize in text might require manually calling .load() again
     // Note 2:
     //  - dimension value which are != 0 must be preserved during loading phase
     //  - those are set manually by the user before adding the object in the tree/add
-    object->load(this->m_application->getRenderer());
-    
+
+    auto& lastObject = this->children.back();
+    lastObject->load(this->m_application->getRenderer());
 }
 
 void WorldObject::removeObject(WorldObject* const object) {
     size_t i = 0;
     for (auto iterator = this->children.begin(); iterator != this->children.end(); iterator++, i++) {
-        if (children.at(i) == object) {
+        if (children.at(i).get() == object) {
             children.erase(iterator);
             return;
         }
@@ -47,9 +43,9 @@ void WorldObject::removeObject(WorldObject* const object) {
 }
 
 static void renderChildrenRecursively(WorldObject* const object, SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
-    for (WorldObject* child : object->children) {
+    for (auto& child : object->children) {
         child->render(renderer, object->m_x + parent_x, object->m_y + parent_y);
-        renderChildrenRecursively(child, renderer, object->m_x + parent_x, object->m_y + parent_y);
+        renderChildrenRecursively(child.get(), renderer, object->m_x + parent_x, object->m_y + parent_y);
     }
 }
 
@@ -59,19 +55,17 @@ void WorldObject::callRender(SDL_Renderer* const renderer, const float parent_x,
 }
 
 void WorldObject::callOnUpdateCallbackChildren(WorldObject* const object, const Uint64 delta) {
-    for (WorldObject* child : object->children) {
+    for (auto& child : object->children) {
         child->onUpdate(delta);
-        callOnUpdateCallbackChildren(child, delta);
+        callOnUpdateCallbackChildren(child.get(), delta);
     }
 }
 
 void WorldObject::callUpdateCallback(const Uint64 delta) {
     this->onUpdate(delta);
-    for (WorldObject *object: this->children) {
+    for (auto& object: this->children) {
         object->onUpdate(delta);
-        if (object->children.size() > 0) {
-            callOnUpdateCallbackChildren(object, delta);
-        }
+        callOnUpdateCallbackChildren(object.get(), delta);
     }
 }
 

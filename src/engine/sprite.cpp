@@ -28,7 +28,7 @@ void Sprite::load(SDL_Renderer *renderer) {
         // set dimension from texture if not manually setted
         // this allow pre setting the dimension before adding the object in the tree/graph
         if(this->m_width == 0) this->m_width = static_cast<float>(m_texture->w);
-        if(this->m_height == 0) this->m_height = static_cast<float>(m_texture->h); 
+        if(this->m_height == 0) this->m_height = static_cast<float>(m_texture->h);
 
         this->m_target_rect = new SDL_FRect({this->m_x, this->m_y, this->m_width, this->m_height});
     }

@@ -4,6 +4,7 @@
 #include <optional>
 #include <vector>
 #include <string>
+#include <memory>
 
 class Application;
 class Scene;
@@ -24,7 +25,7 @@ public:
     std::string name = "";
 
     WorldObject* parent = nullptr;
-    std::vector<WorldObject*> children;
+    std::vector<std::unique_ptr<WorldObject>> children;
 
     float m_x;
     float m_y;
@@ -34,9 +35,9 @@ public:
 
     WorldObject();
     virtual ~WorldObject();
-    void addObject(WorldObject* object);
+    void addObject(std::unique_ptr<WorldObject> object);
     void removeObject(WorldObject* object);
-    
+
     // load() is a post-construction hook, called automatically by addObject().
     // override to initialize renderer dependent stuff (textures, fonts).
     // defines m_width and m_height if not manually defined

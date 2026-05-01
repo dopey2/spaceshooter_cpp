@@ -2,6 +2,9 @@
 
 #include "engine/__engine.h"
 #include "../../misc/math.hpp"
+#include "engine/sprite.h"
+#include <algorithm>
+#include <memory>
 
 
 class Asteroid : public WorldObject {
@@ -47,11 +50,12 @@ public:
 
         for (int i = 1; i < 12; i++) {
             std::string part_path = "img/asteroid/variant_A/variant_A_" + std::to_string(i) + ".bmp";
-            auto* part = new Sprite(AssetsLoaders::getAsset(part_path));
+            auto asset = AssetsLoaders::getAsset(part_path);
+            auto part = std::make_unique<Sprite>(asset);
             part->m_width = 50;
             part->m_height = 50;
-            this->asteroid_parts.push_back(part);
-            this->addObject(part);
+            this->asteroid_parts.push_back(part.get());
+            this->addObject(std::move(part));
         }
     }
 

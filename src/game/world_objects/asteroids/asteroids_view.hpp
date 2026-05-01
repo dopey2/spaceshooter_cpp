@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <memory>
 #include "engine/__engine.h"
 #include "./asteroid.hpp"
 #include "../spaceship/spaceship_view.hpp"
@@ -13,11 +14,18 @@ private:
 
     std::vector<Asteroid*> asteroids_list;
 
+    Asteroid* spawnNewAsteroid() {
+        auto asteroidOwner = std::make_unique<Asteroid>();
+        auto asteroid = asteroidOwner.get();
+        this->addObject(std::move(asteroidOwner));
+        return asteroid;
+    }
+
+
 public:
     void init() {
         for (auto asteroid : asteroids_list) {
             this->removeObject(asteroid);
-            delete asteroid;
         }
         asteroids_list.clear();
         this->lastAsteroidSpawnTime = 0;
@@ -27,15 +35,13 @@ public:
         // Spawn new asteroid
         if (this->lastAsteroidSpawnTime + this->asteroidSpawnInterval < delta) {
             this->lastAsteroidSpawnTime = delta;
-            auto* asteroid = new Asteroid();
-            this->addObject(asteroid);
+            auto asteroid = this->spawnNewAsteroid();
             this->asteroids_list.push_back(asteroid);
         }
 
         // Update asteroids
         for (auto asteroid : this->asteroids_list) {
             asteroid->updateAsteroidPosition();
-
             // check out of screen
             if (asteroid->isOutOfScreen()) {
                 this->removeObject(asteroid);
@@ -43,7 +49,6 @@ public:
                     std::remove(this->asteroids_list.begin(), this->asteroids_list.end(), asteroid),
                     this->asteroids_list.end()
                 );
-                delete asteroid;
                 continue;
             }
 
