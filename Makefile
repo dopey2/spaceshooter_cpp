@@ -41,6 +41,9 @@ test: build
 lint:
 	clang-tidy --quiet -p $(BUILD_DEBUG) src/main.cpp src/engine/*.cpp
 
+format:
+	find src -name "*.cpp" -o -name ".h" -o -name "*.hpp" | xargs clang-format -i
+
 run: build
 	./$(BUILD_DEBUG)/$(BIN)
 
