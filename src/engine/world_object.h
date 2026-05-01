@@ -24,7 +24,7 @@ protected:
 public:
     std::string name = "";
 
-    WorldObject* parent = nullptr;
+    const WorldObject* parent = nullptr;
     std::vector<std::unique_ptr<WorldObject>> children;
 
     float m_x;

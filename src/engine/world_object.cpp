@@ -15,6 +15,7 @@ WorldObject::WorldObject() {
 WorldObject::~WorldObject() = default;
 
 void WorldObject::addObject(std::unique_ptr<WorldObject> object) {
+    object.get()->parent = this;
     this->children.push_back(std::move(object));
 
     // the .addObject() method being the natural lifecycle method following the
