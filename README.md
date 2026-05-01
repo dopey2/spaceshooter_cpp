@@ -19,6 +19,7 @@
 | `make run`           | Build and launch the game (debug)            |
 | `make test`          | Build and run tests                          |
 | `make lint`          | Run clang-tidy static analysis               |
+| `make format`        | Format all source files with clang-format    |
 | `make build-release` | Configure and build (release, no sanitizers) |
 | `make run-release`   | Build and launch the game (release)          |
 | `make clean`         | Remove all build artifacts                   |
@@ -35,6 +36,7 @@ spaceshooter-cpp/
 │  ├─ engine/           <-- Game engine
 │  ├─ game/             <-- Game logic
 │  ├─ main.cpp          <-- App entry point
+├─ .clang-format        <-- Clang-format config (code formatting)
 ├─ .clang-tidy          <-- Clang-tidy config (static analysis)
 ├─ .clangd              <-- IDE server lang config (untracked & auto-generated)
 ├─ CMakeLists.txt       <-- CMake config
