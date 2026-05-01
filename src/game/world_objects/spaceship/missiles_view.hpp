@@ -2,6 +2,7 @@
 
 #include "./spaceship_missile.hpp"
 #include "engine/__engine.h"
+#include "game/world_objects/spaceship/spaceship_view.hpp"
 #include <algorithm>
 #include <memory>
 
