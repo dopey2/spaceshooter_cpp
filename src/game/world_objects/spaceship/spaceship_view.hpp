@@ -73,14 +73,17 @@ class SpaceshipView : public WorldObject {
         this->aim_laser->update(this->m_y);
 
         if (MouseAndKeyboard::isKeyDown(SDLK_Q)) {
+            // Move left
             if (this->x_velocity > -MAX_VELOCITY) {
                 this->x_velocity -= VELOCITY_STEP;
             }
         } else if (MouseAndKeyboard::isKeyDown(SDLK_D)) {
+            // Move right
             if (this->x_velocity < MAX_VELOCITY) {
                 this->x_velocity += VELOCITY_STEP;
             }
-        } else if (!MouseAndKeyboard::isKeyDown(SDLK_Q) && !MouseAndKeyboard::isKeyDown(SDLK_D)) {
+        } else if (!MouseAndKeyboard::isKeyDown(SDLK_Q) && !MouseAndKeyboard::isKeyDown(SDLK_D) && this->x_velocity != 0) {
+            // Slow Down on key release
             if (abs(x_velocity) < VELOCITY_FRICTION) {
                 this->x_velocity = 0;
             } else {
