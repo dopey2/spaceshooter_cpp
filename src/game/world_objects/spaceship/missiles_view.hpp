@@ -10,7 +10,7 @@ class MissilesView : public WorldObject {
     Uint64 lastMissileSpawnTime = 0;
     const Uint64 missileSpawnInterval = 500;
 
-    SpaceshipMissile *spawnNewMissile() {
+    SpaceshipMissile* spawnNewMissile() {
         auto missileOwner = std::make_unique<SpaceshipMissile>();
         auto missile = missileOwner.get(); // non owning-ref
         this->addObject(std::move(missileOwner));
@@ -18,7 +18,7 @@ class MissilesView : public WorldObject {
     }
 
   public:
-    std::vector<SpaceshipMissile *> missiles_list;
+    std::vector<SpaceshipMissile*> missiles_list;
 
     void init() {
         for (auto missile : missiles_list) {
@@ -28,25 +28,21 @@ class MissilesView : public WorldObject {
         this->lastMissileSpawnTime = 0;
     }
 
-    void deleteMissile(SpaceshipMissile *missile) {
+    void deleteMissile(SpaceshipMissile* missile) {
         this->removeObject(missile);
-        this->missiles_list.erase(std::remove(this->missiles_list.begin(),
-                                              this->missiles_list.end(),
-                                              missile),
-                                  this->missiles_list.end());
+        this->missiles_list.erase(
+            std::remove(this->missiles_list.begin(), this->missiles_list.end(), missile), this->missiles_list.end()
+        );
     }
 
-    void update(Uint64 delta, SpaceshipView *spaceship) {
+    void update(Uint64 delta, SpaceshipView* spaceship) {
         if (MouseAndKeyboard::isKeyDown(SDLK_SPACE)) {
-            if (this->lastMissileSpawnTime + this->missileSpawnInterval <
-                delta) {
+            if (this->lastMissileSpawnTime + this->missileSpawnInterval < delta) {
                 auto missile = this->spawnNewMissile();
                 this->missiles_list.push_back(missile);
-                missile->m_x = spaceship->m_x + spaceship->m_width / 2 -
-                               missile->m_width / 2;
+                missile->m_x = spaceship->m_x + spaceship->m_width / 2 - missile->m_width / 2;
                 missile->m_y = spaceship->m_y;
-                missile->setTargetPosition(spaceship->getLaserTargetX(),
-                                           spaceship->getLaserTargetY());
+                missile->setTargetPosition(spaceship->getLaserTargetX(), spaceship->getLaserTargetY());
                 this->lastMissileSpawnTime = delta;
             }
         }

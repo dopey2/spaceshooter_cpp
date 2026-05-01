@@ -1,10 +1,9 @@
 #include "text.h"
+#include "application.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
-#include "application.h"
 
-
-Text::Text(const std::string &fontFilePath, const std::string &text, const float fontSize) {
+Text::Text(const std::string& fontFilePath, const std::string& text, const float fontSize) {
     this->m_font_file_path = fontFilePath;
     this->m_text = text;
     this->m_font_size = fontSize;
@@ -17,12 +16,8 @@ Text::~Text() {
 }
 
 void Text::setColor(SDL_Color color) {
-    if (
-        this->m_text_color.a == color.a &&
-        this->m_text_color.r == color.r &&
-        this->m_text_color.g == color.g &&
-        this->m_text_color.b == color.b
-    ) {
+    if (this->m_text_color.a == color.a && this->m_text_color.r == color.r && this->m_text_color.g == color.g &&
+        this->m_text_color.b == color.b) {
         return;
     }
 
@@ -41,24 +36,23 @@ void Text::savePrevTransform() {
     this->prev_height = this->m_height;
 }
 
-// must also be called every time a changes occurs in the text content or properties.
-// no need to be called if only x & y positions changes.
+// must also be called every time a changes occurs in the text content or
+// properties. no need to be called if only x & y positions changes.
 void Text::load(SDL_Renderer* const renderer) {
-    TTF_Font *font = TTF_OpenFont(this->m_font_file_path.c_str(), m_font_size);
+    TTF_Font* font = TTF_OpenFont(this->m_font_file_path.c_str(), m_font_size);
 
     if (font == nullptr) {
         SDL_Log("Couldn't open font: %s\n", SDL_GetError());
         return;
     }
 
-    if(this->texture != nullptr) {
+    if (this->texture != nullptr) {
         // destroy previous texture before creating a new one
         SDL_DestroyTexture(this->texture);
         this->texture = nullptr;
     }
 
-
-    SDL_Surface *text_surface = TTF_RenderText_Blended(font, this->m_text.c_str(), 0, m_text_color);
+    SDL_Surface* text_surface = TTF_RenderText_Blended(font, this->m_text.c_str(), 0, m_text_color);
 
     if (text_surface != nullptr) {
         this->texture = SDL_CreateTextureFromSurface(renderer, text_surface);
@@ -81,11 +75,8 @@ void Text::load(SDL_Renderer* const renderer) {
     SDL_GetTextureSize(this->texture, &texture_width, &texture_height);
 
     this->m_target_rect = {
-           (static_cast<float>(renderer_w) - texture_width) / 2,
-           (static_cast<float>(renderer_h) - texture_height) / 2,
-           texture_width,
-           texture_height
-    };
+        (static_cast<float>(renderer_w) - texture_width) / 2, (static_cast<float>(renderer_h) - texture_height) / 2,
+        texture_width, texture_height};
 
     this->m_x = m_target_rect.x;
     this->m_y = m_target_rect.y;
@@ -110,7 +101,7 @@ void Text::load(SDL_Renderer* const renderer) {
 }
 
 void Text::render(SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
-    if(this->texture == nullptr) {
+    if (this->texture == nullptr) {
         this->load(renderer);
     }
 

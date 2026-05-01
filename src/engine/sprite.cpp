@@ -1,10 +1,8 @@
 #include "sprite.h"
-#include <SDL3/SDL.h>
 #include "assets_loader.h"
+#include <SDL3/SDL.h>
 
-Sprite::Sprite(const std::string &bmpFilePath) {
-    this->m_bmp_file_path = bmpFilePath;
-}
+Sprite::Sprite(const std::string& bmpFilePath) { this->m_bmp_file_path = bmpFilePath; }
 
 Sprite::~Sprite() {
     if (this->m_texture != nullptr) {
@@ -20,15 +18,18 @@ void Sprite::setAlpha(const float alpha) {
     SDL_SetTextureAlphaMod(this->m_texture, static_cast<Uint8>(this->m_alpha * 255));
 }
 
-void Sprite::load(SDL_Renderer *renderer) {
+void Sprite::load(SDL_Renderer* renderer) {
     if (this->m_texture == nullptr) {
         this->m_texture = AssetsLoaders::loadTexture(renderer, m_bmp_file_path);
         SDL_SetTextureAlphaMod(this->m_texture, static_cast<Uint8>(this->m_alpha * 255));
 
         // set dimension from texture if not manually setted
-        // this allow pre setting the dimension before adding the object in the tree/graph
-        if(this->m_width == 0) this->m_width = static_cast<float>(m_texture->w);
-        if(this->m_height == 0) this->m_height = static_cast<float>(m_texture->h);
+        // this allow pre setting the dimension before adding the object in the
+        // tree/graph
+        if (this->m_width == 0)
+            this->m_width = static_cast<float>(m_texture->w);
+        if (this->m_height == 0)
+            this->m_height = static_cast<float>(m_texture->h);
 
         this->m_target_rect = new SDL_FRect({this->m_x, this->m_y, this->m_width, this->m_height});
     }
@@ -45,12 +46,6 @@ void Sprite::render(SDL_Renderer* const renderer, const float parent_x, const fl
     this->m_target_rect->h = this->m_width;
 
     SDL_RenderTextureRotated(
-        renderer,
-        this->m_texture,
-        this->m_source_rect,
-        this->m_target_rect,
-        this->m_rotation,
-        nullptr,
-        SDL_FLIP_NONE
+        renderer, this->m_texture, this->m_source_rect, this->m_target_rect, this->m_rotation, nullptr, SDL_FLIP_NONE
     );
 }

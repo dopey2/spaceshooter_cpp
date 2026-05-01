@@ -3,11 +3,7 @@
 #include <array>
 #include <cstdint>
 
-enum MenuOptions : std::uint8_t {
-    PLAY = 0,
-    SETTINGS = 1,
-    QUIT = 2
-};
+enum MenuOptions : std::uint8_t { PLAY = 0, SETTINGS = 1, QUIT = 2 };
 
 struct MenuItem {
     const MenuOptions value;
@@ -18,19 +14,19 @@ struct MenuItem {
 };
 
 class MenuScene : public Scene {
-private:
+  private:
     SDL_Color selected_color = {200, 50, 50, SDL_ALPHA_OPAQUE};
     SDL_Color unselected_color = {255, 255, 255, SDL_ALPHA_OPAQUE};
 
     MenuOptions currentSelected = PLAY;
 
     std::array<MenuItem, 3> items = {{
-        {PLAY,     QUIT,     SETTINGS, "Play"},
-        {SETTINGS, PLAY,     QUIT,     "Settings"},
-        {QUIT,     SETTINGS, PLAY,     "Quit"},
+        {PLAY, QUIT, SETTINGS, "Play"},
+        {SETTINGS, PLAY, QUIT, "Settings"},
+        {QUIT, SETTINGS, PLAY, "Quit"},
     }};
 
-public:
+  public:
     MenuScene() {
         float start_y = this->application->getHeightF() / 2.0f - 30.0f;
 
@@ -59,16 +55,17 @@ public:
             this->applyButtonStyles();
 
             if (event.key == SDLK_RETURN) {
-                if (this->currentSelected == PLAY) this->actionPlay();
-                else if (this->currentSelected == SETTINGS) this->actionSettings();
-                else if (this->currentSelected == QUIT) this->actionQuit();
+                if (this->currentSelected == PLAY)
+                    this->actionPlay();
+                else if (this->currentSelected == SETTINGS)
+                    this->actionSettings();
+                else if (this->currentSelected == QUIT)
+                    this->actionQuit();
             }
         });
     }
 
-    void actionPlay()     {
-         this->application->scene_manager->setActiveScene("game"); 
-    }
+    void actionPlay() { this->application->scene_manager->setActiveScene("game"); }
 
     void actionSettings() {
         // not implemented yet
@@ -76,11 +73,9 @@ public:
         //  - key bindings
         //  - resolution
         //  - sound ON/OFF
-     }
-
-    void actionQuit() { 
-        this->application->stop(); 
     }
+
+    void actionQuit() { this->application->stop(); }
 
     void applyButtonStyles() {
         for (auto& item : this->items) {

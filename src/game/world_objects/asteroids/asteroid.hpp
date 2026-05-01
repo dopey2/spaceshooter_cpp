@@ -1,20 +1,18 @@
 #pragma once
 
-#include "engine/__engine.h"
 #include "../../misc/math.hpp"
+#include "engine/__engine.h"
 #include "engine/sprite.h"
 #include <algorithm>
 #include <memory>
 
-
 class Asteroid : public WorldObject {
-private:
+  private:
     static constexpr int distance_per_frame = 1;
     float velocity_x = 0;
     float velocity_y = 0;
 
-
-public:
+  public:
     std::vector<Sprite*> asteroid_parts;
     bool is_destroyed = false;
     std::vector<std::pair<float, float>> parts_velocity;
@@ -43,8 +41,6 @@ public:
         this->velocity_x = step_x;
         this->velocity_y = step_y * 2;
 
-
-
         this->m_x = static_cast<float>(random_x_spawn_position);
         this->m_y = -50;
 
@@ -59,7 +55,7 @@ public:
         }
     }
 
-    void updateVelocity(float &velocity) {
+    void updateVelocity(float& velocity) {
         if (abs(velocity) < 0.01) {
             velocity = 0;
         }
@@ -99,21 +95,17 @@ public:
         }
     }
 
-    bool isOutOfScreen() {
-        return this->m_y > Application::getInstance()->getHeightF() * 2;
-    }
+    bool isOutOfScreen() { return this->m_y > Application::getInstance()->getHeightF() * 2; }
 
     bool isColliding(WorldObject* object, float collision_offset = 0) {
         if (this->is_destroyed) {
             return false;
         }
 
-        if (
-            object->m_x + object->m_width - collision_offset >= this->m_x &&
+        if (object->m_x + object->m_width - collision_offset >= this->m_x &&
             object->m_x + collision_offset <= this->m_x + this->m_width &&
             object->m_y + object->m_height - collision_offset >= this->m_y &&
-            object->m_y + collision_offset <= this->m_y + this->m_height
-        ) {
+            object->m_y + collision_offset <= this->m_y + this->m_height) {
             return true;
         }
 

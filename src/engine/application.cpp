@@ -5,20 +5,20 @@
 #include <iostream>
 
 #include "assets_loader.h"
-#include "mouse_keyboard.h"
 #include "logger.h"
+#include "mouse_keyboard.h"
 
-Application::Application(const char *title, const int width, const int height, const int targetFps) {
+Application::Application(const char* title, const int width, const int height, const int targetFps) {
     this->m_title = title;
     this->m_width = width;
     this->m_height = height;
-    this->m_interval_between_drawcall = 1000.0f / static_cast<float>(targetFps); 
+    this->m_interval_between_drawcall = 1000.0f / static_cast<float>(targetFps);
 
     // initialize sdl, window, renderer & scene manager
     this->initSDL();
 
     this->initWindow();
-    this->initRenderer(); // depende on window
+    this->initRenderer();                                   // depende on window
     this->scene_manager = new SceneManager(this->renderer); // depend on renderer
 }
 
@@ -33,12 +33,12 @@ Application::~Application() {
 
     SDL_DestroyWindow(this->window);
     this->window = nullptr;
-    
+
     AssetsLoaders::clearTexturesFromCache();
     MouseAndKeyboard::clearListeners();
 }
 
-Application *Application::createInstance(const char *title, const int width, const int height, const int targetFps) {
+Application* Application::createInstance(const char* title, const int width, const int height, const int targetFps) {
     if (m_instance == nullptr) {
         m_instance = new Application(title, width, height, targetFps);
     }
@@ -46,7 +46,7 @@ Application *Application::createInstance(const char *title, const int width, con
     return m_instance;
 }
 
-Application *Application::getInstance() { return m_instance; }
+Application* Application::getInstance() { return m_instance; }
 
 void Application::initSDL() {
     if (!SDL_Init(SDL_INIT_VIDEO)) {
@@ -80,7 +80,6 @@ void Application::initRenderer() {
     }
 }
 
-
 int Application::getWidth() { return this->m_width; }
 
 int Application::getHeight() { return this->m_height; }
@@ -112,7 +111,7 @@ void Application::run() {
             // scene scoped on update
             this->scene_manager->callOnUpdateCallback(SDL_GetTicks());
             // global on update
-            for (const auto &callback: this->m_callbacks_update) {
+            for (const auto& callback : this->m_callbacks_update) {
                 callback(SDL_GetTicks());
             }
 
@@ -129,8 +128,8 @@ void Application::run() {
 
 void Application::stop() { this->m_is_running = false; }
 
-void Application::register_update_callback(const std::function<void(Uint64 delta)> &update_callback) {
+void Application::register_update_callback(const std::function<void(Uint64 delta)>& update_callback) {
     this->m_callbacks_update.push_back(update_callback);
 }
 
-Application *Application::Application::m_instance = nullptr;
+Application* Application::Application::m_instance = nullptr;

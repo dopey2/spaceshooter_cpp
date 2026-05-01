@@ -1,17 +1,15 @@
 #include "scene.h"
 #include <SDL3/SDL.h>
 
-Scene::Scene() {
-    this->application = Application::getInstance();
-}
+Scene::Scene() { this->application = Application::getInstance(); }
 
-Scene::Scene(const std::string &key) {
+Scene::Scene(const std::string& key) {
     this->application = Application::getInstance();
     application->scene_manager->addScene(key, this);
 }
 
 Scene::~Scene() {
-    for(WorldObject* object: this->objects) {
+    for (WorldObject* object : this->objects) {
         delete object;
     }
     this->objects.clear();
@@ -36,7 +34,7 @@ void Scene::removeObject(WorldObject* const object) {
 
 void Scene::callOnUpdateCallback(const Uint64 delta) {
     this->onUpdate(delta);
-    for(WorldObject* object: this->objects) {
+    for (WorldObject* object : this->objects) {
         object->callUpdateCallback(delta);
     }
 }
@@ -44,13 +42,12 @@ void Scene::callOnUpdateCallback(const Uint64 delta) {
 void Scene::renderAllObjects(SDL_Renderer* const renderer) {
     SDL_RenderClear(renderer);
 
-    for(WorldObject* object: this->objects) {
+    for (WorldObject* object : this->objects) {
         object->callRender(renderer, 0, 0);
     }
 
     SDL_RenderPresent(renderer);
 }
-
 
 /** Base class, no implementation, leave empty */
 void Scene::onUpdate(Uint64) {}

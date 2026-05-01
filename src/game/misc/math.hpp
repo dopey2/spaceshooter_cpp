@@ -1,32 +1,29 @@
 #pragma once
 
-#include <utility>
 #include <math.h>
+#include <utility>
 
 class Math {
-private:
-    static constexpr float PI = 3.14159274101257324219;    
-public:
-    static float degToRadian(float deg) {
-        return deg * PI / 180;
-    }
+  private:
+    static constexpr float PI = 3.14159274101257324219;
 
-    static float radianToDeg(float radian) {
-        return radian * 180 / PI;
-    }
+  public:
+    static float degToRadian(float deg) { return deg * PI / 180; }
+
+    static float radianToDeg(float radian) { return radian * 180 / PI; }
 
     /**
-    * Compass convention (clockwise from top):
-    * 0°   -> UP
-    * 90°  -> RIGHT
-    * 180° -> DOWN
-    * 270° -> LEFT
-    */
+     * Compass convention (clockwise from top):
+     * 0°   -> UP
+     * 90°  -> RIGHT
+     * 180° -> DOWN
+     * 270° -> LEFT
+     */
     static std::pair<float, float> cartesianToPolar(float x, float y) {
         float h = hypot(x, y);
         float rad = atan2(x, -y);
         float deg = Math::radianToDeg(rad);
-        if(deg < 0) {
+        if (deg < 0) {
             deg += 360;
         }
 

@@ -1,24 +1,21 @@
 #pragma once
 
-#include "engine/__engine.h"
-#include "../world_objects/spaceship/spaceship_view.hpp"
-#include "../world_objects/spaceship/missiles_view.hpp"
 #include "../world_objects/asteroids/asteroids_view.hpp"
-#include "engine/mouse_keyboard.h"
+#include "../world_objects/spaceship/missiles_view.hpp"
+#include "../world_objects/spaceship/spaceship_view.hpp"
+#include "engine/__engine.h"
 #include "engine/logger.h"
+#include "engine/mouse_keyboard.h"
 #include <string>
 
-
-
-
 class GameScene : public Scene {
-private:
+  private:
     bool is_game_over = false;
     SpaceshipView* spaceship_view = nullptr;
     AsteroidsView* asteroids_view = nullptr;
     MissilesView* missiles_view = nullptr;
 
-public:
+  public:
     GameScene() {
         auto* background = new Sprite(AssetsLoaders::getAsset("img/bg.bmp"));
         this->addObject(background);
@@ -41,7 +38,6 @@ public:
         this->spaceship_view->setGameOver(true);
         this->application->scene_manager->setActiveScene("menu");
     }
-
 
     void onActive() override {
         this->is_game_over = false;

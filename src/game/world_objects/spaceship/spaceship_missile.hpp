@@ -1,17 +1,15 @@
 #pragma once
 
-#include "engine/__engine.h"
 #include "../../misc/math.hpp"
-
-
+#include "engine/__engine.h"
 
 class SpaceshipMissile : public SpriteAnimation {
-private:
+  private:
     static constexpr int distance_per_frame = 3;
     float velocity_x = 0;
     float velocity_y = 0;
 
-public:
+  public:
     SpaceshipMissile() : SpriteAnimation(AssetsLoaders::getAsset("img/fire_bullet_blue.bmp")) {
         this->m_width = 16;
         this->m_height = 16;

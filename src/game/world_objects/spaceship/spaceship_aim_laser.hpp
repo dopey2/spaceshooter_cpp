@@ -1,14 +1,14 @@
-#include "engine/__engine.h"
 #include "../../misc/math.hpp"
+#include "engine/__engine.h"
 
 #define spaceship_w 60.0f
 
 class SpaceshipAimLaser : public WorldObject {
-private:
+  private:
     float target_x = 0;
     uint8_t render_count = 0;
 
-public:
+  public:
     float getTargetX() { return this->target_x; }
 
     void update(float spaceship_y) {
@@ -32,22 +32,16 @@ public:
     /**
      * Custom rendering function
      */
-  void render(SDL_Renderer *renderer, float parent_x, float parent_y) override {
+    void render(SDL_Renderer* renderer, float parent_x, float parent_y) override {
         if (this->render_count > 4) {
-          SDL_SetRenderDrawColor(renderer, 200, 50, 50, 200);
+            SDL_SetRenderDrawColor(renderer, 200, 50, 50, 200);
         } else if (this->render_count > 2) {
-          SDL_SetRenderDrawColor(renderer, 50, 50, 200, 200);
+            SDL_SetRenderDrawColor(renderer, 50, 50, 200, 200);
         } else {
-          SDL_SetRenderDrawColor(renderer, 50, 200, 50, 200);
+            SDL_SetRenderDrawColor(renderer, 50, 200, 50, 200);
         }
 
-        SDL_RenderLine(
-          renderer,
-          parent_x + spaceship_w / 2,
-          parent_y,
-          parent_x + spaceship_w / 2 + this->target_x,
-          0
-        );
+        SDL_RenderLine(renderer, parent_x + spaceship_w / 2, parent_y, parent_x + spaceship_w / 2 + this->target_x, 0);
 
         this->render_count++;
         this->render_count = this->render_count % 6;

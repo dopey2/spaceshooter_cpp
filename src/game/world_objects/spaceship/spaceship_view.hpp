@@ -1,18 +1,17 @@
 #pragma once
 
-#include "engine/__engine.h"
 #include "./spaceship_aim_laser.hpp"
+#include "engine/__engine.h"
 #include "engine/sprite_animation.h"
 #include <algorithm>
 #include <memory>
 
 class SpaceshipView : public WorldObject {
-private:
+  private:
     // constants
     static constexpr int MAX_VELOCITY = 5;
     static constexpr float VELOCITY_STEP = 0.1f;
     static constexpr float VELOCITY_FRICTION = 0.1f;
-
 
     bool is_game_over = false;
     float x_velocity = 0;
@@ -21,7 +20,7 @@ private:
     SpriteAnimation* engine_fire_animations = nullptr;
     SpaceshipAimLaser* aim_laser = nullptr;
 
-public:
+  public:
     SpaceshipView() {
         this->name = "missile_view";
         this->m_width = 60;
@@ -31,7 +30,8 @@ public:
         this->spaceship_sprite = spaceship_sprite_owner.get(); // non owning ref
         this->addObject(std::move(spaceship_sprite_owner));
 
-        auto engine_fire_animations_owner = std::make_unique<SpriteAnimation>(AssetsLoaders::getAsset("img/fire_bullet_default.bmp"));
+        auto engine_fire_animations_owner =
+            std::make_unique<SpriteAnimation>(AssetsLoaders::getAsset("img/fire_bullet_default.bmp"));
         this->engine_fire_animations = engine_fire_animations_owner.get(); // non owning ref
         this->addObject(std::move(engine_fire_animations_owner));
 
@@ -53,13 +53,9 @@ public:
         this->engine_fire_animations->m_rotation = 270;
     }
 
-    float getLaserTargetX() {
-        return this->m_x + (this->m_width / 2) + this->aim_laser->getTargetX();
-    }
+    float getLaserTargetX() { return this->m_x + (this->m_width / 2) + this->aim_laser->getTargetX(); }
 
-    float getLaserTargetY() {
-        return 0;
-    }
+    float getLaserTargetY() { return 0; }
 
     void init() {
         this->is_game_over = false;
@@ -67,9 +63,7 @@ public:
         this->m_y = static_cast<float>(this->m_application->getHeightF() - 90);
     }
 
-    void setGameOver(bool game_over) {
-        this->is_game_over = game_over;
-    }
+    void setGameOver(bool game_over) { this->is_game_over = game_over; }
 
     void onUpdate(Uint64) override {
         if (this->is_game_over) {
@@ -86,10 +80,7 @@ public:
             if (this->x_velocity < MAX_VELOCITY) {
                 this->x_velocity += VELOCITY_STEP;
             }
-        } else if (
-            !MouseAndKeyboard::isKeyDown(SDLK_Q) &&
-            !MouseAndKeyboard::isKeyDown(SDLK_D)
-        ) {
+        } else if (!MouseAndKeyboard::isKeyDown(SDLK_Q) && !MouseAndKeyboard::isKeyDown(SDLK_D)) {
             if (abs(x_velocity) < VELOCITY_FRICTION) {
                 this->x_velocity = 0;
             } else {
@@ -98,10 +89,8 @@ public:
         }
 
         if (this->x_velocity != 0) {
-            if (
-                (this->x_velocity < 0 && this->m_x + this->m_width / 2 <= 0) ||
-                (this->x_velocity > 0 && this->m_x + this->m_width / 2 >= this->m_application->getWidthF())
-            ) {
+            if ((this->x_velocity < 0 && this->m_x + this->m_width / 2 <= 0) ||
+                (this->x_velocity > 0 && this->m_x + this->m_width / 2 >= this->m_application->getWidthF())) {
                 this->x_velocity = 0;
                 return;
             }

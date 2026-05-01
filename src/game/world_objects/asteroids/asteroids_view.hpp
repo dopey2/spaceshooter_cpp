@@ -1,14 +1,14 @@
 #pragma once
 
+#include "../spaceship/missiles_view.hpp"
+#include "../spaceship/spaceship_view.hpp"
+#include "./asteroid.hpp"
+#include "engine/__engine.h"
 #include <algorithm>
 #include <memory>
-#include "engine/__engine.h"
-#include "./asteroid.hpp"
-#include "../spaceship/spaceship_view.hpp"
-#include "../spaceship/missiles_view.hpp"
 
 class AsteroidsView : public WorldObject {
-private:
+  private:
     Uint64 lastAsteroidSpawnTime = 0;
     const Uint64 asteroidSpawnInterval = 4000;
 
@@ -21,8 +21,7 @@ private:
         return asteroid;
     }
 
-
-public:
+  public:
     void init() {
         for (auto asteroid : asteroids_list) {
             this->removeObject(asteroid);

@@ -1,19 +1,15 @@
 #include "sprite_animation.h"
 
+SpriteAnimation::SpriteAnimation(const std::string& file_path) : Sprite(file_path) {}
 
-SpriteAnimation::SpriteAnimation(const std::string &file_path) : Sprite(file_path) {}
-
- SpriteAnimation::~SpriteAnimation() {
+SpriteAnimation::~SpriteAnimation() {
     for (auto frame : this->frames) {
         delete frame;
     }
     this->frames.clear();
 }
 
-
-void SpriteAnimation::addFrameFromTexture(SDL_FRect* const source_rect) {
-    this->frames.push_back(source_rect);
-}
+void SpriteAnimation::addFrameFromTexture(SDL_FRect* const source_rect) { this->frames.push_back(source_rect); }
 
 void SpriteAnimation::render(SDL_Renderer* const renderer, const float parent_x, const float parent_y) {
     if (this->m_texture == nullptr) {
@@ -28,21 +24,15 @@ void SpriteAnimation::render(SDL_Renderer* const renderer, const float parent_x,
     SDL_FRect* source_rect = this->frames.at(this->frame_index);
 
     SDL_RenderTextureRotated(
-        renderer,
-        this->m_texture,
-        source_rect,
-        this->m_target_rect,
-        this->m_rotation,
-        nullptr,
-        SDL_FLIP_NONE
+        renderer, this->m_texture, source_rect, this->m_target_rect, this->m_rotation, nullptr, SDL_FLIP_NONE
     );
 
     Uint64 delta = SDL_GetTicks();
 
-    if(delta > this->last_update_time + this->frame_update_interval) {
+    if (delta > this->last_update_time + this->frame_update_interval) {
         this->frame_index++;
         this->last_update_time = delta;
-        if(this->frame_index >= this->frames.size()) {
+        if (this->frame_index >= this->frames.size()) {
             this->frame_index = 0;
         }
     }

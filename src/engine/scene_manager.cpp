@@ -1,14 +1,11 @@
 #include "scene_manager.h"
-#include "scene.h"
 #include "logger.h"
+#include "scene.h"
 
-SceneManager::SceneManager(SDL_Renderer* const _renderer) {
-    this->renderer = _renderer;
-}
+SceneManager::SceneManager(SDL_Renderer* const _renderer) { this->renderer = _renderer; }
 
 SceneManager::~SceneManager() {
-    for (auto const& iterator : this->scenes_by_id)
-    {
+    for (auto const& iterator : this->scenes_by_id) {
         Logger::debug("SceneManager: Deleting scene " + iterator.first);
         if (iterator.second != nullptr) {
             delete iterator.second;
@@ -16,10 +13,10 @@ SceneManager::~SceneManager() {
     }
 }
 
-void SceneManager::addScene(const std::string &key, Scene* const scene) {
+void SceneManager::addScene(const std::string& key, Scene* const scene) {
     this->scenes_by_id.insert({key, scene});
     // the first scene becomes the active scene
-    if(scenes_by_id.size() == 1) {
+    if (scenes_by_id.size() == 1) {
         this->active_scene = key;
     }
 }
@@ -32,10 +29,10 @@ Scene* SceneManager::getActiveScene() {
     return nullptr;
 }
 
-void SceneManager::setActiveScene(const std::string &key) {
+void SceneManager::setActiveScene(const std::string& key) {
     this->active_scene = key;
     Scene* scene = this->getActiveScene();
-    if(scene != nullptr) {
+    if (scene != nullptr) {
         scene->onActive();
     }
 }
@@ -49,7 +46,7 @@ void SceneManager::callOnUpdateCallback(const Uint64 delta) {
 
 void SceneManager::renderScene() {
     Scene* scene = this->getActiveScene();
-    if(scene != nullptr) {
+    if (scene != nullptr) {
         scene->renderAllObjects(this->renderer);
     }
 }
